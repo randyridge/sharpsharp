@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.12.0" />
+    <PackageReference Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.12.0" />
+    <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="7.14.5" />
+    <PackageReference Include="NetVips.Native" Version="8.8.3" />
+    <PackageReference Include="RandyRidge.Common" Version="0.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SharpSharp.Tests\SharpSharp.Tests.csproj" />
+    <ProjectReference Include="..\SharpSharp\SharpSharp.csproj" />
+  </ItemGroup>
+
+</Project>
