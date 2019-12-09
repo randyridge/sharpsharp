@@ -1,7 +1,7 @@
 # SharpSharp
 
-![NuGet](https://img.shields.io/nuget/v/SharpSharp)](https://www.nuget.org/packages/SharpSharp)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/randyridge/sharpsharp/release)
+[![NuGet](https://img.shields.io/nuget/v/SharpSharp)](https://www.nuget.org/packages/SharpSharp)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/randyridge/sharpsharp/release)
 
 This is a terrible .Net Core port of the lovely [sharp](https://github.com/lovell/sharp/) using [NetVips](https://github.com/kleisauke/net-vips).
 
