@@ -6,3 +6,10 @@ This is a terrible .Net Core port of the lovely [sharp](https://github.com/lovel
 
 I haven't implemented everything, just the pieces I've needed so far. The giant mutable state pipeline baton stuff that they do in sharp makes me uneasy. Maybe at some point I'll refactor it.
 
+``` csharp
+(await ImagePipeline.FromUriAsync("https://www.fillmurray.com/300/300").ForAwait())
+  .Resize(150, 150)
+  .Sharpen()
+  .Webp()
+  .ToFile(@"c:\murray.webp");
+```

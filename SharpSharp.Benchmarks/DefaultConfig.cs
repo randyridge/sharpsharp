@@ -9,7 +9,11 @@ namespace SharpSharp.Benchmarks {
     public sealed class DefaultConfig : ManualConfig {
         public DefaultConfig() {
             Add(MemoryDiagnoser.Default);
-            //Add(new NativeMemoryProfiler());
+
+            #if Windows
+            Add(new NativeMemoryProfiler());
+            #endif
+
             Add(StatisticColumn.AllStatistics);
 
             Add(Job.Default
