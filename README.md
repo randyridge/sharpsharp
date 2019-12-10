@@ -21,7 +21,7 @@ namespace Demo {
             .Resize(150, 150)
             .Sharpen()
             .Webp()
-            .ToFile(@"murray.webp");
+            .ToFile("murray.webp");
     }
 }
 ```
