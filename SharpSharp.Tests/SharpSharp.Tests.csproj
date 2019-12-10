@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>SharpSharp</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Images\2569067123_aca715a2ee_o.jpg" />
@@ -12,7 +13,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+    <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="RandyRidge.Common" Version="0.1.9" />
+    <PackageReference Include="Shouldly" Version="4.0.0-beta0002" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
   </ItemGroup>
