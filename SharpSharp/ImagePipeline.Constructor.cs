@@ -2,15 +2,12 @@
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.IO;
 using NetVips;
 using RandyRidge.Common;
 using SharpSharp.Pipeline;
 
 namespace SharpSharp {
     public sealed partial class ImagePipeline {
-        private static readonly RecyclableMemoryStreamManager RecyclableMemoryStreamManager = new RecyclableMemoryStreamManager();
-
         public static ImagePipeline FromBuffer(byte[] buffer) => FromBuffer(buffer, new ImageLoadOptions());
 
         public static ImagePipeline FromBuffer(byte[] buffer, ImageLoadOptions options) {
@@ -48,7 +45,7 @@ namespace SharpSharp {
         public static ImagePipeline FromStream(Stream stream, ImageLoadOptions options) {
             Guard.ArgumentNotNull(stream, nameof(stream));
             Guard.ArgumentNotNull(options, nameof(options));
-            using var ms = RecyclableMemoryStreamManager.GetStream();
+            using var ms = GlobalStatics.RecyclableMemoryStreamManager.GetStream();
             stream.CopyTo(ms);
             return FromBuffer(ms.ToArray(), options);
         }
@@ -58,7 +55,7 @@ namespace SharpSharp {
         public static async Task<ImagePipeline> FromStreamAsync(Stream stream, ImageLoadOptions options) {
             Guard.ArgumentNotNull(stream, nameof(stream));
             Guard.ArgumentNotNull(options, nameof(options));
-            await using var ms = RecyclableMemoryStreamManager.GetStream();
+            await using var ms = GlobalStatics.RecyclableMemoryStreamManager.GetStream();
             await stream.CopyToAsync(ms);
             return FromBuffer(ms.ToArray(), options);
         }

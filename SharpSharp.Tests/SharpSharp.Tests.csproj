@@ -4,17 +4,285 @@
     <RootNamespace>SharpSharp</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Images\2569067123_aca715a2ee_o.jpg" />
+    <None Remove="SharpTestImages\2569067123_aca715a2ee_o.jpg" />
+    <None Remove="SharpTestImages\2569067123_aca715a2ee_o.png" />
+    <None Remove="SharpTestImages\2x2_fdcce6.png" />
+    <None Remove="SharpTestImages\320x240.jpg" />
+    <None Remove="SharpTestImages\4.webp" />
+    <None Remove="SharpTestImages\50020484-00001.png" />
+    <None Remove="SharpTestImages\5_webp_a.webp" />
+    <None Remove="SharpTestImages\8bit_depth.tiff" />
+    <None Remove="SharpTestImages\alpha-layer-0-background.png" />
+    <None Remove="SharpTestImages\alpha-layer-1-fill.png" />
+    <None Remove="SharpTestImages\alpha-layer-2-ink.jpg" />
+    <None Remove="SharpTestImages\alpha-premultiply-1024x768-paper.png" />
+    <None Remove="SharpTestImages\alpha-premultiply-2048x1536-paper.png" />
+    <None Remove="SharpTestImages\bandbool.png" />
+    <None Remove="SharpTestImages\blackbug.png" />
+    <None Remove="SharpTestImages\booleanTest.jpg" />
+    <None Remove="SharpTestImages\centered_image.jpeg" />
+    <None Remove="SharpTestImages\Channel_digital_image_CMYK_color.jpg" />
+    <None Remove="SharpTestImages\Channel_digital_image_CMYK_color_no_profile.jpg" />
+    <None Remove="SharpTestImages\check.svg" />
+    <None Remove="SharpTestImages\cielab-dagams.tiff" />
+    <None Remove="SharpTestImages\corrupt-header.jpg" />
+    <None Remove="SharpTestImages\Crash_test.gif" />
+    <None Remove="SharpTestImages\embedgravitybird.png" />
+    <None Remove="SharpTestImages\flowers.jpeg" />
+    <None Remove="SharpTestImages\full-transparent.png" />
+    <None Remove="SharpTestImages\G31D.TIF" />
+    <None Remove="SharpTestImages\G31D_MULTI.TIF" />
+    <None Remove="SharpTestImages\gamma_dalai_lama_gray.jpg" />
+    <None Remove="SharpTestImages\giant-image.jpg" />
+    <None Remove="SharpTestImages\grey-8bit-alpha.png" />
+    <None Remove="SharpTestImages\grey-plus-alpha.gif" />
+    <None Remove="SharpTestImages\image-in-alpha.png" />
+    <None Remove="SharpTestImages\input.above.composite.premultiplied.png" />
+    <None Remove="SharpTestImages\input.below.composite.premultiplied.png" />
+    <None Remove="SharpTestImages\Landscape_1.jpg" />
+    <None Remove="SharpTestImages\Landscape_2.jpg" />
+    <None Remove="SharpTestImages\Landscape_3.jpg" />
+    <None Remove="SharpTestImages\Landscape_4.jpg" />
+    <None Remove="SharpTestImages\Landscape_5.jpg" />
+    <None Remove="SharpTestImages\Landscape_6.jpg" />
+    <None Remove="SharpTestImages\Landscape_7.jpg" />
+    <None Remove="SharpTestImages\Landscape_8.jpg" />
+    <None Remove="SharpTestImages\Landscape_9.jpg" />
+    <None Remove="SharpTestImages\low-contrast.jpg" />
+    <None Remove="SharpTestImages\Portrait_1.jpg" />
+    <None Remove="SharpTestImages\Portrait_2.jpg" />
+    <None Remove="SharpTestImages\Portrait_3.jpg" />
+    <None Remove="SharpTestImages\Portrait_4.jpg" />
+    <None Remove="SharpTestImages\Portrait_5.jpg" />
+    <None Remove="SharpTestImages\Portrait_6.jpg" />
+    <None Remove="SharpTestImages\Portrait_7.jpg" />
+    <None Remove="SharpTestImages\Portrait_8.jpg" />
+    <None Remove="SharpTestImages\random.jpg" />
+    <None Remove="SharpTestImages\rotating-squares.gif" />
+    <None Remove="SharpTestImages\stripesH.png" />
+    <None Remove="SharpTestImages\stripesV.png" />
+    <None Remove="SharpTestImages\struct-image-04-t.svg" />
+    <None Remove="SharpTestImages\tbgn2c16.png" />
+    <None Remove="SharpTestImages\test-pattern.png" />
+    <None Remove="SharpTestImages\testimgl.jpg" />
+    <None Remove="SharpTestImages\testJoinChannel.png" />
+    <None Remove="SharpTestImages\thRandom.jpg" />
+    <None Remove="SharpTestImages\tifftag-photoshop.tiff" />
+    <None Remove="SharpTestImages\truncated.jpg" />
+    <None Remove="SharpTestImages\truncated.png" />
+    <None Remove="SharpTestImages\uncompressed_tiff.tiff" />
+    <None Remove="SharpTestImages\vfile.v" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\2569067123_aca715a2ee_o.jpg">
+    <Content Include="SharpTestImages\2569067123_aca715a2ee_o.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\2569067123_aca715a2ee_o.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\2x2_fdcce6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\320x240.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\4.webp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\50020484-00001.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\5_webp_a.webp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\8bit_depth.tiff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\alpha-layer-0-background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\alpha-layer-1-fill.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\alpha-layer-2-ink.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\alpha-premultiply-1024x768-paper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\alpha-premultiply-2048x1536-paper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\bandbool.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\blackbug.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\booleanTest.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\centered_image.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\Channel_digital_image_CMYK_color.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\Channel_digital_image_CMYK_color_no_profile.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\check.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\cielab-dagams.tiff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\corrupt-header.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\Crash_test.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\embedgravitybird.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\flowers.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\full-transparent.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\G31D.TIF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\G31D_MULTI.TIF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\gamma_dalai_lama_gray.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\giant-image.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\grey-8bit-alpha.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\grey-plus-alpha.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\image-in-alpha.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\input.above.composite.premultiplied.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\input.below.composite.premultiplied.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\Landscape_1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\Landscape_2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\Landscape_3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\Landscape_4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\Landscape_5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\Landscape_6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\Landscape_7.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\Landscape_8.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\Landscape_9.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\low-contrast.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\Portrait_1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\Portrait_2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\Portrait_3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\Portrait_4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\Portrait_5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\Portrait_6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\Portrait_7.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\Portrait_8.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\random.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\rotating-squares.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\stripesH.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\stripesV.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\struct-image-04-t.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\tbgn2c16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\test-pattern.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\testimgl.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\testJoinChannel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\thRandom.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\tifftag-photoshop.tiff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\truncated.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\truncated.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\uncompressed_tiff.tiff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SharpTestImages\vfile.v">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
     <PackageReference Include="Moq" Version="4.13.1" />
-    <PackageReference Include="RandyRidge.Common" Version="0.1.9" />
+    <PackageReference Include="RandyRidge.Common" Version="0.1.13" />
     <PackageReference Include="Shouldly" Version="4.0.0-beta0002" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
