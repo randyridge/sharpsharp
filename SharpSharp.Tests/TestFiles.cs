@@ -106,7 +106,7 @@ namespace SharpSharp {
         public static RandomFile OutputTiff { get; } = new RandomFile(".tiff");
         public static RandomFile OutputZoinks { get; } = new RandomFile(".zoinks");
 
-        private static string GetInputFilePath(string fileName) => Path.Join(@".\SharpTestImages", fileName);
+        private static string GetInputFilePath(string fileName) => Path.Join("SharpTestImages", fileName);
         // @formatter:on
     }
 }
