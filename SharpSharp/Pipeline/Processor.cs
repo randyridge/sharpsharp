@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using NetVips;
 using RandyRidge.Common;
 
@@ -198,6 +199,8 @@ namespace SharpSharp.Pipeline {
                 var shrunkOnLoadHeight = image.Height;
                 // TODO: rotation pre extract stuff
                 // if(baton.rotateBeforePreExtract
+                //xFactor = shrunkOnLoadWidth / (double) targetResizeHeight;
+                //yFactor = shrunkOnLoadHeight / (double) targetResizeWidth;
                 // else {
                 xFactor = shrunkOnLoadWidth / (double) targetResizeWidth;
                 yFactor = shrunkOnLoadHeight / (double) targetResizeHeight;
@@ -314,59 +317,76 @@ namespace SharpSharp.Pipeline {
             // TODO: Buffer out
             var strip = baton.MetadataOptions.ShouldStripMetadata;
 
+            baton.OutputImageInfo = new OutputImageInfo {
+                // TODO: premultiplied, cropoffset*
+                Channels = baton.Channels,
+                Height = baton.Height,
+                Width = baton.Width,
+            };
+
+            if(baton.ToStreamOptions.HasValue()) {
+                var streamOptions = baton.ToStreamOptions;
+                baton.ToBufferOptions = new ToBufferOptions(bytes => {
+                    streamOptions.Stream.Write(bytes);
+                });
+            }
+
             if(baton.ToBufferOptions.HasValue()) {
                 var bufferOptions = baton.ToBufferOptions;
-
+                var buffer = Array.Empty<byte>();
                 if(baton.JpegOptions.HasValue()) {
                     var o = baton.JpegOptions;
-                    bufferOptions.Callback(
-                        image.JpegsaveBuffer(
-                            null,
-                            o.Quality,
-                            null,
-                            o.OptimizeCoding,
-                            o.MakeProgressive,
-                            o.NoSubsampling,
-                            o.ApplyTrellisQuantization,
-                            o.ApplyOvershootDeringing,
-                            o.OptimizeScans,
-                            o.QuantizationTable,
-                            strip // TODO: this
-                        ));
+                    buffer = image.JpegsaveBuffer(
+                        null,
+                        o.Quality,
+                        null,
+                        o.OptimizeCoding,
+                        o.MakeProgressive,
+                        o.NoSubsampling,
+                        o.ApplyTrellisQuantization,
+                        o.ApplyOvershootDeringing,
+                        o.OptimizeScans,
+                        o.QuantizationTable,
+                        strip // TODO: this
+                    );
+                    baton.OutputImageInfo.Format = "jpeg";
+                    bufferOptions.Callback(buffer);
                 }
                 else if(baton.WebpOptions.HasValue()) {
                     var o = baton.WebpOptions;
-                    bufferOptions.Callback(
-                        image.WebpsaveBuffer(
-                            null, // TODO: Shouldn't this have a value for animations?
-                            o.Quality,
-                            o.UseLossless,
-                            null,
-                            o.UseSmartSubsample,
-                            o.UseNearLossless,
-                            o.AlphaQuality,
-                            null,
-                            null,
-                            null,
-                            o.ReductionEffort,
-                            strip
-                        ));
+                    buffer = image.WebpsaveBuffer(
+                        null, // TODO: Shouldn't this have a value for animations?
+                        o.Quality,
+                        o.UseLossless,
+                        null,
+                        o.UseSmartSubsample,
+                        o.UseNearLossless,
+                        o.AlphaQuality,
+                        null,
+                        null,
+                        null,
+                        o.ReductionEffort,
+                        strip
+                    );
+                    baton.OutputImageInfo.Format = "webp";
+                    bufferOptions.Callback(buffer);
                 }
                 else if(baton.PngOptions.HasValue()) {
                     var o = baton.PngOptions;
-                    bufferOptions.Callback(
-                        image.PngsaveBuffer(
-                            o.CompressionLevel,
-                            o.MakeProgressive,
-                            null,
-                            null,
-                            o.UseAdaptiveFiltering ? 0xF8 : 0x08, // TODO: enums
-                            o.UsePalette,
-                            o.Colors,
-                            o.Quality,
-                            o.Dither,
-                            strip
-                        ));
+                    buffer = image.PngsaveBuffer(
+                        o.CompressionLevel,
+                        o.MakeProgressive,
+                        null,
+                        null,
+                        o.UseAdaptiveFiltering ? 0xF8 : 0x08, // TODO: enums
+                        o.UsePalette,
+                        o.Colors,
+                        o.Quality,
+                        o.Dither,
+                        strip
+                    );
+                    baton.OutputImageInfo.Format = "png";
+                    bufferOptions.Callback(buffer);
                 }
                 else if(baton.RawOptions.HasValue()) {
                     // Write raw, uncompressed image data to buffer
@@ -380,11 +400,14 @@ namespace SharpSharp.Pipeline {
                         image = image.Cast(Enums.BandFormat.Uchar);
                     }
 
-                    bufferOptions.Callback(image.WriteToMemory());
+                    buffer = image.WriteToMemory();
+                    baton.OutputImageInfo.Format = "raw";
+                    bufferOptions.Callback(buffer);
                 }
                 else {
                     throw new NotImplementedException("Unknown buffer output.");
                 }
+                baton.OutputImageInfo.Size = buffer.Length;
             }
 
             if(baton.ToFileOptions.HasValue()) {
@@ -407,6 +430,7 @@ namespace SharpSharp.Pipeline {
                         o.QuantizationTable,
                         strip // TODO: this
                     );
+                    baton.OutputImageInfo.Format = "jpeg";
                 }
                 else if(baton.WebpOptions.HasValue()) {
                     var o = baton.WebpOptions;
@@ -425,6 +449,7 @@ namespace SharpSharp.Pipeline {
                         o.ReductionEffort,
                         strip
                     );
+                    baton.OutputImageInfo.Format = "webp";
                 }
                 else if(baton.PngOptions.HasValue()) {
                     var o = baton.PngOptions;
@@ -441,8 +466,12 @@ namespace SharpSharp.Pipeline {
                         o.Dither,
                         strip
                     );
+                    baton.OutputImageInfo.Format = "png";
                 }
+
+                baton.OutputImageInfo.Size = (int) new FileInfo(path).Length; // TODO: this seems bad
             }
+
 
             image?.Dispose();
         }

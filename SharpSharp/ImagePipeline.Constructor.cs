@@ -16,10 +16,55 @@ namespace SharpSharp {
             return new ImagePipeline(new BufferImageSource(buffer, options));
         }
 
-        public static ImagePipeline FromFile(string path) => FromFile(path, new ImageLoadOptions());
+        /// <summary>
+        ///     Reads an image from the specified path.
+        /// </summary>
+        /// <param name="path">
+        ///     The path to the image.
+        /// </param>
+        /// <returns>
+        ///     An image pipeline.
+        /// </returns>
+        /// <remarks>
+        ///     Uses the default image load options.
+        /// </remarks>
+        /// <exception cref="ArgumentException">
+        ///     Thrown if <paramref name="path" /> is empty or contains only whitespace.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="path" /> is null.
+        /// </exception>
+        /// <exception cref="FileNotFoundException">
+        ///     Thrown if <paramref name="path" /> is not found.
+        /// </exception>
+        public static ImagePipeline FromFile(string path) {
+            Guard.FileExists(path, nameof(path));
+            return FromFile(path, new ImageLoadOptions());
+        }
 
+        /// <summary>
+        ///     Reads an image from the specified path.
+        /// </summary>
+        /// <param name="path">
+        ///     The path to the image.
+        /// </param>
+        /// <param name="options">
+        ///     The image load options.
+        /// </param>
+        /// <returns>
+        ///     An image pipeline.
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        ///     Thrown if <paramref name="path" /> is empty or contains only whitespace.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="path" /> or <paramref name="options" /> is null.
+        /// </exception>
+        /// <exception cref="FileNotFoundException">
+        ///     Thrown if <paramref name="path" /> is not found.
+        /// </exception>
         public static ImagePipeline FromFile(string path, ImageLoadOptions options) {
-            Guard.ArgumentNotNullOrWhiteSpace(path, nameof(path));
+            Guard.FileExists(path, nameof(path));
             Guard.ArgumentNotNull(options, nameof(options));
             return FromBuffer(File.ReadAllBytes(path), options);
         }

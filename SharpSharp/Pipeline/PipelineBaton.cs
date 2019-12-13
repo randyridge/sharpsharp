@@ -27,6 +27,8 @@ namespace SharpSharp.Pipeline {
 
         public OperationOptions? OperationOptions { get; set; }
 
+        internal OutputImageInfo? OutputImageInfo { get; set; }
+
         public PngOptions? PngOptions { get; set; }
 
         public RawOptions? RawOptions { get; set; }
@@ -38,6 +40,8 @@ namespace SharpSharp.Pipeline {
         public ToBufferOptions? ToBufferOptions { get; set; }
 
         public ToFileOptions? ToFileOptions { get; set; }
+
+        public ToStreamOptions? ToStreamOptions { get; set; }
 
         public WebpOptions? WebpOptions { get; set; }
 

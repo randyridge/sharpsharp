@@ -5,14 +5,13 @@ using SharpSharp.Pipeline;
 //using SharpSharp.Pipeline.Operations;
 
 namespace SharpSharp {
+    /// <summary>
+    ///     Represents an image pipeline.
+    /// </summary>
     public sealed partial class ImagePipeline {
-        private readonly PipelineBaton result;
         private readonly ImageSource imageSource;
         private readonly Processor processor;
-
-        private void Execute() {
-            processor.Process(imageSource, result);
-        }
+        private readonly PipelineBaton result;
 
         //private void AddOperationAndExecute(IOperation operation) {
         //    Guard.ArgumentNotNull(operation, nameof(operation));
@@ -35,6 +34,13 @@ namespace SharpSharp {
             processor = new Processor();
         }
 
-        public static Version VipsVersion => new Version(NetVips.NetVips.Version(0), NetVips.NetVips.Version(1), NetVips.NetVips.Version(2));
+        /// <summary>
+        ///     Returns the current version of vips.
+        /// </summary>
+        public static Version VipsVersion { get; } = new Version(NetVips.NetVips.Version(0), NetVips.NetVips.Version(1), NetVips.NetVips.Version(2));
+
+        private void Execute() {
+            processor.Process(imageSource, result);
+        }
     }
 }
