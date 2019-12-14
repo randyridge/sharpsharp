@@ -1,11 +1,7 @@
-﻿//using System;
-//using SharpSharp.Pipeline.Operations;
-
-using System;
+﻿using System;
 using System.IO;
 using NetVips;
 using RandyRidge.Common;
-using SharpSharp.Pipeline;
 
 namespace SharpSharp {
     public sealed partial class ImagePipeline {
@@ -17,16 +13,52 @@ namespace SharpSharp {
             return this;
         }
 
+        /// <summary>
+        ///     Use JPEG with default options for output image.
+        /// </summary>
+        /// <returns>
+        ///     The image pipeline.
+        /// </returns>
         public ImagePipeline Jpeg() => Jpeg(new JpegOptions());
 
+        /// <summary>
+        ///     Use JPEG with the specified options for output image.
+        /// </summary>
+        /// <param name="options">
+        ///     The options for the output image.
+        /// </param>
+        /// <returns>
+        ///     The image pipeline.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="options" /> is null.
+        /// </exception>
         public ImagePipeline Jpeg(JpegOptions options) {
             Guard.ArgumentNotNull(options, nameof(options));
             result.JpegOptions = options;
             return this;
         }
 
+        /// <summary>
+        ///     Use PNG with default options for output image.
+        /// </summary>
+        /// <returns>
+        ///     The image pipeline.
+        /// </returns>
         public ImagePipeline Png() => Png(new PngOptions());
 
+        /// <summary>
+        ///     Use PNG with the specified options for output image.
+        /// </summary>
+        /// <param name="options">
+        ///     The options for the output image.
+        /// </param>
+        /// <returns>
+        ///     The image pipeline.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="options" /> is null.
+        /// </exception>
         public ImagePipeline Png(PngOptions options) {
             Guard.ArgumentNotNull(options, nameof(options));
             result.PngOptions = options;
@@ -50,26 +82,99 @@ namespace SharpSharp {
 //        // TODO: this
 //        public ImagePipeline Tile() => throw new NotImplementedException();
 
-        public byte[]? ToBuffer() {
-            byte[]? buffer = null;
-            result.ToBufferOptions = new ToBufferOptions(bytes => buffer = bytes);
-            Execute();
-            return buffer;
+        /// <summary>
+        ///     Writes the result of the image pipeline to the specified buffer.
+        /// </summary>
+        /// <param name="buffer">
+        ///     The buffer to write to.
+        /// </param>
+        public void ToBuffer(out byte[] buffer) {
+            buffer = Array.Empty<byte>();
+            ToBuffer(new ToBufferOptions(buffer, null));
         }
 
-        public void ToBuffer(ToBufferOptions options) {
-            Guard.ArgumentNotNull(options, nameof(options));
-            result.ToBufferOptions = options;
+        /// <summary>
+        ///     Writes the result of the image pipeline to the specified buffer and invokes a callback with <see cref="OutputImageInfo" />.
+        /// </summary>
+        /// <param name="callback">
+        ///     The callback to receive <see cref="OutputImageInfo" />.
+        /// </param>
+        /// <param name="buffer">
+        ///     The buffer to write to.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="callback" /> is null.
+        /// </exception>
+        public void ToBuffer(Action<OutputImageInfo> callback, out byte[] buffer) {
+            buffer = Array.Empty<byte>();
+            ToBuffer(new ToBufferOptions(buffer, callback));
+        }
+
+        /// <summary>
+        ///     Writes the result of the image pipeline using the specified <see cref="ToBufferOptions" />.
+        /// </summary>
+        /// <param name="bufferOptions">
+        ///     The file options to use.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="bufferOptions" /> is null.
+        /// </exception>
+        public void ToBuffer(ToBufferOptions bufferOptions) {
+            Guard.ArgumentNotNull(bufferOptions, nameof(bufferOptions));
+            result.ToBufferOptions = bufferOptions;
             Execute();
         }
 
-        public void ToFile(string filePath) => ToFile(new ToFileOptions(filePath, null));
+        /// <summary>
+        ///     Writes the result of the image pipeline to the specified file path.
+        /// </summary>
+        /// <param name="filePath">
+        ///     The file path to write to.
+        /// </param>
+        /// <exception cref="ArgumentException">
+        ///     Thrown if <paramref name="filePath" /> is empty or contains only whitespace.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="filePath" /> is null.
+        /// </exception>
+        public void ToFile(string filePath) {
+            Guard.ArgumentNotNullOrWhiteSpace(filePath, nameof(filePath));
+            ToFile(new ToFileOptions(filePath, null));
+        }
 
-        public void ToFile(string filePath, Action<OutputImageInfo> callback) => ToFile(new ToFileOptions(filePath, callback));
+        /// <summary>
+        ///     Writes the result of the image pipeline to the specified file path and invokes a callback with <see cref="OutputImageInfo" />.
+        /// </summary>
+        /// <param name="filePath">
+        ///     The file path to write to.
+        /// </param>
+        /// <param name="callback">
+        ///     The callback to receive <see cref="OutputImageInfo" />.
+        /// </param>
+        /// <exception cref="ArgumentException">
+        ///     Thrown if <paramref name="filePath" /> is empty or contains only whitespace.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="filePath" /> or <paramref name="callback" /> is null.
+        /// </exception>
+        public void ToFile(string filePath, Action<OutputImageInfo> callback) {
+            Guard.ArgumentNotNullOrWhiteSpace(filePath, nameof(filePath));
+            Guard.ArgumentNotNull(callback, nameof(callback));
+            ToFile(new ToFileOptions(filePath, callback));
+        }
 
-        public void ToFile(ToFileOptions options) {
-            Guard.ArgumentNotNull(options, nameof(options));
-            result.ToFileOptions = options;
+        /// <summary>
+        ///     Writes the result of the image pipeline using the specified <see cref="ToFileOptions" />.
+        /// </summary>
+        /// <param name="fileOptions">
+        ///     The file options to use.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="fileOptions" /> is null.
+        /// </exception>
+        public void ToFile(ToFileOptions fileOptions) {
+            Guard.ArgumentNotNull(fileOptions, nameof(fileOptions));
+            result.ToFileOptions = fileOptions;
             Execute();
         }
 
@@ -123,8 +228,26 @@ namespace SharpSharp {
             }
         }
 
+        /// <summary>
+        ///     Use WebP with default options for output image.
+        /// </summary>
+        /// <returns>
+        ///     The image pipeline.
+        /// </returns>
         public ImagePipeline Webp() => Webp(new WebpOptions());
 
+        /// <summary>
+        ///     Use WebP with the specified options for output image.
+        /// </summary>
+        /// <param name="options">
+        ///     The options for the output image.
+        /// </param>
+        /// <returns>
+        ///     The image pipeline.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="options" /> is null.
+        /// </exception>
         public ImagePipeline Webp(WebpOptions options) {
             Guard.ArgumentNotNull(options, nameof(options));
             result.WebpOptions = options;

@@ -3,8 +3,11 @@
 [![NuGet](https://img.shields.io/nuget/v/SharpSharp)](https://www.nuget.org/packages/SharpSharp)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/randyridge/sharpsharp/release)
 
-This is a .NET Core port of Lovell Fuller's lovely NodeJS image processor sharp [github](https://github.com/lovell/sharp/)/[docs](https://sharp.pixelplumbing.com/en/stable/).
-It makes use of Kleis Auke Wolthuizen's .NET binding NetVips [github](https://github.com/kleisauke/net-vips)/[docs](https://kleisauke.github.io/net-vips/) of the low-level image processor libvips [github](https://github.com/libvips/libvips)/[docs](https://libvips.github.io/libvips/).
+This is a .NET Core port of the [Lovell Fuller](https://github.com/lovell)'s lovely high performance Node.js image processor [sharp](https://sharp.pixelplumbing.com/en/stable/) / [sharp github](https://github.com/lovell/sharp/)).
+
+Sharp uses the low-level image processor [libvips](https://libvips.github.io/libvips/) / [libvips github](https://github.com/libvips/libvips).
+
+This port makes use of [Kleis Auke Wolthuizen](https://github.com/kleisauke)'s libvips .NET binding [NetVips](https://kleisauke.github.io/net-vips/) / [NetVips github](https://github.com/kleisauke/net-vips).
 
 **_You will need to provide the appropriate [NetVips.Native](https://github.com/kleisauke/net-vips#install) package for your platform._**
 

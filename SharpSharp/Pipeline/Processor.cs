@@ -345,19 +345,17 @@ namespace SharpSharp.Pipeline {
                 Width = baton.Width,
             };
 
+            var streamBytes = Array.Empty<byte>();
             if(baton.ToStreamOptions.HasValue()) {
-                var streamOptions = baton.ToStreamOptions;
-                baton.ToBufferOptions = new ToBufferOptions(bytes => {
-                    streamOptions.Stream.Write(bytes);
-                });
+                baton.ToBufferOptions = new ToBufferOptions(streamBytes, null);
             }
 
             if(baton.ToBufferOptions.HasValue()) {
                 var bufferOptions = baton.ToBufferOptions;
-                var buffer = Array.Empty<byte>();
+
                 if(baton.JpegOptions.HasValue()) {
                     var o = baton.JpegOptions;
-                    buffer = image.JpegsaveBuffer(
+                    bufferOptions.Buffer = image.JpegsaveBuffer(
                         null,
                         o.Quality,
                         null,
@@ -371,11 +369,10 @@ namespace SharpSharp.Pipeline {
                         strip // TODO: this
                     );
                     baton.OutputImageInfo.Format = "jpeg";
-                    bufferOptions.Callback(buffer);
                 }
                 else if(baton.WebpOptions.HasValue()) {
                     var o = baton.WebpOptions;
-                    buffer = image.WebpsaveBuffer(
+                    bufferOptions.Buffer = image.WebpsaveBuffer(
                         null, // TODO: Shouldn't this have a value for animations?
                         o.Quality,
                         o.UseLossless,
@@ -390,11 +387,10 @@ namespace SharpSharp.Pipeline {
                         strip
                     );
                     baton.OutputImageInfo.Format = "webp";
-                    bufferOptions.Callback(buffer);
                 }
                 else if(baton.PngOptions.HasValue()) {
                     var o = baton.PngOptions;
-                    buffer = image.PngsaveBuffer(
+                    bufferOptions.Buffer = image.PngsaveBuffer(
                         o.CompressionLevel,
                         o.MakeProgressive,
                         null,
@@ -407,7 +403,6 @@ namespace SharpSharp.Pipeline {
                         strip
                     );
                     baton.OutputImageInfo.Format = "png";
-                    bufferOptions.Callback(buffer);
                 }
                 else if(baton.RawOptions.HasValue()) {
                     // Write raw, uncompressed image data to buffer
@@ -421,14 +416,17 @@ namespace SharpSharp.Pipeline {
                         image = image.Cast(Enums.BandFormat.Uchar);
                     }
 
-                    buffer = image.WriteToMemory();
+                    bufferOptions.Buffer = image.WriteToMemory();
                     baton.OutputImageInfo.Format = "raw";
-                    bufferOptions.Callback(buffer);
                 }
                 else {
                     throw new NotImplementedException("Unknown buffer output.");
                 }
-                baton.OutputImageInfo.Size = buffer.Length;
+                baton.OutputImageInfo.Size = bufferOptions.Buffer.Length;
+            }
+
+            if(baton.ToStreamOptions.HasValue()) {
+                baton.ToStreamOptions.Stream.Write(streamBytes);
             }
 
             if(baton.ToFileOptions.HasValue()) {

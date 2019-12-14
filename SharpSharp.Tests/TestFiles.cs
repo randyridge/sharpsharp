@@ -99,12 +99,12 @@ namespace SharpSharp {
 
         public static string TestPattern { get; } = GetInputFilePath("test-pattern.png");
 
-        public static RandomFile OutputJpg { get; } = new RandomFile(".jpg");
-        public static RandomFile OutputPng { get; } = new RandomFile(".png");
-        public static RandomFile OutputWebP { get; } = new RandomFile(".webp");
-        public static RandomFile OutputV { get; } = new RandomFile(".v");
-        public static RandomFile OutputTiff { get; } = new RandomFile(".tiff");
-        public static RandomFile OutputZoinks { get; } = new RandomFile(".zoinks");
+        public static RandomFile OutputJpg() => new RandomFile(".jpg");
+        public static RandomFile OutputPng() => new RandomFile(".png");
+        public static RandomFile OutputWebP() => new RandomFile(".webp");
+        public static RandomFile OutputV() => new RandomFile(".v");
+        public static RandomFile OutputTiff() => new RandomFile(".tiff");
+        public static RandomFile OutputZoinks() => new RandomFile(".zoinks");
 
         private static string GetInputFilePath(string fileName) => Path.Join("SharpTestImages", fileName);
         // @formatter:on
