@@ -2,8 +2,10 @@
 //using SharpSharp.Pipeline.Operations;
 
 using System;
+using System.IO;
 using NetVips;
 using RandyRidge.Common;
+using SharpSharp.Pipeline;
 
 namespace SharpSharp {
     public sealed partial class ImagePipeline {
@@ -63,12 +65,62 @@ namespace SharpSharp {
 
         public void ToFile(string filePath) => ToFile(new ToFileOptions(filePath, null));
 
-        public void ToFile(string filePath, Action<ImageInfo> callback) => ToFile(new ToFileOptions(filePath, callback));
+        public void ToFile(string filePath, Action<OutputImageInfo> callback) => ToFile(new ToFileOptions(filePath, callback));
 
         public void ToFile(ToFileOptions options) {
             Guard.ArgumentNotNull(options, nameof(options));
             result.ToFileOptions = options;
             Execute();
+        }
+
+        /// <summary>
+        ///     Writes the result of the image pipeline to the specified stream.
+        /// </summary>
+        /// <param name="stream">
+        ///     The stream to write to.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="stream" /> is null.
+        /// </exception>
+        public void ToStream(Stream stream) {
+            Guard.ArgumentNotNull(stream, nameof(stream));
+            ToStream(new ToStreamOptions(stream, null));
+        }
+
+        /// <summary>
+        ///     Writes the result of the image pipeline to the specified stream and invokes a callback with <see cref="OutputImageInfo" />.
+        /// </summary>
+        /// <param name="stream">
+        ///     The stream to write to.
+        /// </param>
+        /// <param name="callback">
+        ///     The callback to receive <see cref="OutputImageInfo" />.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="stream" /> or <paramref name="callback" /> is null.
+        /// </exception>
+        public void ToStream(Stream stream, Action<OutputImageInfo> callback) {
+            Guard.ArgumentNotNull(stream, nameof(stream));
+            Guard.ArgumentNotNull(callback, nameof(callback));
+            ToStream(new ToStreamOptions(stream, callback));
+        }
+
+        /// <summary>
+        ///     Writes the result of the image pipeline to the specified stream with the specified <see cref="ToStreamOptions" />.
+        /// </summary>
+        /// <param name="streamOptions">
+        ///     The stream options to use.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="streamOptions" /> is null.
+        /// </exception>
+        public void ToStream(ToStreamOptions streamOptions) {
+            Guard.ArgumentNotNull(streamOptions, nameof(streamOptions));
+            result.ToStreamOptions = streamOptions;
+            Execute();
+            if(streamOptions.Callback.HasValue()) {
+                streamOptions.Callback(result.OutputImageInfo!);
+            }
         }
 
         public ImagePipeline Webp() => Webp(new WebpOptions());
