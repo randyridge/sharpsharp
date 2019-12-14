@@ -8,8 +8,50 @@ using SharpSharp.Pipeline;
 
 namespace SharpSharp {
     public sealed partial class ImagePipeline {
-        public static ImagePipeline FromBuffer(byte[] buffer) => FromBuffer(buffer, new ImageLoadOptions());
+        /// <summary>
+        ///     Reads an image from the specified buffer.
+        /// </summary>
+        /// <param name="buffer">
+        ///     The buffer containing the image.
+        /// </param>
+        /// <returns>
+        ///     An image pipeline.
+        /// </returns>
+        /// <remarks>
+        ///     Uses the default image load options.
+        /// </remarks>
+        /// <exception cref="ArgumentException">
+        ///     Thrown if <paramref name="buffer" /> is empty.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="buffer" /> is null.
+        /// </exception>
+        public static ImagePipeline FromBuffer(byte[] buffer) {
+            Guard.ArgumentNotNullOrEmpty(buffer, nameof(buffer));
+            return FromBuffer(buffer, new ImageLoadOptions());
+        }
 
+        /// <summary>
+        ///     Reads an image from the specified buffer.
+        /// </summary>
+        /// <param name="buffer">
+        ///     The buffer containing the image.
+        /// </param>
+        /// <param name="options">
+        ///     The image load options.
+        /// </param>
+        /// <returns>
+        ///     An image pipeline.
+        /// </returns>
+        /// <remarks>
+        ///     Uses the default image load options.
+        /// </remarks>
+        /// <exception cref="ArgumentException">
+        ///     Thrown if <paramref name="buffer" /> is empty.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="buffer" /> or <paramref name="options" /> is null.
+        /// </exception>
         public static ImagePipeline FromBuffer(byte[] buffer, ImageLoadOptions options) {
             Guard.ArgumentNotNull(buffer, nameof(buffer));
             Guard.ArgumentNotNull(options, nameof(options));
@@ -85,8 +127,38 @@ namespace SharpSharp {
             return new ImagePipeline(new VipsImageSource(image, options));
         }
 
+        /// <summary>
+        ///     Reads an image from the specified stream.
+        /// </summary>
+        /// <param name="stream">
+        ///     The stream containing the image.
+        /// </param>
+        /// <returns>
+        ///     An image pipeline.
+        /// </returns>
+        /// <remarks>
+        ///     Uses the default image load options.
+        /// </remarks>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="stream" /> is null.
+        /// </exception>
         public static ImagePipeline FromStream(Stream stream) => FromStream(stream, new ImageLoadOptions());
 
+        /// <summary>
+        ///     Reads an image from the specified stream.
+        /// </summary>
+        /// <param name="stream">
+        ///     The stream containing the image.
+        /// </param>
+        /// <param name="options">
+        ///     The image load options.
+        /// </param>
+        /// <returns>
+        ///     An image pipeline.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="stream" /> or <paramref name="options" /> is null.
+        /// </exception>
         public static ImagePipeline FromStream(Stream stream, ImageLoadOptions options) {
             Guard.ArgumentNotNull(stream, nameof(stream));
             Guard.ArgumentNotNull(options, nameof(options));

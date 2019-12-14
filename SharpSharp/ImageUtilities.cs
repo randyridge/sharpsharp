@@ -9,26 +9,25 @@ namespace SharpSharp {
     public static class ImageUtilities {
         public static string Fingerprint(Image image) {
             Guard.ArgumentNotNull(image, nameof(image));
-            var fingerPrint = string.Empty;
+
             ImagePipeline
                 .FromImage(image)
                 .Grayscale()
                 .Normalize()
                 .Resize(new ResizeOptions(9, 8, Fit.Fill))
                 .Raw()
-                .ToBuffer(new ToBufferOptions(data => {
-                    var builder = new StringBuilder(64);
-                    for(var x = 0; x < 8; x++) {
-                        for(var y = 0; y < 8; y++) {
-                            var left = data[y * 8 + x];
-                            var right = data[y * 8 + x + 1];
-                            builder.Append(left < right ? '1' : '0');
-                        }
-                    }
+                .ToBuffer(out var buffer);
 
-                    fingerPrint = builder.ToString();
-                }));
-            return fingerPrint;
+            var builder = new StringBuilder(64);
+            for(var x = 0; x < 8; x++) {
+                for(var y = 0; y < 8; y++) {
+                    var left = buffer[y * 8 + x];
+                    var right = buffer[y * 8 + x + 1];
+                    builder.Append(left < right ? '1' : '0');
+                }
+            }
+
+            return builder.ToString();
         }
 
         public static double MaxColorDistance(Image left, Image right) {
@@ -48,15 +47,15 @@ namespace SharpSharp {
         public static double MeanSquaredError(Image left, Image right) {
             GuardImages(left, right);
 
-            var leftBuffer = ImagePipeline
+            ImagePipeline
                 .FromImage(left)
                 .Raw()
-                .ToBuffer();
+                .ToBuffer(out var leftBuffer);
 
-            var rightBuffer = ImagePipeline
+            ImagePipeline
                 .FromImage(right)
                 .Raw()
-                .ToBuffer();
+                .ToBuffer(out var rightBuffer);
 
             if(leftBuffer == null || rightBuffer == null) {
                 throw new SharpSharpException("Failed to load buffers.");
@@ -77,15 +76,15 @@ namespace SharpSharp {
 
         public static double PeakSignalToNoiseRatio(Image left, Image right) {
             GuardImages(left, right);
-            var leftBuffer = ImagePipeline
+            ImagePipeline
                 .FromImage(left)
                 .Raw()
-                .ToBuffer();
+                .ToBuffer(out var leftBuffer);
 
-            var rightBuffer = ImagePipeline
+            ImagePipeline
                 .FromImage(right)
                 .Raw()
-                .ToBuffer();
+                .ToBuffer(out var rightBuffer);
 
             if(leftBuffer == null || rightBuffer == null) {
                 throw new SharpSharpException("Failed to load buffers.");
@@ -107,15 +106,15 @@ namespace SharpSharp {
 
         public static double StructuralSimilarity(Image left, Image right) {
             GuardImages(left, right);
-            var leftBuffer = ImagePipeline
+            ImagePipeline
                 .FromImage(left)
                 .Raw()
-                .ToBuffer();
+                .ToBuffer(out var leftBuffer);
 
-            var rightBuffer = ImagePipeline
+            ImagePipeline
                 .FromImage(right)
                 .Raw()
-                .ToBuffer();
+                .ToBuffer(out var rightBuffer);
 
             if(leftBuffer == null || rightBuffer == null) {
                 throw new SharpSharpException("Failed to load buffers.");
