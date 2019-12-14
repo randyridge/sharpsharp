@@ -262,14 +262,35 @@ namespace SharpSharp.Pipeline {
                     baton.Height = 1;
                 }
 
-                image = image.Resize(1.0 / xFactor, Enums.Kernel.Lanczos3, 1.0 / yFactor); // TODO: kernel to string map
+                image = image.Resize(1.0 / xFactor, kernel, 1.0 / yFactor);
             }
 
             // TODO: Rotate post-extract 90-angle
             // TODO: Flip
             // TODO: Flop
             // TODO: Join additional color channels to the image
-            // TODO: Crop/embed
+
+            // Crop/embed
+            if(image.Width != baton.Width || image.Height != baton.Height) {
+                var fit = baton.ResizeOptions.Fit;
+                if(fit == Fit.Contain) {
+                    // TODO: Embed
+                }
+                else if(fit != Fit.Fill && image.Width > baton.Width || image.Height > baton.Height) {
+                    // Crop/max/min
+                    // TODO: if(baton.Position < 9) {
+                    // Gravity-based crop
+                    var (left, top) = NeedsBetterPlace.CalculateCrop(image.Width, image.Height, baton.Width, baton.Height, Gravity.Center);//, baton.Position);
+                    var width = Math.Min(image.Width, baton.Width);
+                    var height = Math.Min(image.Height, baton.Height);
+                    image = image.ExtractArea(left, top, width, height);
+                    //}
+                    //else {
+                    // TODO: Attention-based or Entropy-based crop
+                    //}
+                }
+            }
+
             // TODO: Rotate post-extract non-90 angle
             // TODO: Post extraction
             // TODO: Extend edges
