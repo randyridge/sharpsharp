@@ -32,7 +32,7 @@ namespace SharpSharp {
         }
 
         /// <summary>
-        ///     Reads an image from the specified buffer.
+        ///     Reads an image from the specified buffer using the specified image load options.
         /// </summary>
         /// <param name="buffer">
         ///     The buffer containing the image.
@@ -43,9 +43,6 @@ namespace SharpSharp {
         /// <returns>
         ///     An image pipeline.
         /// </returns>
-        /// <remarks>
-        ///     Uses the default image load options.
-        /// </remarks>
         /// <exception cref="ArgumentException">
         ///     Thrown if <paramref name="buffer" /> is empty.
         /// </exception>
@@ -85,7 +82,7 @@ namespace SharpSharp {
         }
 
         /// <summary>
-        ///     Reads an image from the specified path.
+        ///     Reads an image from the specified path using the specified image load options.
         /// </summary>
         /// <param name="path">
         ///     The path to the image.
@@ -111,16 +108,94 @@ namespace SharpSharp {
             return FromBuffer(File.ReadAllBytes(path), options);
         }
 
-        public static Task<ImagePipeline> FromFileAsync(string path) => FromFileAsync(path, new ImageLoadOptions());
+        /// <summary>
+        ///     Reads an image from the specified path.
+        /// </summary>
+        /// <param name="path">
+        ///     The path to the image.
+        /// </param>
+        /// <returns>
+        ///     A task representing the image pipeline read operation.
+        /// </returns>
+        /// <remarks>
+        ///     Uses the default image load options.
+        /// </remarks>
+        /// <exception cref="ArgumentException">
+        ///     Thrown if <paramref name="path" /> is empty or contains only whitespace.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="path" /> is null.
+        /// </exception>
+        /// <exception cref="FileNotFoundException">
+        ///     Thrown if <paramref name="path" /> is not found.
+        /// </exception>
+        public static Task<ImagePipeline> FromFileAsync(string path) {
+            Guard.ArgumentNotNullOrWhiteSpace(path, nameof(path));
+            return FromFileAsync(path, new ImageLoadOptions());
+        }
 
+        /// <summary>
+        ///     Reads an image from the specified path using the specified image load options.
+        /// </summary>
+        /// <param name="path">
+        ///     The path to the image.
+        /// </param>
+        /// <param name="options">
+        ///     The image load options.
+        /// </param>
+        /// <returns>
+        ///     A task representing the image pipeline read operation.
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        ///     Thrown if <paramref name="path" /> is empty or contains only whitespace.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="path" /> or <paramref name="options" /> is null.
+        /// </exception>
+        /// <exception cref="FileNotFoundException">
+        ///     Thrown if <paramref name="path" /> is not found.
+        /// </exception>
         public static async Task<ImagePipeline> FromFileAsync(string path, ImageLoadOptions options) {
             Guard.ArgumentNotNullOrWhiteSpace(path, nameof(path));
             Guard.ArgumentNotNull(options, nameof(options));
             return FromBuffer(await File.ReadAllBytesAsync(path).ForAwait(), options);
         }
 
-        public static ImagePipeline FromImage(Image image) => FromImage(image, new ImageLoadOptions());
+        /// <summary>
+        ///     Reads an image from the specified vips image.
+        /// </summary>
+        /// <param name="image">
+        ///     The vips image.
+        /// </param>
+        /// <returns>
+        ///     An image pipeline.
+        /// </returns>
+        /// <remarks>
+        ///     Uses the default image load options.
+        /// </remarks>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="image" /> is null.
+        /// </exception>
+        public static ImagePipeline FromImage(Image image) {
+            Guard.ArgumentNotNull(image, nameof(image));
+            return FromImage(image, new ImageLoadOptions());
+        }
 
+        /// <summary>
+        ///     Reads an image from the specified vips image with the specified image load options.
+        /// </summary>
+        /// <param name="image">
+        ///     The vips image.
+        /// </param>
+        /// <param name="options">
+        ///     The image load options.
+        /// </param>
+        /// <returns>
+        ///     An image pipeline.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="image" /> or <paramref name="options" /> is null.
+        /// </exception>
         public static ImagePipeline FromImage(Image image, ImageLoadOptions options) {
             Guard.ArgumentNotNull(image, nameof(image));
             Guard.ArgumentNotNull(options, nameof(options));
@@ -142,10 +217,13 @@ namespace SharpSharp {
         /// <exception cref="ArgumentNullException">
         ///     Thrown if <paramref name="stream" /> is null.
         /// </exception>
-        public static ImagePipeline FromStream(Stream stream) => FromStream(stream, new ImageLoadOptions());
+        public static ImagePipeline FromStream(Stream stream) {
+            Guard.ArgumentNotNull(stream, nameof(stream));
+            return FromStream(stream, new ImageLoadOptions());
+        }
 
         /// <summary>
-        ///     Reads an image from the specified stream.
+        ///     Reads an image from the specified stream with the specified image load options.
         /// </summary>
         /// <param name="stream">
         ///     The stream containing the image.
@@ -167,8 +245,38 @@ namespace SharpSharp {
             return FromBuffer(ms.ToArray(), options);
         }
 
-        public static Task<ImagePipeline> FromStreamAsync(Stream stream) => FromStreamAsync(stream, new ImageLoadOptions());
+        /// <summary>
+        ///     Reads an image from the specified stream.
+        /// </summary>
+        /// <param name="stream">
+        ///     The stream containing the image.
+        /// </param>
+        /// <returns>
+        ///     A task representing the image pipeline read operation.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="stream" /> is null.
+        /// </exception>
+        public static Task<ImagePipeline> FromStreamAsync(Stream stream) {
+            Guard.ArgumentNotNull(stream, nameof(stream));
+            return FromStreamAsync(stream, new ImageLoadOptions());
+        }
 
+        /// <summary>
+        ///     Reads an image from the specified stream using the specified image load options.
+        /// </summary>
+        /// <param name="stream">
+        ///     The stream containing the image.
+        /// </param>
+        /// <param name="options">
+        ///     The image load options.
+        /// </param>
+        /// <returns>
+        ///     A task representing the image pipeline read operation.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="stream" /> or <paramref name="options" /> is null.
+        /// </exception>
         public static async Task<ImagePipeline> FromStreamAsync(Stream stream, ImageLoadOptions options) {
             Guard.ArgumentNotNull(stream, nameof(stream));
             Guard.ArgumentNotNull(options, nameof(options));
@@ -177,16 +285,82 @@ namespace SharpSharp {
             return FromBuffer(ms.ToArray(), options);
         }
 
-        public static Task<ImagePipeline> FromUriAsync(string uri) => FromUriAsync(uri, new ImageLoadOptions());
+        /// <summary>
+        ///     Reads an image from the specified URI string.
+        /// </summary>
+        /// <param name="uri">
+        ///     The URI to the image.
+        /// </param>
+        /// <returns>
+        ///     A task representing the image pipeline read operation.
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        ///     Thrown if <paramref name="uri" /> is empty or contains only whitespace.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="uri" /> is null.
+        /// </exception>
+        public static Task<ImagePipeline> FromUriAsync(string uri) {
+            Guard.ArgumentNotNullOrWhiteSpace(uri, nameof(uri));
+            return FromUriAsync(uri, new ImageLoadOptions());
+        }
 
+        /// <summary>
+        ///     Reads an image from the specified URI string with the specified image load options.
+        /// </summary>
+        /// <param name="uri">
+        ///     The URI to the image.
+        /// </param>
+        /// <param name="options">
+        ///     The image load options.
+        /// </param>
+        /// <returns>
+        ///     A task representing the image pipeline read operation.
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        ///     Thrown if <paramref name="uri" /> is empty or contains only whitespace.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="uri" /> or <paramref name="options" /> is null.
+        /// </exception>
         public static Task<ImagePipeline> FromUriAsync(string uri, ImageLoadOptions options) {
             Guard.ArgumentNotNullOrWhiteSpace(uri, nameof(uri));
             Guard.ArgumentNotNull(options, nameof(options));
             return FromUriAsync(new Uri(uri), new ImageLoadOptions());
         }
 
-        public static Task<ImagePipeline> FromUriAsync(Uri uri) => FromUriAsync(uri, new ImageLoadOptions());
+        /// <summary>
+        ///     Reads an image from the specified URI.
+        /// </summary>
+        /// <param name="uri">
+        ///     The URI to the image.
+        /// </param>
+        /// <returns>
+        ///     A task representing the image pipeline read operation.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="uri" /> is null.
+        /// </exception>
+        public static Task<ImagePipeline> FromUriAsync(Uri uri) {
+            Guard.ArgumentNotNull(uri, nameof(uri));
+            return FromUriAsync(uri, new ImageLoadOptions());
+        }
 
+        /// <summary>
+        ///     Reads an image from the specified URI with the specified image load options.
+        /// </summary>
+        /// <param name="uri">
+        ///     The URI to the image.
+        /// </param>
+        /// <param name="options">
+        ///     The image load options.
+        /// </param>
+        /// <returns>
+        ///     A task representing the image pipeline read operation.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="uri" /> or <paramref name="options" /> is null.
+        /// </exception>
         public static async Task<ImagePipeline> FromUriAsync(Uri uri, ImageLoadOptions options) {
             Guard.ArgumentNotNull(uri, nameof(uri));
             Guard.ArgumentNotNull(options, nameof(options));
