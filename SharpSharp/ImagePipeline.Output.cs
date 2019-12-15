@@ -91,6 +91,7 @@ namespace SharpSharp {
         public void ToBuffer(out byte[] buffer) {
             buffer = Array.Empty<byte>();
             ToBuffer(new ToBufferOptions(buffer, null));
+            buffer = result.ToBufferOptions!.Buffer;
         }
 
         /// <summary>
@@ -108,6 +109,7 @@ namespace SharpSharp {
         public void ToBuffer(Action<OutputImageInfo> callback, out byte[] buffer) {
             buffer = Array.Empty<byte>();
             ToBuffer(new ToBufferOptions(buffer, callback));
+            buffer = result.ToBufferOptions!.Buffer;
         }
 
         /// <summary>
