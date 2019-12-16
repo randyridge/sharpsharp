@@ -8,7 +8,7 @@ using RandyRidge.Common;
 namespace SharpSharp {
     public static class ImageUtilities {
         public static string Fingerprint(Image image) {
-            Guard.ArgumentNotNull(image, nameof(image));
+            Guard.NotNull(image, nameof(image));
 
             ImagePipeline
                 .FromImage(image)
@@ -184,8 +184,8 @@ namespace SharpSharp {
         [DebuggerHidden]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void GuardImages(Image left, Image right) {
-            Guard.ArgumentNotNull(left, nameof(left));
-            Guard.ArgumentNotNull(right, nameof(right));
+            Guard.NotNull(left, nameof(left));
+            Guard.NotNull(right, nameof(right));
             GuardChannels(left, right);
             GuardDimensions(left, right);
         }

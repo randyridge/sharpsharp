@@ -7,7 +7,7 @@ namespace SharpSharp.Pipeline {
         private readonly ImageType imageType;
 
         public VipsImageSource(Image image, ImageLoadOptions options) : base(options) {
-            this.image = Guard.ArgumentNotNull(image, nameof(image));
+            this.image = Guard.NotNull(image, nameof(image));
             imageType = ImageType.FromImage(image);
         }
 

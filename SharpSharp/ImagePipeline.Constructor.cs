@@ -27,7 +27,7 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="buffer" /> is null.
         /// </exception>
         public static ImagePipeline FromBuffer(byte[] buffer) {
-            Guard.ArgumentNotNullOrEmpty(buffer, nameof(buffer));
+            Guard.NotNullOrEmpty(buffer, nameof(buffer));
             return FromBuffer(buffer, new ImageLoadOptions());
         }
 
@@ -50,8 +50,8 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="buffer" /> or <paramref name="options" /> is null.
         /// </exception>
         public static ImagePipeline FromBuffer(byte[] buffer, ImageLoadOptions options) {
-            Guard.ArgumentNotNull(buffer, nameof(buffer));
-            Guard.ArgumentNotNull(options, nameof(options));
+            Guard.NotNull(buffer, nameof(buffer));
+            Guard.NotNull(options, nameof(options));
             return new ImagePipeline(new BufferImageSource(buffer, options));
         }
 
@@ -104,7 +104,7 @@ namespace SharpSharp {
         /// </exception>
         public static ImagePipeline FromFile(string path, ImageLoadOptions options) {
             Guard.FileExists(path, nameof(path));
-            Guard.ArgumentNotNull(options, nameof(options));
+            Guard.NotNull(options, nameof(options));
             return FromBuffer(File.ReadAllBytes(path), options);
         }
 
@@ -130,7 +130,7 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="path" /> is not found.
         /// </exception>
         public static Task<ImagePipeline> FromFileAsync(string path) {
-            Guard.ArgumentNotNullOrWhiteSpace(path, nameof(path));
+            Guard.NotNullOrWhiteSpace(path, nameof(path));
             return FromFileAsync(path, new ImageLoadOptions());
         }
 
@@ -156,8 +156,8 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="path" /> is not found.
         /// </exception>
         public static async Task<ImagePipeline> FromFileAsync(string path, ImageLoadOptions options) {
-            Guard.ArgumentNotNullOrWhiteSpace(path, nameof(path));
-            Guard.ArgumentNotNull(options, nameof(options));
+            Guard.NotNullOrWhiteSpace(path, nameof(path));
+            Guard.NotNull(options, nameof(options));
             return FromBuffer(await File.ReadAllBytesAsync(path).ForAwait(), options);
         }
 
@@ -177,7 +177,7 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="image" /> is null.
         /// </exception>
         public static ImagePipeline FromImage(Image image) {
-            Guard.ArgumentNotNull(image, nameof(image));
+            Guard.NotNull(image, nameof(image));
             return FromImage(image, new ImageLoadOptions());
         }
 
@@ -197,8 +197,8 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="image" /> or <paramref name="options" /> is null.
         /// </exception>
         public static ImagePipeline FromImage(Image image, ImageLoadOptions options) {
-            Guard.ArgumentNotNull(image, nameof(image));
-            Guard.ArgumentNotNull(options, nameof(options));
+            Guard.NotNull(image, nameof(image));
+            Guard.NotNull(options, nameof(options));
             return new ImagePipeline(new VipsImageSource(image, options));
         }
 
@@ -218,7 +218,7 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="stream" /> is null.
         /// </exception>
         public static ImagePipeline FromStream(Stream stream) {
-            Guard.ArgumentNotNull(stream, nameof(stream));
+            Guard.NotNull(stream, nameof(stream));
             return FromStream(stream, new ImageLoadOptions());
         }
 
@@ -238,8 +238,8 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="stream" /> or <paramref name="options" /> is null.
         /// </exception>
         public static ImagePipeline FromStream(Stream stream, ImageLoadOptions options) {
-            Guard.ArgumentNotNull(stream, nameof(stream));
-            Guard.ArgumentNotNull(options, nameof(options));
+            Guard.NotNull(stream, nameof(stream));
+            Guard.NotNull(options, nameof(options));
             using var ms = GlobalStatics.RecyclableMemoryStreamManager.GetStream();
             stream.CopyTo(ms);
             return FromBuffer(ms.ToArray(), options);
@@ -258,7 +258,7 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="stream" /> is null.
         /// </exception>
         public static Task<ImagePipeline> FromStreamAsync(Stream stream) {
-            Guard.ArgumentNotNull(stream, nameof(stream));
+            Guard.NotNull(stream, nameof(stream));
             return FromStreamAsync(stream, new ImageLoadOptions());
         }
 
@@ -278,8 +278,8 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="stream" /> or <paramref name="options" /> is null.
         /// </exception>
         public static async Task<ImagePipeline> FromStreamAsync(Stream stream, ImageLoadOptions options) {
-            Guard.ArgumentNotNull(stream, nameof(stream));
-            Guard.ArgumentNotNull(options, nameof(options));
+            Guard.NotNull(stream, nameof(stream));
+            Guard.NotNull(options, nameof(options));
             await using var ms = GlobalStatics.RecyclableMemoryStreamManager.GetStream();
             await stream.CopyToAsync(ms);
             return FromBuffer(ms.ToArray(), options);
@@ -301,7 +301,7 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="uri" /> is null.
         /// </exception>
         public static Task<ImagePipeline> FromUriAsync(string uri) {
-            Guard.ArgumentNotNullOrWhiteSpace(uri, nameof(uri));
+            Guard.NotNullOrWhiteSpace(uri, nameof(uri));
             return FromUriAsync(uri, new ImageLoadOptions());
         }
 
@@ -324,8 +324,8 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="uri" /> or <paramref name="options" /> is null.
         /// </exception>
         public static Task<ImagePipeline> FromUriAsync(string uri, ImageLoadOptions options) {
-            Guard.ArgumentNotNullOrWhiteSpace(uri, nameof(uri));
-            Guard.ArgumentNotNull(options, nameof(options));
+            Guard.NotNullOrWhiteSpace(uri, nameof(uri));
+            Guard.NotNull(options, nameof(options));
             return FromUriAsync(new Uri(uri), new ImageLoadOptions());
         }
 
@@ -342,7 +342,7 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="uri" /> is null.
         /// </exception>
         public static Task<ImagePipeline> FromUriAsync(Uri uri) {
-            Guard.ArgumentNotNull(uri, nameof(uri));
+            Guard.NotNull(uri, nameof(uri));
             return FromUriAsync(uri, new ImageLoadOptions());
         }
 
@@ -362,8 +362,8 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="uri" /> or <paramref name="options" /> is null.
         /// </exception>
         public static async Task<ImagePipeline> FromUriAsync(Uri uri, ImageLoadOptions options) {
-            Guard.ArgumentNotNull(uri, nameof(uri));
-            Guard.ArgumentNotNull(options, nameof(options));
+            Guard.NotNull(uri, nameof(uri));
+            Guard.NotNull(options, nameof(options));
             using var httpClient = new HttpClient(); // being super lazy
             return new ImagePipeline(new BufferImageSource(await httpClient.GetByteArrayAsync(uri).ForAwait(), options));
         }

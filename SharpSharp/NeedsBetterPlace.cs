@@ -146,8 +146,8 @@ namespace SharpSharp {
         }
 
         public static double[] GetRgbaAsColorspace(double[] rgba, string interpretation) {
-            Guard.ArgumentNotNull(rgba, nameof(rgba));
-            Guard.ArgumentNotNull(interpretation, nameof(interpretation));
+            Guard.NotNull(rgba, nameof(rgba));
+            Guard.NotNull(interpretation, nameof(interpretation));
             var bands = rgba.Length;
             if(bands < 3 || interpretation == Enums.Interpretation.Srgb || interpretation == Enums.Interpretation.Rgb) {
                 return rgba;
@@ -161,18 +161,18 @@ namespace SharpSharp {
         }
 
         public static bool Is16Bit(this string interpretation) {
-            Guard.ArgumentNotNull(interpretation, nameof(interpretation));
+            Guard.NotNull(interpretation, nameof(interpretation));
             return interpretation == Enums.Interpretation.Rgb16 ||
                    interpretation == Enums.Interpretation.Grey16;
         }
 
         public static double MaximumImageAlpha(this string interpretation) {
-            Guard.ArgumentNotNull(interpretation, nameof(interpretation));
+            Guard.NotNull(interpretation, nameof(interpretation));
             return interpretation.Is16Bit() ? ushort.MaxValue : byte.MaxValue;
         }
 
         public static (Image Image, ImageType ImageType) OpenInput(InputDescriptor descriptor, string accessMethod) {
-            descriptor = Guard.ArgumentNotNull(descriptor, nameof(descriptor));
+            descriptor = Guard.NotNull(descriptor, nameof(descriptor));
 
             Image image;
             ImageType imageType;

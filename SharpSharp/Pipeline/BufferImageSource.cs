@@ -4,7 +4,7 @@ using RandyRidge.Common;
 namespace SharpSharp.Pipeline {
     internal sealed class BufferImageSource : ImageSource {
         public BufferImageSource(byte[] buffer, ImageLoadOptions options) : base(options) {
-            Guard.ArgumentNotNullOrEmpty(buffer, nameof(buffer));
+            Guard.NotNullOrEmpty(buffer, nameof(buffer));
             Buffer = buffer;
         }
 

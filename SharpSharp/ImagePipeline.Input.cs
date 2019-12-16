@@ -8,7 +8,7 @@ using SharpSharp.Pipeline;
 namespace SharpSharp {
     public sealed partial class ImagePipeline {
         public ImagePipeline Metadata(Action<Metadata> callback) {
-            Guard.ArgumentNotNull(callback, nameof(callback));
+            Guard.NotNull(callback, nameof(callback));
 
             var (image, imageType) = imageSource.Load();
 
@@ -84,7 +84,7 @@ namespace SharpSharp {
         }
 
         public ImagePipeline Stats(Action<Stats> callback) {
-            Guard.ArgumentNotNull(callback, nameof(callback));
+            Guard.NotNull(callback, nameof(callback));
             const int STAT_MIN_INDEX = 0;
             const int STAT_MAX_INDEX = 1;
             const int STAT_SUM_INDEX = 2;

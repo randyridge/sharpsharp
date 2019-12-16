@@ -90,7 +90,7 @@ namespace SharpSharp {
         public ImagePipeline Sharpen(double? sigma = null, double? flat = null, double? jagged = null) => Sharpen(new SharpenOptions(sigma, flat, jagged));
 
         public ImagePipeline Sharpen(SharpenOptions sharpenOptions) {
-            Guard.ArgumentNotNull(sharpenOptions, nameof(sharpenOptions));
+            Guard.NotNull(sharpenOptions, nameof(sharpenOptions));
             result.SharpenOptions = sharpenOptions;
             return this;
         }

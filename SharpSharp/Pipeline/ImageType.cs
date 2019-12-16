@@ -24,8 +24,8 @@ namespace SharpSharp.Pipeline {
         public static readonly ImageType WebP = new ImageType("webp", "image/webp", true);
 
         private ImageType(string extension, string mimeType, bool supportsPages = false) {
-            Extension = Guard.ArgumentNotNullOrWhiteSpace(extension, nameof(extension));
-            MimeType = Guard.ArgumentNotNullOrWhiteSpace(mimeType, nameof(mimeType));
+            Extension = Guard.NotNullOrWhiteSpace(extension, nameof(extension));
+            MimeType = Guard.NotNullOrWhiteSpace(mimeType, nameof(mimeType));
             SupportsPages = supportsPages;
         }
 
@@ -50,7 +50,7 @@ namespace SharpSharp.Pipeline {
         }
 
         public static ImageType FromBuffer(byte[] buffer) {
-            Guard.ArgumentNotNull(buffer, nameof(buffer));
+            Guard.NotNull(buffer, nameof(buffer));
 
             var result = Image.FindLoadBuffer(buffer);
 
@@ -98,7 +98,7 @@ namespace SharpSharp.Pipeline {
         }
 
         public static ImageType FromFile(string path) {
-            Guard.ArgumentNotNullOrWhiteSpace(path, nameof(path));
+            Guard.NotNullOrWhiteSpace(path, nameof(path));
 
             var result = Image.FindLoad(path);
 
@@ -162,7 +162,7 @@ namespace SharpSharp.Pipeline {
         }
 
         public static ImageType FromImage(Image image) {
-            Guard.ArgumentNotNull(image, nameof(image));
+            Guard.NotNull(image, nameof(image));
             return image.Filename.HasValue() ? FromFile(image.Filename) : Unknown;
         }
 
