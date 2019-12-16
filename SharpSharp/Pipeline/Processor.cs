@@ -6,8 +6,8 @@ using RandyRidge.Common;
 namespace SharpSharp.Pipeline {
     internal sealed class Processor {
         public void Process(ImageSource imageSource, PipelineBaton baton) {
-            Guard.ArgumentNotNull(imageSource, nameof(imageSource));
-            Guard.ArgumentNotNull(baton, nameof(baton));
+            Guard.NotNull(imageSource, nameof(imageSource));
+            Guard.NotNull(baton, nameof(baton));
 
             var (image, imageType) = imageSource.Load();
 

@@ -20,7 +20,7 @@ namespace SharpSharp {
         }
 
 //        public ImagePipeline ToColorspace(string colorspace) {
-//            Guard.ArgumentNotNullOrWhiteSpace(colorspace, nameof(colorspace));
+//            Guard.NotNullOrWhiteSpace(colorspace, nameof(colorspace));
 //            // TODO: valid values
 //            options.Colorspace = colorspace;
 //            return this;

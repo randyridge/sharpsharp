@@ -8,7 +8,7 @@ namespace SharpSharp {
         public ImagePipeline Heif() => Heif(new HeifOptions());
 
         public ImagePipeline Heif(HeifOptions options) {
-            Guard.ArgumentNotNull(options, nameof(options));
+            Guard.NotNull(options, nameof(options));
             result.HeifOptions = options;
             return this;
         }
@@ -34,7 +34,7 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="options" /> is null.
         /// </exception>
         public ImagePipeline Jpeg(JpegOptions options) {
-            Guard.ArgumentNotNull(options, nameof(options));
+            Guard.NotNull(options, nameof(options));
             result.JpegOptions = options;
             return this;
         }
@@ -60,7 +60,7 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="options" /> is null.
         /// </exception>
         public ImagePipeline Png(PngOptions options) {
-            Guard.ArgumentNotNull(options, nameof(options));
+            Guard.NotNull(options, nameof(options));
             result.PngOptions = options;
             return this;
         }
@@ -68,7 +68,7 @@ namespace SharpSharp {
         public ImagePipeline Raw() => Raw(new RawOptions());
 
         public ImagePipeline Raw(RawOptions options) {
-            Guard.ArgumentNotNull(options, nameof(options));
+            Guard.NotNull(options, nameof(options));
             result.RawOptions = options;
             return this;
         }
@@ -122,7 +122,7 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="bufferOptions" /> is null.
         /// </exception>
         public void ToBuffer(ToBufferOptions bufferOptions) {
-            Guard.ArgumentNotNull(bufferOptions, nameof(bufferOptions));
+            Guard.NotNull(bufferOptions, nameof(bufferOptions));
             result.ToBufferOptions = bufferOptions;
             Execute();
         }
@@ -140,7 +140,7 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="filePath" /> is null.
         /// </exception>
         public void ToFile(string filePath) {
-            Guard.ArgumentNotNullOrWhiteSpace(filePath, nameof(filePath));
+            Guard.NotNullOrWhiteSpace(filePath, nameof(filePath));
             ToFile(new ToFileOptions(filePath, null));
         }
 
@@ -160,8 +160,8 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="filePath" /> or <paramref name="callback" /> is null.
         /// </exception>
         public void ToFile(string filePath, Action<OutputImageInfo> callback) {
-            Guard.ArgumentNotNullOrWhiteSpace(filePath, nameof(filePath));
-            Guard.ArgumentNotNull(callback, nameof(callback));
+            Guard.NotNullOrWhiteSpace(filePath, nameof(filePath));
+            Guard.NotNull(callback, nameof(callback));
             ToFile(new ToFileOptions(filePath, callback));
         }
 
@@ -175,7 +175,7 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="fileOptions" /> is null.
         /// </exception>
         public void ToFile(ToFileOptions fileOptions) {
-            Guard.ArgumentNotNull(fileOptions, nameof(fileOptions));
+            Guard.NotNull(fileOptions, nameof(fileOptions));
             result.ToFileOptions = fileOptions;
             Execute();
         }
@@ -190,7 +190,7 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="stream" /> is null.
         /// </exception>
         public void ToStream(Stream stream) {
-            Guard.ArgumentNotNull(stream, nameof(stream));
+            Guard.NotNull(stream, nameof(stream));
             ToStream(new ToStreamOptions(stream, null));
         }
 
@@ -207,8 +207,8 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="stream" /> or <paramref name="callback" /> is null.
         /// </exception>
         public void ToStream(Stream stream, Action<OutputImageInfo> callback) {
-            Guard.ArgumentNotNull(stream, nameof(stream));
-            Guard.ArgumentNotNull(callback, nameof(callback));
+            Guard.NotNull(stream, nameof(stream));
+            Guard.NotNull(callback, nameof(callback));
             ToStream(new ToStreamOptions(stream, callback));
         }
 
@@ -222,7 +222,7 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="streamOptions" /> is null.
         /// </exception>
         public void ToStream(ToStreamOptions streamOptions) {
-            Guard.ArgumentNotNull(streamOptions, nameof(streamOptions));
+            Guard.NotNull(streamOptions, nameof(streamOptions));
             result.ToStreamOptions = streamOptions;
             Execute();
             if(streamOptions.Callback.HasValue()) {
@@ -251,13 +251,13 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="options" /> is null.
         /// </exception>
         public ImagePipeline Webp(WebpOptions options) {
-            Guard.ArgumentNotNull(options, nameof(options));
+            Guard.NotNull(options, nameof(options));
             result.WebpOptions = options;
             return this;
         }
 
         public ImagePipeline VipsImage(Action<Image> callback) {
-            Guard.ArgumentNotNull(callback, nameof(callback));
+            Guard.NotNull(callback, nameof(callback));
             var (image, _) = imageSource.Load();
             callback(image);
             image?.Dispose();
@@ -267,7 +267,7 @@ namespace SharpSharp {
         public ImagePipeline WithMetadata() => WithMetadata(new MetadataOptions());
 
         public ImagePipeline WithMetadata(MetadataOptions options) {
-            Guard.ArgumentNotNull(options, nameof(options));
+            Guard.NotNull(options, nameof(options));
             result.MetadataOptions = options;
             return this;
         }

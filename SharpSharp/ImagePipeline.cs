@@ -14,13 +14,13 @@ namespace SharpSharp {
         private readonly PipelineBaton result;
 
         //private void AddOperationAndExecute(IOperation operation) {
-        //    Guard.ArgumentNotNull(operation, nameof(operation));
+        //    Guard.NotNull(operation, nameof(operation));
         //    operations.Add(operation);
         //    Execute();
         //}
 
         //private ImagePipeline AddOperationAndReturn(IOperation operation) {
-        //    Guard.ArgumentNotNull(operation, nameof(operation));
+        //    Guard.NotNull(operation, nameof(operation));
         //    if(operations.Any(x => x.GetType() == operation.GetType())) {
         //        throw new SharpSharpException("Duplicate operation added.");
         //    }
@@ -29,7 +29,7 @@ namespace SharpSharp {
         //}
 
         private ImagePipeline(ImageSource imageSource) {
-            this.imageSource = Guard.ArgumentNotNull(imageSource, nameof(imageSource));
+            this.imageSource = Guard.NotNull(imageSource, nameof(imageSource));
             result = new PipelineBaton();
             processor = new Processor();
         }

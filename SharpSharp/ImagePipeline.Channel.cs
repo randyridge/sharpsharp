@@ -16,7 +16,7 @@ namespace SharpSharp {
 //        }
 
 //        public ImagePipeline ExtractChannel(string channel) {
-//            Guard.ArgumentNotNullOrWhiteSpace(channel, nameof(channel));
+//            Guard.NotNullOrWhiteSpace(channel, nameof(channel));
 //            if(string.Equals(channel, "red", StringComparison.OrdinalIgnoreCase)) {
 //                options.ExtractChannel = 0;
 //                return this;

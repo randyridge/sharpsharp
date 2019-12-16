@@ -34,7 +34,7 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="resizeOptions" /> is null.
         /// </exception>
         public ImagePipeline Resize(ResizeOptions resizeOptions) {
-            Guard.ArgumentNotNull(resizeOptions, nameof(resizeOptions));
+            Guard.NotNull(resizeOptions, nameof(resizeOptions));
             result.ResizeOptions = resizeOptions;
             return this;
         }
