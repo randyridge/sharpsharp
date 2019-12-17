@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
 using NetVips;
 using RandyRidge.Common;
 
@@ -12,22 +11,9 @@ namespace SharpSharp {
 
             ImagePipeline
                 .FromImage(image)
-                .Grayscale()
-                .Normalize()
-                .Resize(new ResizeOptions(9, 8, Fit.Fill))
-                .Raw()
                 .ToBuffer(out var buffer);
 
-            var builder = new StringBuilder(64);
-            for(var x = 0; x < 8; x++) {
-                for(var y = 0; y < 8; y++) {
-                    var left = buffer[y * 8 + x];
-                    var right = buffer[y * 8 + x + 1];
-                    builder.Append(left < right ? '1' : '0');
-                }
-            }
-
-            return builder.ToString();
+            return Convert.ToString((long) DifferenceHash.HashLong(buffer), 2);
         }
 
         public static double MaxColorDistance(Image left, Image right) {

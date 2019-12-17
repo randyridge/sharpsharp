@@ -17,7 +17,7 @@ namespace SharpSharp.Benchmarks {
             Add(StatisticColumn.AllStatistics);
 
             Add(Job.Default
-                .With(CoreRuntime.Core30)
+                .With(CoreRuntime.Core31)
                 .With(Jit.RyuJit)
             );
         }
