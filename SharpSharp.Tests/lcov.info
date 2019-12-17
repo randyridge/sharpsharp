@@ -1,0 +1,3149 @@
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\ChannelOptions.cs
+FN:2,System.Boolean SharpSharp.ChannelOptions::get_RemoveAlpha()
+FNDA:0,System.Boolean SharpSharp.ChannelOptions::get_RemoveAlpha()
+DA:3,0
+LF:1
+LH:0
+BRF:0
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\ChannelStats.cs
+FN:15,System.Int32 SharpSharp.ChannelStats::get_Min()
+FNDA:0,System.Int32 SharpSharp.ChannelStats::get_Min()
+DA:16,0
+FN:17,System.Int32 SharpSharp.ChannelStats::get_Max()
+FNDA:0,System.Int32 SharpSharp.ChannelStats::get_Max()
+DA:18,0
+FN:19,System.Double SharpSharp.ChannelStats::get_Sum()
+FNDA:0,System.Double SharpSharp.ChannelStats::get_Sum()
+DA:20,0
+FN:21,System.Double SharpSharp.ChannelStats::get_SquaresSum()
+FNDA:0,System.Double SharpSharp.ChannelStats::get_SquaresSum()
+DA:22,0
+FN:23,System.Double SharpSharp.ChannelStats::get_Mean()
+FNDA:0,System.Double SharpSharp.ChannelStats::get_Mean()
+DA:24,0
+FN:25,System.Double SharpSharp.ChannelStats::get_StandardDeviation()
+FNDA:0,System.Double SharpSharp.ChannelStats::get_StandardDeviation()
+DA:26,0
+FN:27,System.Int32 SharpSharp.ChannelStats::get_MinX()
+FNDA:0,System.Int32 SharpSharp.ChannelStats::get_MinX()
+DA:28,0
+FN:29,System.Int32 SharpSharp.ChannelStats::get_MinY()
+FNDA:0,System.Int32 SharpSharp.ChannelStats::get_MinY()
+DA:30,0
+FN:31,System.Int32 SharpSharp.ChannelStats::get_MaxX()
+FNDA:0,System.Int32 SharpSharp.ChannelStats::get_MaxX()
+DA:32,0
+FN:33,System.Int32 SharpSharp.ChannelStats::get_MaxY()
+FNDA:0,System.Int32 SharpSharp.ChannelStats::get_MaxY()
+DA:34,0
+FN:2,System.Void SharpSharp.ChannelStats::.ctor(System.Int32,System.Int32,System.Double,System.Double,System.Double,System.Double,System.Int32,System.Int32,System.Int32,System.Int32)
+FNDA:0,System.Void SharpSharp.ChannelStats::.ctor(System.Int32,System.Int32,System.Double,System.Double,System.Double,System.Double,System.Int32,System.Int32,System.Int32,System.Int32)
+DA:3,0
+DA:4,0
+DA:5,0
+DA:6,0
+DA:7,0
+DA:8,0
+DA:9,0
+DA:10,0
+DA:11,0
+DA:12,0
+DA:13,0
+DA:14,0
+LF:22
+LH:0
+BRF:0
+BRH:0
+FNF:11
+FNH:0
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\ColorizationOptions.cs
+FN:6,System.Boolean SharpSharp.ColorizationOptions::get_MakeGrayscale()
+FNDA:0,System.Boolean SharpSharp.ColorizationOptions::get_MakeGrayscale()
+DA:7,0
+FN:2,System.Void SharpSharp.ColorizationOptions::.ctor(System.Boolean)
+FNDA:0,System.Void SharpSharp.ColorizationOptions::.ctor(System.Boolean)
+DA:3,0
+DA:4,0
+DA:5,0
+LF:4
+LH:0
+BRF:0
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\DifferenceHash.cs
+FN:22,System.Int64 SharpSharp.DifferenceHash::HashLong(System.Byte[])
+FNDA:0,System.Int64 SharpSharp.DifferenceHash::HashLong(System.Byte[])
+DA:23,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+DA:41,0
+DA:42,0
+DA:44,0
+DA:45,0
+DA:46,0
+DA:47,0
+BRDA:37,154,1,0
+BRDA:38,136,1,0
+BRDA:38,136,0,0
+BRDA:37,154,0,0
+FN:57,System.Int16 SharpSharp.DifferenceHash::HashShort(System.Byte[])
+FNDA:0,System.Int16 SharpSharp.DifferenceHash::HashShort(System.Byte[])
+DA:58,0
+DA:62,0
+DA:63,0
+DA:64,0
+DA:65,0
+DA:66,0
+DA:67,0
+DA:68,0
+DA:70,0
+DA:71,0
+DA:72,0
+DA:73,0
+DA:74,0
+DA:76,0
+DA:79,0
+DA:80,0
+DA:81,0
+DA:82,0
+DA:84,0
+DA:85,0
+DA:86,0
+DA:87,0
+BRDA:72,173,1,0
+BRDA:73,155,1,0
+BRDA:74,100,0,0
+BRDA:74,100,1,0
+BRDA:73,155,0,0
+BRDA:72,173,0,0
+FN:89,System.Boolean SharpSharp.DifferenceHash::IsCorner(System.Int32,System.Int32,System.Int32,System.Int32)
+FNDA:0,System.Boolean SharpSharp.DifferenceHash::IsCorner(System.Int32,System.Int32,System.Int32,System.Int32)
+DA:90,0
+BRDA:90,1,0,0
+BRDA:90,1,1,0
+BRDA:90,7,0,0
+BRDA:90,10,0,0
+BRDA:90,10,1,0
+BRDA:90,7,1,0
+LF:43
+LH:0
+BRF:16
+BRH:0
+FNF:3
+FNH:0
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\ExtendOptions.cs
+FN:14,System.Int32 SharpSharp.ExtendOptions::get_Bottom()
+FNDA:0,System.Int32 SharpSharp.ExtendOptions::get_Bottom()
+DA:15,0
+FN:16,System.Int32 SharpSharp.ExtendOptions::get_Left()
+FNDA:0,System.Int32 SharpSharp.ExtendOptions::get_Left()
+DA:17,0
+FN:18,System.Int32 SharpSharp.ExtendOptions::get_Right()
+FNDA:0,System.Int32 SharpSharp.ExtendOptions::get_Right()
+DA:19,0
+FN:20,System.Int32 SharpSharp.ExtendOptions::get_Top()
+FNDA:0,System.Int32 SharpSharp.ExtendOptions::get_Top()
+DA:21,0
+FN:4,System.Void SharpSharp.ExtendOptions::.ctor(System.Int32)
+FNDA:0,System.Void SharpSharp.ExtendOptions::.ctor(System.Int32)
+DA:5,0
+DA:6,0
+FN:7,System.Void SharpSharp.ExtendOptions::.ctor(System.Int32,System.Int32,System.Int32,System.Int32)
+FNDA:0,System.Void SharpSharp.ExtendOptions::.ctor(System.Int32,System.Int32,System.Int32,System.Int32)
+DA:8,0
+DA:9,0
+DA:10,0
+DA:11,0
+DA:12,0
+DA:13,0
+LF:12
+LH:0
+BRF:0
+BRH:0
+FNF:6
+FNH:0
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\GlobalStatics.cs
+FN:5,System.Net.Http.HttpClient SharpSharp.GlobalStatics::get_HttpClient()
+FNDA:1,System.Net.Http.HttpClient SharpSharp.GlobalStatics::get_HttpClient()
+DA:6,1
+FN:7,Microsoft.IO.RecyclableMemoryStreamManager SharpSharp.GlobalStatics::get_RecyclableMemoryStreamManager()
+FNDA:3,Microsoft.IO.RecyclableMemoryStreamManager SharpSharp.GlobalStatics::get_RecyclableMemoryStreamManager()
+DA:8,3
+LF:2
+LH:2
+BRF:0
+BRH:0
+FNF:2
+FNH:2
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\HeifOptions.cs
+FN:10,SharpSharp.HeifCompression SharpSharp.HeifOptions::get_Compression()
+FNDA:0,SharpSharp.HeifCompression SharpSharp.HeifOptions::get_Compression()
+DA:11,0
+FN:12,System.Int32 SharpSharp.HeifOptions::get_Quality()
+FNDA:0,System.Int32 SharpSharp.HeifOptions::get_Quality()
+DA:13,0
+FN:14,System.Boolean SharpSharp.HeifOptions::get_UseLossless()
+FNDA:0,System.Boolean SharpSharp.HeifOptions::get_UseLossless()
+DA:15,0
+FN:4,System.Void SharpSharp.HeifOptions::.ctor(System.Int32,SharpSharp.HeifCompression,System.Boolean)
+FNDA:0,System.Void SharpSharp.HeifOptions::.ctor(System.Int32,SharpSharp.HeifCompression,System.Boolean)
+DA:5,0
+DA:6,0
+DA:7,0
+DA:8,0
+DA:9,0
+LF:8
+LH:0
+BRF:0
+BRH:0
+FNF:4
+FNH:0
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\ImageExtensions.cs
+FN:12,NetVips.Image SharpSharp.ImageExtensions::Bandbool(NetVips.Image,System.String)
+FNDA:0,NetVips.Image SharpSharp.ImageExtensions::Bandbool(NetVips.Image,System.String)
+DA:13,0
+DA:14,0
+DA:15,0
+DA:16,0
+DA:17,0
+FN:18,NetVips.Image SharpSharp.ImageExtensions::Blur(NetVips.Image,System.Double)
+FNDA:0,NetVips.Image SharpSharp.ImageExtensions::Blur(NetVips.Image,System.Double)
+DA:19,0
+DA:20,0
+DA:21,0
+DA:23,0
+DA:27,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+BRDA:21,33,0,0
+BRDA:21,33,1,0
+BRDA:29,145,1,0
+BRDA:30,121,1,0
+BRDA:30,121,0,0
+BRDA:29,145,0,0
+FN:39,NetVips.Image SharpSharp.ImageExtensions::Boolean(NetVips.Image,NetVips.Image,System.String)
+FNDA:0,NetVips.Image SharpSharp.ImageExtensions::Boolean(NetVips.Image,NetVips.Image,System.String)
+DA:40,0
+DA:41,0
+DA:42,0
+DA:43,0
+DA:44,0
+FN:45,NetVips.Image SharpSharp.ImageExtensions::Convolve(NetVips.Image,System.Double,System.Double,System.Double[])
+FNDA:0,NetVips.Image SharpSharp.ImageExtensions::Convolve(NetVips.Image,System.Double,System.Double,System.Double[])
+DA:46,0
+DA:47,0
+DA:48,0
+DA:49,0
+FN:50,NetVips.Image SharpSharp.ImageExtensions::EnsureAlpha(NetVips.Image)
+FNDA:0,NetVips.Image SharpSharp.ImageExtensions::EnsureAlpha(NetVips.Image)
+DA:51,0
+DA:52,0
+DA:53,0
+DA:54,0
+BRDA:53,19,0,0
+BRDA:53,19,1,0
+FN:55,System.Int32 SharpSharp.ImageExtensions::ExifOrientation(NetVips.Image)
+FNDA:0,System.Int32 SharpSharp.ImageExtensions::ExifOrientation(NetVips.Image)
+DA:56,0
+DA:57,0
+DA:58,0
+DA:59,0
+BRDA:58,34,0,0
+BRDA:58,34,1,0
+FN:60,NetVips.Image SharpSharp.ImageExtensions::Gamma(NetVips.Image,System.Double)
+FNDA:0,NetVips.Image SharpSharp.ImageExtensions::Gamma(NetVips.Image,System.Double)
+DA:61,0
+DA:62,0
+DA:63,0
+DA:64,0
+DA:65,0
+DA:66,0
+DA:67,0
+DA:68,0
+DA:71,0
+DA:72,0
+BRDA:63,21,0,0
+BRDA:63,21,1,0
+FN:73,System.Int32 SharpSharp.ImageExtensions::GetDensity(NetVips.Image)
+FNDA:0,System.Int32 SharpSharp.ImageExtensions::GetDensity(NetVips.Image)
+DA:74,0
+DA:75,0
+DA:76,0
+DA:77,0
+FN:78,System.Boolean SharpSharp.ImageExtensions::HasAlpha(NetVips.Image)
+FNDA:0,System.Boolean SharpSharp.ImageExtensions::HasAlpha(NetVips.Image)
+DA:79,0
+DA:80,0
+DA:81,0
+DA:82,0
+DA:83,0
+DA:84,0
+DA:85,0
+DA:86,0
+BRDA:83,29,0,0
+BRDA:83,29,1,0
+BRDA:83,42,0,0
+BRDA:83,46,0,0
+BRDA:83,46,1,0
+BRDA:83,59,0,0
+BRDA:83,63,0,0
+BRDA:83,63,1,0
+BRDA:83,42,1,0
+BRDA:83,59,1,0
+FN:87,System.Boolean SharpSharp.ImageExtensions::HasDensity(NetVips.Image)
+FNDA:0,System.Boolean SharpSharp.ImageExtensions::HasDensity(NetVips.Image)
+DA:88,0
+DA:89,0
+DA:90,0
+DA:91,0
+FN:92,System.Boolean SharpSharp.ImageExtensions::HasProfile(NetVips.Image)
+FNDA:13,System.Boolean SharpSharp.ImageExtensions::HasProfile(NetVips.Image)
+DA:93,13
+DA:94,13
+DA:95,13
+DA:96,13
+DA:98,26
+DA:99,13
+DA:101,13
+FN:102,System.Boolean SharpSharp.ImageExtensions::HasValidDimensions(NetVips.Image,SharpSharp.Pipeline.ImageType)
+FNDA:0,System.Boolean SharpSharp.ImageExtensions::HasValidDimensions(NetVips.Image,SharpSharp.Pipeline.ImageType)
+DA:103,0
+DA:104,0
+DA:106,0
+DA:107,0
+DA:110,0
+DA:111,0
+DA:114,0
+DA:115,0
+BRDA:106,26,0,0
+BRDA:107,40,0,0
+BRDA:107,40,1,0
+BRDA:106,26,1,0
+BRDA:110,77,0,0
+BRDA:111,91,0,0
+BRDA:111,91,1,0
+BRDA:110,77,1,0
+FN:116,NetVips.Image SharpSharp.ImageExtensions::Linear(NetVips.Image,System.Double,System.Double)
+FNDA:0,NetVips.Image SharpSharp.ImageExtensions::Linear(NetVips.Image,System.Double,System.Double)
+DA:117,0
+DA:118,0
+DA:119,0
+DA:120,0
+DA:121,0
+DA:122,0
+DA:123,0
+DA:124,0
+DA:127,0
+DA:128,0
+BRDA:119,21,0,0
+BRDA:119,21,1,0
+FN:129,NetVips.Image SharpSharp.ImageExtensions::Modulate(NetVips.Image,System.Double,System.Double,System.Int32)
+FNDA:0,NetVips.Image SharpSharp.ImageExtensions::Modulate(NetVips.Image,System.Double,System.Double,System.Int32)
+DA:130,0
+DA:131,0
+DA:132,0
+DA:133,0
+DA:134,0
+DA:135,0
+DA:136,0
+DA:137,0
+DA:138,0
+DA:141,0
+DA:142,0
+DA:143,0
+DA:144,0
+BRDA:132,21,0,0
+BRDA:132,21,1,0
+FN:145,NetVips.Image SharpSharp.ImageExtensions::Normalize(NetVips.Image)
+FNDA:0,NetVips.Image SharpSharp.ImageExtensions::Normalize(NetVips.Image)
+DA:146,0
+DA:147,0
+DA:148,0
+DA:149,0
+DA:150,0
+DA:153,0
+DA:155,0
+DA:157,0
+DA:158,0
+DA:159,0
+DA:161,0
+DA:162,0
+DA:166,0
+DA:168,0
+DA:169,0
+DA:171,0
+DA:172,0
+DA:173,0
+DA:174,0
+DA:177,0
+DA:178,0
+BRDA:148,23,0,0
+BRDA:148,23,1,0
+BRDA:161,98,0,0
+BRDA:161,98,1,0
+BRDA:177,218,0,0
+BRDA:177,218,1,0
+FN:179,NetVips.Image SharpSharp.ImageExtensions::Recomb(NetVips.Image,System.Double[])
+FNDA:0,NetVips.Image SharpSharp.ImageExtensions::Recomb(NetVips.Image,System.Double[])
+DA:180,0
+DA:181,0
+DA:182,0
+DA:183,0
+DA:184,0
+DA:185,0
+DA:186,0
+DA:187,0
+DA:188,0
+BRDA:182,20,0,0
+BRDA:182,20,1,0
+FN:189,NetVips.Image SharpSharp.ImageExtensions::RemoveAlpha(NetVips.Image)
+FNDA:0,NetVips.Image SharpSharp.ImageExtensions::RemoveAlpha(NetVips.Image)
+DA:190,0
+DA:191,0
+DA:192,0
+DA:193,0
+BRDA:192,19,0,0
+BRDA:192,19,1,0
+FN:194,System.Void SharpSharp.ImageExtensions::RemoveExifOrientation(NetVips.Image)
+FNDA:0,System.Void SharpSharp.ImageExtensions::RemoveExifOrientation(NetVips.Image)
+DA:195,0
+DA:196,0
+DA:197,0
+DA:198,0
+FN:199,System.Void SharpSharp.ImageExtensions::SetDensity(NetVips.Image,System.Double)
+FNDA:0,System.Void SharpSharp.ImageExtensions::SetDensity(NetVips.Image,System.Double)
+DA:200,0
+DA:201,0
+DA:202,0
+DA:203,0
+DA:204,0
+DA:205,0
+DA:206,0
+FN:207,System.Void SharpSharp.ImageExtensions::SetExifOrientation(NetVips.Image,System.Int32)
+FNDA:0,System.Void SharpSharp.ImageExtensions::SetExifOrientation(NetVips.Image,System.Int32)
+DA:208,0
+DA:209,0
+DA:210,0
+DA:211,0
+FN:212,NetVips.Image SharpSharp.ImageExtensions::Sharpen(NetVips.Image,System.Double,System.Double,System.Double)
+FNDA:0,NetVips.Image SharpSharp.ImageExtensions::Sharpen(NetVips.Image,System.Double,System.Double,System.Double)
+DA:213,0
+DA:214,0
+DA:215,0
+DA:217,0
+DA:218,0
+DA:219,0
+DA:220,0
+DA:224,0
+DA:225,0
+DA:226,0
+DA:227,0
+DA:229,0
+DA:230,0
+DA:231,0
+DA:232,0
+BRDA:215,30,0,0
+BRDA:215,30,1,0
+BRDA:225,150,0,0
+BRDA:225,150,1,0
+FN:233,NetVips.Image SharpSharp.ImageExtensions::Threshold(NetVips.Image,System.Double,System.Boolean)
+FNDA:0,NetVips.Image SharpSharp.ImageExtensions::Threshold(NetVips.Image,System.Double,System.Boolean)
+DA:234,0
+DA:235,0
+DA:236,0
+DA:237,0
+BRDA:236,14,0,0
+BRDA:236,14,1,0
+FN:238,NetVips.Image SharpSharp.ImageExtensions::Tint(NetVips.Image,System.Double,System.Double)
+FNDA:0,NetVips.Image SharpSharp.ImageExtensions::Tint(NetVips.Image,System.Double,System.Double)
+DA:239,0
+DA:240,0
+DA:241,0
+DA:242,0
+DA:243,0
+DA:246,0
+DA:249,0
+DA:250,0
+DA:251,0
+DA:252,0
+DA:253,0
+DA:256,0
+DA:257,0
+BRDA:241,23,0,0
+BRDA:241,23,1,0
+BRDA:256,170,0,0
+BRDA:256,170,1,0
+FN:258,NetVips.Image SharpSharp.ImageExtensions::Trim(NetVips.Image,System.Double)
+FNDA:0,NetVips.Image SharpSharp.ImageExtensions::Trim(NetVips.Image,System.Double)
+DA:259,0
+DA:260,0
+DA:261,0
+DA:262,0
+DA:266,0
+DA:267,0
+DA:268,0
+DA:269,0
+DA:271,0
+DA:272,0
+DA:273,0
+DA:274,0
+DA:275,0
+DA:277,0
+DA:278,0
+DA:281,0
+DA:282,0
+BRDA:261,20,0,0
+BRDA:261,20,1,0
+BRDA:261,38,0,0
+BRDA:261,38,1,0
+BRDA:267,73,0,0
+BRDA:267,73,1,0
+BRDA:277,176,0,0
+BRDA:277,176,1,0
+BRDA:277,190,0,0
+BRDA:277,190,1,0
+LF:198
+LH:7
+BRF:64
+BRH:0
+FNF:24
+FNH:1
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\ImageInfo.cs
+FN:4,System.Int32 SharpSharp.OutputImageInfo::get_Channels()
+FNDA:13,System.Int32 SharpSharp.OutputImageInfo::get_Channels()
+DA:5,13
+FN:6,System.String SharpSharp.OutputImageInfo::get_Format()
+FNDA:28,System.String SharpSharp.OutputImageInfo::get_Format()
+DA:7,28
+FN:8,System.Int32 SharpSharp.OutputImageInfo::get_Height()
+FNDA:15,System.Int32 SharpSharp.OutputImageInfo::get_Height()
+DA:9,15
+FN:10,System.Int32 SharpSharp.OutputImageInfo::get_Size()
+FNDA:15,System.Int32 SharpSharp.OutputImageInfo::get_Size()
+DA:11,15
+FN:12,System.Int32 SharpSharp.OutputImageInfo::get_Width()
+FNDA:15,System.Int32 SharpSharp.OutputImageInfo::get_Width()
+DA:13,15
+LF:5
+LH:5
+BRF:0
+BRH:0
+FNF:5
+FNH:5
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\ImageLoadOptions.cs
+FN:16,System.Int32 SharpSharp.ImageLoadOptions::get_Density()
+FNDA:0,System.Int32 SharpSharp.ImageLoadOptions::get_Density()
+DA:17,0
+FN:18,System.Int32 SharpSharp.ImageLoadOptions::get_PageCount()
+FNDA:0,System.Int32 SharpSharp.ImageLoadOptions::get_PageCount()
+DA:19,0
+FN:20,System.Int32 SharpSharp.ImageLoadOptions::get_PageIndex()
+FNDA:0,System.Int32 SharpSharp.ImageLoadOptions::get_PageIndex()
+DA:21,0
+FN:22,System.Int32 SharpSharp.ImageLoadOptions::get_PixelLimit()
+FNDA:0,System.Int32 SharpSharp.ImageLoadOptions::get_PixelLimit()
+DA:23,0
+FN:24,System.Boolean SharpSharp.ImageLoadOptions::get_UseSequentialRead()
+FNDA:26,System.Boolean SharpSharp.ImageLoadOptions::get_UseSequentialRead()
+DA:25,26
+FN:8,System.Void SharpSharp.ImageLoadOptions::.ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)
+FNDA:30,System.Void SharpSharp.ImageLoadOptions::.ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)
+DA:9,30
+DA:10,15
+DA:11,15
+DA:12,15
+DA:13,15
+DA:14,15
+DA:15,15
+LF:12
+LH:8
+BRF:0
+BRH:0
+FNF:6
+FNH:2
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\ImagePipeline.Channel.cs
+FN:3,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::RemoveAlpha()
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::RemoveAlpha()
+DA:4,0
+DA:5,0
+DA:6,0
+DA:7,0
+DA:9,0
+DA:10,0
+DA:11,0
+BRDA:5,17,0,0
+BRDA:5,17,1,0
+LF:7
+LH:0
+BRF:2
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\ImagePipeline.Color.cs
+FN:11,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Grayscale(System.Boolean)
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Grayscale(System.Boolean)
+DA:12,0
+DA:13,0
+DA:14,0
+DA:15,0
+DA:16,0
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+BRDA:13,19,0,0
+BRDA:13,19,1,0
+LF:9
+LH:0
+BRF:2
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\ImagePipeline.Constructor.cs
+FN:28,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::FromBuffer(System.Byte[])
+FNDA:1,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::FromBuffer(System.Byte[])
+DA:29,1
+DA:30,1
+DA:31,1
+DA:32,1
+FN:51,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::FromBuffer(System.Byte[],SharpSharp.ImageLoadOptions)
+FNDA:8,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::FromBuffer(System.Byte[],SharpSharp.ImageLoadOptions)
+DA:52,8
+DA:53,8
+DA:54,8
+DA:55,8
+DA:56,8
+FN:78,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::FromFile(System.String)
+FNDA:5,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::FromFile(System.String)
+DA:79,5
+DA:80,5
+DA:81,5
+DA:82,5
+FN:104,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::FromFile(System.String,SharpSharp.ImageLoadOptions)
+FNDA:5,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::FromFile(System.String,SharpSharp.ImageLoadOptions)
+DA:105,5
+DA:106,5
+DA:107,5
+DA:108,5
+DA:109,5
+FN:131,System.Threading.Tasks.Task`1<SharpSharp.ImagePipeline> SharpSharp.ImagePipeline::FromFileAsync(System.String)
+FNDA:0,System.Threading.Tasks.Task`1<SharpSharp.ImagePipeline> SharpSharp.ImagePipeline::FromFileAsync(System.String)
+DA:132,0
+DA:133,0
+DA:134,0
+DA:135,0
+FN:178,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::FromImage(NetVips.Image)
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::FromImage(NetVips.Image)
+DA:179,0
+DA:180,0
+DA:181,0
+DA:182,0
+FN:198,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::FromImage(NetVips.Image,SharpSharp.ImageLoadOptions)
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::FromImage(NetVips.Image,SharpSharp.ImageLoadOptions)
+DA:199,0
+DA:200,0
+DA:201,0
+DA:202,0
+DA:203,0
+FN:219,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::FromStream(System.IO.Stream)
+FNDA:2,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::FromStream(System.IO.Stream)
+DA:220,2
+DA:221,2
+DA:222,2
+DA:223,2
+FN:239,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::FromStream(System.IO.Stream,SharpSharp.ImageLoadOptions)
+FNDA:2,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::FromStream(System.IO.Stream,SharpSharp.ImageLoadOptions)
+DA:240,2
+DA:241,2
+DA:242,2
+DA:243,2
+DA:244,2
+DA:245,2
+DA:246,2
+FN:259,System.Threading.Tasks.Task`1<SharpSharp.ImagePipeline> SharpSharp.ImagePipeline::FromStreamAsync(System.IO.Stream)
+FNDA:0,System.Threading.Tasks.Task`1<SharpSharp.ImagePipeline> SharpSharp.ImagePipeline::FromStreamAsync(System.IO.Stream)
+DA:260,0
+DA:261,0
+DA:262,0
+DA:263,0
+FN:302,System.Threading.Tasks.Task`1<SharpSharp.ImagePipeline> SharpSharp.ImagePipeline::FromUriAsync(System.String)
+FNDA:0,System.Threading.Tasks.Task`1<SharpSharp.ImagePipeline> SharpSharp.ImagePipeline::FromUriAsync(System.String)
+DA:303,0
+DA:304,0
+DA:305,0
+DA:306,0
+FN:325,System.Threading.Tasks.Task`1<SharpSharp.ImagePipeline> SharpSharp.ImagePipeline::FromUriAsync(System.String,SharpSharp.ImageLoadOptions)
+FNDA:6,System.Threading.Tasks.Task`1<SharpSharp.ImagePipeline> SharpSharp.ImagePipeline::FromUriAsync(System.String,SharpSharp.ImageLoadOptions)
+DA:326,6
+DA:327,6
+DA:328,4
+DA:329,2
+DA:330,2
+FN:343,System.Threading.Tasks.Task`1<SharpSharp.ImagePipeline> SharpSharp.ImagePipeline::FromUriAsync(System.Uri)
+FNDA:2,System.Threading.Tasks.Task`1<SharpSharp.ImagePipeline> SharpSharp.ImagePipeline::FromUriAsync(System.Uri)
+DA:344,2
+DA:345,2
+DA:346,1
+DA:347,1
+FN:157,System.Void SharpSharp.ImagePipeline/<FromFileAsync>d__7::MoveNext()
+FNDA:0,System.Void SharpSharp.ImagePipeline/<FromFileAsync>d__7::MoveNext()
+DA:158,0
+DA:159,0
+DA:160,0
+DA:161,0
+DA:162,0
+BRDA:161,91,0,0
+BRDA:161,91,1,0
+FN:279,System.Void SharpSharp.ImagePipeline/<FromStreamAsync>d__13::MoveNext()
+FNDA:0,System.Void SharpSharp.ImagePipeline/<FromStreamAsync>d__13::MoveNext()
+DA:280,0
+DA:281,0
+DA:282,0
+DA:283,0
+DA:284,0
+DA:285,0
+DA:286,0
+BRDA:280,14,0,0
+BRDA:283,92,0,0
+BRDA:284,128,0,0
+BRDA:283,92,1,0
+BRDA:284,128,1,0
+BRDA:285,262,0,0
+BRDA:285,293,0,0
+BRDA:280,14,1,0
+BRDA:285,293,1,0
+BRDA:285,262,1,0
+BRDA:285,382,0,0
+BRDA:285,395,0,0
+BRDA:285,395,1,0
+BRDA:285,382,1,0
+BRDA:285,424,1,0
+BRDA:285,424,0,0
+FN:363,System.Void SharpSharp.ImagePipeline/<FromUriAsync>d__17::MoveNext()
+FNDA:6,System.Void SharpSharp.ImagePipeline/<FromUriAsync>d__17::MoveNext()
+DA:364,6
+DA:365,6
+DA:366,5
+DA:367,4
+DA:368,4
+DA:369,4
+BRDA:367,62,0,4
+BRDA:368,106,0,4
+BRDA:367,62,1,4
+BRDA:368,106,1,4
+LF:77
+LH:44
+BRF:22
+BRH:4
+FNF:16
+FNH:9
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\ImagePipeline.cs
+FN:39,System.Version SharpSharp.ImagePipeline::get_VipsVersion()
+FNDA:0,System.Version SharpSharp.ImagePipeline::get_VipsVersion()
+DA:40,0
+FN:41,System.Void SharpSharp.ImagePipeline::Execute()
+FNDA:13,System.Void SharpSharp.ImagePipeline::Execute()
+DA:42,13
+DA:43,13
+DA:44,13
+FN:30,System.Void SharpSharp.ImagePipeline::.ctor(SharpSharp.Pipeline.ImageSource)
+FNDA:24,System.Void SharpSharp.ImagePipeline::.ctor(SharpSharp.Pipeline.ImageSource)
+DA:31,24
+DA:32,12
+DA:33,12
+DA:34,12
+DA:35,12
+LF:9
+LH:8
+BRF:0
+BRH:0
+FNF:3
+FNH:2
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\ImagePipeline.Input.cs
+FN:9,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Metadata(System.Action`1<SharpSharp.Metadata>)
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Metadata(System.Action`1<SharpSharp.Metadata>)
+DA:10,0
+DA:11,0
+DA:13,0
+DA:15,0
+DA:17,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:39,0
+DA:40,0
+DA:41,0
+DA:43,0
+DA:44,0
+DA:45,0
+DA:47,0
+DA:48,0
+DA:49,0
+DA:51,0
+DA:52,0
+DA:53,0
+DA:55,0
+DA:56,0
+DA:57,0
+DA:60,0
+DA:61,0
+DA:62,0
+DA:65,0
+DA:66,0
+DA:67,0
+DA:70,0
+DA:71,0
+DA:72,0
+DA:75,0
+DA:76,0
+DA:77,0
+DA:79,0
+DA:81,0
+DA:83,0
+DA:84,0
+BRDA:15,51,0,0
+BRDA:15,51,1,0
+BRDA:31,188,0,0
+BRDA:31,188,1,0
+BRDA:35,230,0,0
+BRDA:35,230,1,0
+BRDA:39,282,0,0
+BRDA:39,282,1,0
+BRDA:43,342,0,0
+BRDA:43,342,1,0
+BRDA:47,399,0,0
+BRDA:47,399,1,0
+BRDA:51,456,0,0
+BRDA:51,456,1,0
+BRDA:55,513,0,0
+BRDA:55,513,1,0
+BRDA:60,570,0,0
+BRDA:60,570,1,0
+BRDA:65,622,0,0
+BRDA:65,622,1,0
+BRDA:70,674,0,0
+BRDA:70,674,1,0
+BRDA:75,726,0,0
+BRDA:75,726,1,0
+BRDA:79,754,1,0
+BRDA:79,754,0,0
+FN:85,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Stats(System.Action`1<SharpSharp.Stats>)
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Stats(System.Action`1<SharpSharp.Stats>)
+DA:86,0
+DA:87,0
+DA:99,0
+DA:101,0
+DA:103,0
+DA:105,0
+DA:106,0
+DA:107,0
+DA:108,0
+DA:110,0
+DA:111,0
+DA:112,0
+DA:113,0
+DA:114,0
+DA:115,0
+DA:116,0
+DA:117,0
+DA:118,0
+DA:119,0
+DA:120,0
+DA:121,0
+DA:122,0
+DA:123,0
+DA:124,0
+DA:125,0
+DA:126,0
+DA:128,0
+DA:130,0
+DA:131,0
+DA:132,0
+DA:133,0
+DA:134,0
+DA:135,0
+DA:137,0
+DA:138,0
+DA:139,0
+DA:140,0
+BRDA:101,53,0,0
+BRDA:101,53,1,0
+BRDA:113,304,1,0
+BRDA:113,304,0,0
+BRDA:130,333,0,0
+BRDA:132,374,0,0
+BRDA:132,374,1,0
+BRDA:130,333,1,0
+BRDA:137,388,1,0
+BRDA:137,388,0,0
+FN:167,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::TouchAllPixels()
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::TouchAllPixels()
+DA:168,0
+DA:169,0
+DA:170,0
+DA:171,0
+DA:172,0
+DA:173,0
+BRDA:171,27,1,0
+BRDA:171,27,0,0
+LF:96
+LH:0
+BRF:38
+BRH:0
+FNF:3
+FNH:0
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\ImagePipeline.Operation.cs
+FN:74,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Normalize(System.Boolean)
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Normalize(System.Boolean)
+DA:75,0
+DA:76,0
+DA:77,0
+DA:78,0
+DA:79,0
+DA:80,0
+DA:81,0
+DA:83,0
+DA:84,0
+BRDA:76,19,0,0
+BRDA:76,19,1,0
+FN:89,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Sharpen(System.Nullable`1<System.Double>,System.Nullable`1<System.Double>,System.Nullable`1<System.Double>)
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Sharpen(System.Nullable`1<System.Double>,System.Nullable`1<System.Double>,System.Nullable`1<System.Double>)
+DA:90,0
+FN:91,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Sharpen(SharpSharp.Pipeline.SharpenOptions)
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Sharpen(SharpSharp.Pipeline.SharpenOptions)
+DA:92,0
+DA:93,0
+DA:94,0
+DA:95,0
+DA:96,0
+LF:15
+LH:0
+BRF:2
+BRH:0
+FNF:3
+FNH:0
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\ImagePipeline.Output.cs
+FN:7,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Heif()
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Heif()
+DA:8,0
+FN:9,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Heif(SharpSharp.HeifOptions)
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Heif(SharpSharp.HeifOptions)
+DA:10,0
+DA:11,0
+DA:12,0
+DA:13,0
+DA:14,0
+FN:21,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Jpeg()
+FNDA:8,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Jpeg()
+DA:22,8
+FN:35,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Jpeg(SharpSharp.JpegOptions)
+FNDA:13,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Jpeg(SharpSharp.JpegOptions)
+DA:36,13
+DA:37,13
+DA:38,13
+DA:39,13
+DA:40,13
+FN:47,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Png()
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Png()
+DA:48,0
+FN:61,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Png(SharpSharp.PngOptions)
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Png(SharpSharp.PngOptions)
+DA:62,0
+DA:63,0
+DA:64,0
+DA:65,0
+DA:66,0
+FN:67,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Raw()
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Raw()
+DA:68,0
+FN:69,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Raw(SharpSharp.RawOptions)
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Raw(SharpSharp.RawOptions)
+DA:70,0
+DA:71,0
+DA:72,0
+DA:73,0
+DA:74,0
+FN:90,System.Void SharpSharp.ImagePipeline::ToBuffer(System.Byte[]&)
+FNDA:9,System.Void SharpSharp.ImagePipeline::ToBuffer(System.Byte[]&)
+DA:91,9
+DA:92,9
+DA:93,9
+DA:94,9
+DA:95,9
+FN:108,System.Void SharpSharp.ImagePipeline::ToBuffer(System.Action`1<SharpSharp.OutputImageInfo>,System.Byte[]&)
+FNDA:1,System.Void SharpSharp.ImagePipeline::ToBuffer(System.Action`1<SharpSharp.OutputImageInfo>,System.Byte[]&)
+DA:109,1
+DA:110,1
+DA:111,1
+DA:112,1
+DA:113,1
+FN:123,System.Void SharpSharp.ImagePipeline::ToBuffer(SharpSharp.ToBufferOptions)
+FNDA:10,System.Void SharpSharp.ImagePipeline::ToBuffer(SharpSharp.ToBufferOptions)
+DA:124,10
+DA:125,10
+DA:126,10
+DA:127,10
+DA:128,10
+FN:141,System.Void SharpSharp.ImagePipeline::ToFile(System.String)
+FNDA:0,System.Void SharpSharp.ImagePipeline::ToFile(System.String)
+DA:142,0
+DA:143,0
+DA:144,0
+DA:145,0
+FN:161,System.Void SharpSharp.ImagePipeline::ToFile(System.String,System.Action`1<SharpSharp.OutputImageInfo>)
+FNDA:1,System.Void SharpSharp.ImagePipeline::ToFile(System.String,System.Action`1<SharpSharp.OutputImageInfo>)
+DA:162,1
+DA:163,1
+DA:164,1
+DA:165,1
+DA:166,1
+FN:176,System.Void SharpSharp.ImagePipeline::ToFile(SharpSharp.ToFileOptions)
+FNDA:1,System.Void SharpSharp.ImagePipeline::ToFile(SharpSharp.ToFileOptions)
+DA:177,1
+DA:178,1
+DA:179,1
+DA:180,1
+DA:181,1
+FN:191,System.Void SharpSharp.ImagePipeline::ToStream(System.IO.Stream)
+FNDA:0,System.Void SharpSharp.ImagePipeline::ToStream(System.IO.Stream)
+DA:192,0
+DA:193,0
+DA:194,0
+DA:195,0
+FN:208,System.Void SharpSharp.ImagePipeline::ToStream(System.IO.Stream,System.Action`1<SharpSharp.OutputImageInfo>)
+FNDA:2,System.Void SharpSharp.ImagePipeline::ToStream(System.IO.Stream,System.Action`1<SharpSharp.OutputImageInfo>)
+DA:209,2
+DA:210,2
+DA:211,2
+DA:212,2
+DA:213,2
+FN:223,System.Void SharpSharp.ImagePipeline::ToStream(SharpSharp.ToStreamOptions)
+FNDA:2,System.Void SharpSharp.ImagePipeline::ToStream(SharpSharp.ToStreamOptions)
+DA:224,2
+DA:225,2
+DA:226,2
+DA:227,2
+DA:228,4
+DA:229,2
+DA:230,2
+DA:231,2
+BRDA:228,46,0,2
+BRDA:228,46,1,2
+FN:238,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Webp()
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Webp()
+DA:239,0
+FN:252,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Webp(SharpSharp.WebpOptions)
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Webp(SharpSharp.WebpOptions)
+DA:253,0
+DA:254,0
+DA:255,0
+DA:256,0
+DA:257,0
+FN:258,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::VipsImage(System.Action`1<NetVips.Image>)
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::VipsImage(System.Action`1<NetVips.Image>)
+DA:259,0
+DA:260,0
+DA:261,0
+DA:262,0
+DA:263,0
+DA:264,0
+DA:265,0
+BRDA:263,40,1,0
+BRDA:263,40,0,0
+FN:266,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::WithMetadata()
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::WithMetadata()
+DA:267,0
+FN:268,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::WithMetadata(SharpSharp.MetadataOptions)
+FNDA:0,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::WithMetadata(SharpSharp.MetadataOptions)
+DA:269,0
+DA:270,0
+DA:271,0
+DA:272,0
+DA:273,0
+LF:89
+LH:44
+BRF:4
+BRH:2
+FNF:22
+FNH:9
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\ImagePipeline.Resize.cs
+FN:21,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Resize(System.Nullable`1<System.Int32>,System.Nullable`1<System.Int32>)
+FNDA:8,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Resize(System.Nullable`1<System.Int32>,System.Nullable`1<System.Int32>)
+DA:22,8
+FN:35,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Resize(SharpSharp.ResizeOptions)
+FNDA:8,SharpSharp.ImagePipeline SharpSharp.ImagePipeline::Resize(SharpSharp.ResizeOptions)
+DA:36,8
+DA:37,8
+DA:38,8
+DA:39,8
+DA:40,8
+LF:6
+LH:6
+BRF:0
+BRH:0
+FNF:2
+FNH:2
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\ImageUtilities.cs
+FN:8,System.String SharpSharp.ImageUtilities::Fingerprint(NetVips.Image)
+FNDA:0,System.String SharpSharp.ImageUtilities::Fingerprint(NetVips.Image)
+DA:9,0
+DA:10,0
+DA:12,0
+DA:13,0
+DA:14,0
+DA:16,0
+DA:17,0
+FN:18,System.Double SharpSharp.ImageUtilities::MaxColorDistance(NetVips.Image,NetVips.Image)
+FNDA:0,System.Double SharpSharp.ImageUtilities::MaxColorDistance(NetVips.Image,NetVips.Image)
+DA:19,0
+DA:20,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:30,0
+DA:31,0
+BRDA:22,17,0,0
+BRDA:22,17,1,0
+BRDA:26,65,0,0
+BRDA:26,65,1,0
+FN:32,System.Double SharpSharp.ImageUtilities::MeanSquaredError(NetVips.Image,NetVips.Image)
+FNDA:0,System.Double SharpSharp.ImageUtilities::MeanSquaredError(NetVips.Image,NetVips.Image)
+DA:33,0
+DA:34,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:41,0
+DA:42,0
+DA:43,0
+DA:44,0
+DA:46,0
+DA:47,0
+DA:50,0
+DA:51,0
+DA:52,0
+DA:53,0
+DA:54,0
+DA:55,0
+DA:56,0
+DA:57,0
+DA:58,0
+DA:60,0
+DA:61,0
+BRDA:46,48,0,0
+BRDA:46,48,1,0
+BRDA:46,59,0,0
+BRDA:46,59,1,0
+BRDA:51,178,1,0
+BRDA:52,155,1,0
+BRDA:52,155,0,0
+BRDA:51,178,0,0
+FN:62,System.Double SharpSharp.ImageUtilities::PeakSignalToNoiseRatio(NetVips.Image,NetVips.Image)
+FNDA:0,System.Double SharpSharp.ImageUtilities::PeakSignalToNoiseRatio(NetVips.Image,NetVips.Image)
+DA:63,0
+DA:64,0
+DA:65,0
+DA:66,0
+DA:67,0
+DA:68,0
+DA:70,0
+DA:71,0
+DA:72,0
+DA:73,0
+DA:75,0
+DA:76,0
+DA:79,0
+DA:80,0
+DA:81,0
+DA:82,0
+DA:83,0
+DA:84,0
+DA:85,0
+DA:86,0
+DA:87,0
+DA:89,0
+DA:90,0
+DA:91,0
+BRDA:75,48,0,0
+BRDA:75,48,1,0
+BRDA:75,61,0,0
+BRDA:75,61,1,0
+BRDA:80,216,1,0
+BRDA:81,193,1,0
+BRDA:82,170,1,0
+BRDA:82,170,0,0
+BRDA:81,193,0,0
+BRDA:80,216,0,0
+FN:92,System.Double SharpSharp.ImageUtilities::StructuralSimilarity(NetVips.Image,NetVips.Image)
+FNDA:0,System.Double SharpSharp.ImageUtilities::StructuralSimilarity(NetVips.Image,NetVips.Image)
+DA:93,0
+DA:94,0
+DA:95,0
+DA:96,0
+DA:97,0
+DA:98,0
+DA:100,0
+DA:101,0
+DA:102,0
+DA:103,0
+DA:105,0
+DA:106,0
+DA:109,0
+DA:110,0
+DA:111,0
+DA:112,0
+DA:113,0
+DA:115,0
+DA:116,0
+DA:117,0
+DA:118,0
+DA:119,0
+DA:120,0
+DA:121,0
+DA:122,0
+DA:123,0
+DA:124,0
+DA:126,0
+DA:127,0
+DA:129,0
+DA:130,0
+DA:131,0
+DA:132,0
+DA:133,0
+DA:134,0
+DA:135,0
+DA:136,0
+DA:137,0
+DA:138,0
+DA:139,0
+DA:140,0
+DA:141,0
+DA:142,0
+DA:144,0
+DA:145,0
+DA:146,0
+DA:148,0
+DA:149,0
+DA:150,0
+DA:151,0
+DA:152,0
+BRDA:105,48,0,0
+BRDA:105,48,1,0
+BRDA:105,61,0,0
+BRDA:105,61,1,0
+BRDA:117,312,1,0
+BRDA:118,289,1,0
+BRDA:119,266,1,0
+BRDA:119,266,0,0
+BRDA:118,289,0,0
+BRDA:117,312,0,0
+BRDA:132,566,1,0
+BRDA:133,540,1,0
+BRDA:134,517,1,0
+BRDA:134,517,0,0
+BRDA:133,540,0,0
+BRDA:132,566,0,0
+FN:155,System.Void SharpSharp.ImageUtilities::GuardChannels(NetVips.Image,NetVips.Image)
+FNDA:0,System.Void SharpSharp.ImageUtilities::GuardChannels(NetVips.Image,NetVips.Image)
+DA:156,0
+DA:157,0
+DA:158,0
+DA:160,0
+BRDA:157,20,0,0
+BRDA:157,20,1,0
+FN:163,System.Void SharpSharp.ImageUtilities::GuardDimensions(NetVips.Image,NetVips.Image)
+FNDA:0,System.Void SharpSharp.ImageUtilities::GuardDimensions(NetVips.Image,NetVips.Image)
+DA:164,0
+DA:165,0
+DA:166,0
+DA:168,0
+BRDA:165,13,0,0
+BRDA:165,13,1,0
+BRDA:165,37,0,0
+BRDA:165,37,1,0
+FN:171,System.Void SharpSharp.ImageUtilities::GuardImages(NetVips.Image,NetVips.Image)
+FNDA:0,System.Void SharpSharp.ImageUtilities::GuardImages(NetVips.Image,NetVips.Image)
+DA:172,0
+DA:173,0
+DA:174,0
+DA:175,0
+DA:176,0
+DA:177,0
+LF:129
+LH:0
+BRF:44
+BRH:0
+FNF:8
+FNH:0
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\InputDescriptor.cs
+FN:5,System.Byte[] SharpSharp.InputDescriptor::get_Buffer()
+FNDA:0,System.Byte[] SharpSharp.InputDescriptor::get_Buffer()
+DA:6,0
+FN:7,System.Int32 SharpSharp.InputDescriptor::get_BufferLength()
+FNDA:0,System.Int32 SharpSharp.InputDescriptor::get_BufferLength()
+DA:8,0
+FN:9,System.Collections.Generic.List`1<System.Double> SharpSharp.InputDescriptor::get_CreateBackground()
+FNDA:0,System.Collections.Generic.List`1<System.Double> SharpSharp.InputDescriptor::get_CreateBackground()
+DA:10,0
+FN:16,System.Int32 SharpSharp.InputDescriptor::get_CreateChannels()
+FNDA:0,System.Int32 SharpSharp.InputDescriptor::get_CreateChannels()
+DA:17,0
+FN:18,System.Int32 SharpSharp.InputDescriptor::get_CreateHeight()
+FNDA:0,System.Int32 SharpSharp.InputDescriptor::get_CreateHeight()
+DA:19,0
+FN:20,System.Int32 SharpSharp.InputDescriptor::get_CreateWidth()
+FNDA:0,System.Int32 SharpSharp.InputDescriptor::get_CreateWidth()
+DA:21,0
+FN:22,System.Double SharpSharp.InputDescriptor::get_Density()
+FNDA:0,System.Double SharpSharp.InputDescriptor::get_Density()
+DA:23,0
+FN:24,System.Boolean SharpSharp.InputDescriptor::get_FailOnError()
+FNDA:0,System.Boolean SharpSharp.InputDescriptor::get_FailOnError()
+DA:25,0
+FN:26,System.String SharpSharp.InputDescriptor::get_File()
+FNDA:0,System.String SharpSharp.InputDescriptor::get_File()
+DA:27,0
+FN:28,System.String SharpSharp.InputDescriptor::get_Name()
+FNDA:0,System.String SharpSharp.InputDescriptor::get_Name()
+DA:29,0
+FN:30,System.Int32 SharpSharp.InputDescriptor::get_Page()
+FNDA:0,System.Int32 SharpSharp.InputDescriptor::get_Page()
+DA:31,0
+FN:32,System.Int32 SharpSharp.InputDescriptor::get_Pages()
+FNDA:0,System.Int32 SharpSharp.InputDescriptor::get_Pages()
+DA:33,0
+FN:34,System.Int32 SharpSharp.InputDescriptor::get_RawChannels()
+FNDA:0,System.Int32 SharpSharp.InputDescriptor::get_RawChannels()
+DA:35,0
+FN:36,System.Int32 SharpSharp.InputDescriptor::get_RawHeight()
+FNDA:0,System.Int32 SharpSharp.InputDescriptor::get_RawHeight()
+DA:37,0
+FN:38,System.Int32 SharpSharp.InputDescriptor::get_RawWidth()
+FNDA:0,System.Int32 SharpSharp.InputDescriptor::get_RawWidth()
+DA:39,0
+FN:40,SharpSharp.InputDescriptor SharpSharp.InputDescriptor::FromBuffer(System.Byte[])
+FNDA:0,SharpSharp.InputDescriptor SharpSharp.InputDescriptor::FromBuffer(System.Byte[])
+DA:41,0
+DA:42,0
+DA:43,0
+DA:44,0
+DA:45,0
+DA:46,0
+DA:47,0
+FN:48,SharpSharp.InputDescriptor SharpSharp.InputDescriptor::FromFile(System.String)
+FNDA:0,SharpSharp.InputDescriptor SharpSharp.InputDescriptor::FromFile(System.String)
+DA:49,0
+DA:50,0
+DA:51,0
+DA:52,0
+DA:53,0
+DA:54,0
+DA:55,0
+FN:56,SharpSharp.InputDescriptor SharpSharp.InputDescriptor::FromCreate(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+FNDA:0,SharpSharp.InputDescriptor SharpSharp.InputDescriptor::FromCreate(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+DA:57,0
+DA:58,0
+DA:59,0
+DA:61,0
+DA:62,0
+DA:64,0
+DA:65,0
+DA:67,0
+DA:68,0
+DA:70,0
+DA:71,0
+DA:73,0
+DA:74,0
+DA:76,0
+DA:77,0
+DA:79,0
+DA:80,0
+DA:81,0
+DA:82,0
+DA:83,0
+DA:84,0
+DA:85,0
+DA:86,0
+DA:87,0
+BRDA:58,7,0,0
+BRDA:58,7,1,0
+BRDA:61,32,0,0
+BRDA:61,32,1,0
+BRDA:64,53,0,0
+BRDA:64,53,1,0
+BRDA:64,67,0,0
+BRDA:64,67,1,0
+BRDA:67,88,0,0
+BRDA:67,88,1,0
+BRDA:67,105,0,0
+BRDA:67,105,1,0
+BRDA:70,127,0,0
+BRDA:70,127,1,0
+BRDA:70,145,0,0
+BRDA:70,145,1,0
+BRDA:73,167,0,0
+BRDA:73,167,1,0
+BRDA:73,185,0,0
+BRDA:73,185,1,0
+BRDA:76,207,0,0
+BRDA:76,207,1,0
+BRDA:76,225,0,0
+BRDA:76,225,1,0
+FN:88,SharpSharp.InputDescriptor SharpSharp.InputDescriptor::FromRaw(System.Int32,System.Int32,System.Int32)
+FNDA:0,SharpSharp.InputDescriptor SharpSharp.InputDescriptor::FromRaw(System.Int32,System.Int32,System.Int32)
+DA:89,0
+DA:90,0
+DA:91,0
+DA:93,0
+DA:94,0
+DA:96,0
+DA:97,0
+DA:99,0
+DA:100,0
+DA:101,0
+DA:102,0
+DA:103,0
+DA:104,0
+DA:105,0
+DA:106,0
+DA:107,0
+BRDA:90,7,0,0
+BRDA:90,7,1,0
+BRDA:93,32,0,0
+BRDA:93,32,1,0
+BRDA:96,53,0,0
+BRDA:96,53,1,0
+BRDA:96,64,0,0
+BRDA:96,64,1,0
+FN:10,System.Void SharpSharp.InputDescriptor::.ctor()
+FNDA:0,System.Void SharpSharp.InputDescriptor::.ctor()
+DA:11,0
+DA:12,0
+DA:13,0
+DA:14,0
+DA:15,0
+LF:74
+LH:0
+BRF:32
+BRH:0
+FNF:20
+FNH:0
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\JpegOptions.cs
+FN:17,System.Boolean SharpSharp.JpegOptions::get_ApplyOvershootDeringing()
+FNDA:13,System.Boolean SharpSharp.JpegOptions::get_ApplyOvershootDeringing()
+DA:18,13
+FN:19,System.Boolean SharpSharp.JpegOptions::get_ApplyTrellisQuantization()
+FNDA:13,System.Boolean SharpSharp.JpegOptions::get_ApplyTrellisQuantization()
+DA:20,13
+FN:21,System.Boolean SharpSharp.JpegOptions::get_MakeProgressive()
+FNDA:13,System.Boolean SharpSharp.JpegOptions::get_MakeProgressive()
+DA:22,13
+FN:23,System.Boolean SharpSharp.JpegOptions::get_NoSubsampling()
+FNDA:13,System.Boolean SharpSharp.JpegOptions::get_NoSubsampling()
+DA:24,13
+FN:25,System.Boolean SharpSharp.JpegOptions::get_OptimizeCoding()
+FNDA:13,System.Boolean SharpSharp.JpegOptions::get_OptimizeCoding()
+DA:26,13
+FN:27,System.Boolean SharpSharp.JpegOptions::get_OptimizeScans()
+FNDA:13,System.Boolean SharpSharp.JpegOptions::get_OptimizeScans()
+DA:28,13
+FN:29,System.Int32 SharpSharp.JpegOptions::get_Quality()
+FNDA:13,System.Int32 SharpSharp.JpegOptions::get_Quality()
+DA:30,13
+FN:31,System.Int32 SharpSharp.JpegOptions::get_QuantizationTable()
+FNDA:13,System.Int32 SharpSharp.JpegOptions::get_QuantizationTable()
+DA:32,13
+FN:33,System.Boolean SharpSharp.JpegOptions::get_UseChromaSubsampling()
+FNDA:13,System.Boolean SharpSharp.JpegOptions::get_UseChromaSubsampling()
+DA:34,13
+FN:4,System.Void SharpSharp.JpegOptions::.ctor(System.Int32,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32)
+FNDA:13,System.Void SharpSharp.JpegOptions::.ctor(System.Int32,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32)
+DA:5,13
+DA:6,13
+DA:7,26
+DA:8,13
+DA:9,13
+DA:10,13
+DA:11,13
+DA:12,13
+DA:13,13
+DA:14,13
+DA:15,13
+DA:16,13
+LF:21
+LH:21
+BRF:0
+BRH:0
+FNF:10
+FNH:10
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\Metadata.cs
+FN:2,System.Int32 SharpSharp.Metadata::get_Channels()
+FNDA:0,System.Int32 SharpSharp.Metadata::get_Channels()
+DA:3,0
+FN:4,System.String SharpSharp.Metadata::get_ChromaSubsampling()
+FNDA:0,System.String SharpSharp.Metadata::get_ChromaSubsampling()
+DA:5,0
+FN:6,System.Int32 SharpSharp.Metadata::get_Density()
+FNDA:0,System.Int32 SharpSharp.Metadata::get_Density()
+DA:7,0
+FN:8,System.String SharpSharp.Metadata::get_Depth()
+FNDA:0,System.String SharpSharp.Metadata::get_Depth()
+DA:9,0
+FN:10,System.String SharpSharp.Metadata::get_Exif()
+FNDA:0,System.String SharpSharp.Metadata::get_Exif()
+DA:11,0
+FN:12,System.String SharpSharp.Metadata::get_Format()
+FNDA:0,System.String SharpSharp.Metadata::get_Format()
+DA:13,0
+FN:14,System.Boolean SharpSharp.Metadata::get_HasAlpha()
+FNDA:0,System.Boolean SharpSharp.Metadata::get_HasAlpha()
+DA:15,0
+FN:16,System.Boolean SharpSharp.Metadata::get_HasProfile()
+FNDA:0,System.Boolean SharpSharp.Metadata::get_HasProfile()
+DA:17,0
+FN:18,System.Int32 SharpSharp.Metadata::get_Height()
+FNDA:0,System.Int32 SharpSharp.Metadata::get_Height()
+DA:19,0
+FN:20,System.String SharpSharp.Metadata::get_Icc()
+FNDA:0,System.String SharpSharp.Metadata::get_Icc()
+DA:21,0
+FN:22,System.String SharpSharp.Metadata::get_Iptc()
+FNDA:0,System.String SharpSharp.Metadata::get_Iptc()
+DA:23,0
+FN:24,System.Boolean SharpSharp.Metadata::get_IsProgressive()
+FNDA:0,System.Boolean SharpSharp.Metadata::get_IsProgressive()
+DA:25,0
+FN:26,System.Int32 SharpSharp.Metadata::get_Orientation()
+FNDA:0,System.Int32 SharpSharp.Metadata::get_Orientation()
+DA:27,0
+FN:28,System.Int32 SharpSharp.Metadata::get_PageHeight()
+FNDA:0,System.Int32 SharpSharp.Metadata::get_PageHeight()
+DA:29,0
+FN:30,System.Int32 SharpSharp.Metadata::get_PagePrimary()
+FNDA:0,System.Int32 SharpSharp.Metadata::get_PagePrimary()
+DA:31,0
+FN:32,System.Int32 SharpSharp.Metadata::get_Pages()
+FNDA:0,System.Int32 SharpSharp.Metadata::get_Pages()
+DA:33,0
+FN:34,System.Int32 SharpSharp.Metadata::get_PaletteBitDepth()
+FNDA:0,System.Int32 SharpSharp.Metadata::get_PaletteBitDepth()
+DA:35,0
+FN:36,System.String SharpSharp.Metadata::get_Space()
+FNDA:0,System.String SharpSharp.Metadata::get_Space()
+DA:37,0
+FN:38,System.Int32 SharpSharp.Metadata::get_Width()
+FNDA:0,System.Int32 SharpSharp.Metadata::get_Width()
+DA:39,0
+FN:40,System.String SharpSharp.Metadata::get_Xmp()
+FNDA:0,System.String SharpSharp.Metadata::get_Xmp()
+DA:41,0
+LF:20
+LH:0
+BRF:0
+BRH:0
+FNF:20
+FNH:0
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\MetadataOptions.cs
+FN:7,System.Boolean SharpSharp.MetadataOptions::get_IncludeMetadata()
+FNDA:13,System.Boolean SharpSharp.MetadataOptions::get_IncludeMetadata()
+DA:8,13
+FN:9,System.Nullable`1<SharpSharp.Orientation> SharpSharp.MetadataOptions::get_Orientation()
+FNDA:0,System.Nullable`1<SharpSharp.Orientation> SharpSharp.MetadataOptions::get_Orientation()
+DA:10,0
+FN:11,System.Boolean SharpSharp.MetadataOptions::get_ShouldStripMetadata()
+FNDA:13,System.Boolean SharpSharp.MetadataOptions::get_ShouldStripMetadata()
+DA:12,13
+FN:2,System.Void SharpSharp.MetadataOptions::.ctor(System.Boolean,System.Nullable`1<SharpSharp.Orientation>)
+FNDA:24,System.Void SharpSharp.MetadataOptions::.ctor(System.Boolean,System.Nullable`1<SharpSharp.Orientation>)
+DA:3,24
+DA:4,12
+DA:5,12
+DA:6,12
+LF:7
+LH:6
+BRF:0
+BRH:0
+FNF:4
+FNH:3
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\NeedsBetterPlace.cs
+FN:10,System.ValueTuple`2<NetVips.Image,System.Double[]> SharpSharp.NeedsBetterPlace::ApplyAlpha(NetVips.Image,System.Double[])
+FNDA:0,System.ValueTuple`2<NetVips.Image,System.Double[]> SharpSharp.NeedsBetterPlace::ApplyAlpha(NetVips.Image,System.Double[])
+DA:11,0
+DA:12,0
+DA:13,0
+DA:15,0
+DA:16,0
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:39,0
+DA:40,0
+DA:42,0
+DA:43,0
+BRDA:12,12,0,0
+BRDA:12,12,1,0
+BRDA:15,53,0,0
+BRDA:15,53,1,0
+BRDA:26,175,0,0
+BRDA:26,175,1,0
+BRDA:26,190,0,0
+BRDA:26,190,1,0
+BRDA:31,236,0,0
+BRDA:31,236,1,0
+BRDA:31,254,0,0
+BRDA:33,357,1,0
+BRDA:34,334,1,0
+BRDA:34,334,0,0
+BRDA:33,357,0,0
+BRDA:31,254,1,0
+FN:44,System.ValueTuple`2<System.Int32,System.Int32> SharpSharp.NeedsBetterPlace::CalculateCrop(System.Int32,System.Int32,System.Int32,System.Int32,SharpSharp.Gravity)
+FNDA:13,System.ValueTuple`2<System.Int32,System.Int32> SharpSharp.NeedsBetterPlace::CalculateCrop(System.Int32,System.Int32,System.Int32,System.Int32,SharpSharp.Gravity)
+DA:45,13
+DA:46,13
+DA:47,13
+DA:49,13
+DA:51,0
+DA:52,0
+DA:54,0
+DA:55,0
+DA:56,0
+DA:58,0
+DA:59,0
+DA:60,0
+DA:62,0
+DA:63,0
+DA:65,0
+DA:66,0
+DA:68,0
+DA:69,0
+DA:70,0
+DA:72,0
+DA:73,0
+DA:75,0
+DA:78,13
+DA:79,13
+DA:80,13
+DA:83,13
+DA:84,13
+BRDA:49,13,1,0
+BRDA:49,13,2,0
+BRDA:49,13,3,0
+BRDA:49,13,4,0
+BRDA:49,13,5,0
+BRDA:49,13,6,0
+BRDA:49,13,7,0
+BRDA:49,13,0,13
+BRDA:49,13,8,13
+FN:85,System.ValueTuple`2<System.Int32,System.Int32> SharpSharp.NeedsBetterPlace::CalculateCrop(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+FNDA:0,System.ValueTuple`2<System.Int32,System.Int32> SharpSharp.NeedsBetterPlace::CalculateCrop(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+DA:86,0
+DA:87,0
+DA:88,0
+DA:90,0
+DA:91,0
+DA:92,0
+DA:93,0
+DA:94,0
+DA:95,0
+DA:97,0
+DA:98,0
+DA:99,0
+DA:100,0
+DA:101,0
+DA:102,0
+DA:104,0
+DA:105,0
+BRDA:90,8,0,0
+BRDA:90,8,1,0
+BRDA:90,22,0,0
+BRDA:90,22,1,0
+BRDA:93,43,0,0
+BRDA:93,43,1,0
+BRDA:97,54,0,0
+BRDA:97,54,1,0
+BRDA:97,70,0,0
+BRDA:97,70,1,0
+BRDA:100,93,0,0
+BRDA:100,93,1,0
+FN:106,System.ValueTuple`2<System.Int32,System.Int32> SharpSharp.NeedsBetterPlace::CalculateEmbedPosition(System.Int32,System.Int32,System.Int32,System.Int32,SharpSharp.Gravity)
+FNDA:0,System.ValueTuple`2<System.Int32,System.Int32> SharpSharp.NeedsBetterPlace::CalculateEmbedPosition(System.Int32,System.Int32,System.Int32,System.Int32,SharpSharp.Gravity)
+DA:107,0
+DA:108,0
+DA:109,0
+DA:111,0
+DA:113,0
+DA:114,0
+DA:116,0
+DA:117,0
+DA:118,0
+DA:120,0
+DA:121,0
+DA:122,0
+DA:124,0
+DA:125,0
+DA:127,0
+DA:128,0
+DA:130,0
+DA:131,0
+DA:132,0
+DA:134,0
+DA:135,0
+DA:137,0
+DA:140,0
+DA:141,0
+DA:142,0
+DA:145,0
+DA:146,0
+BRDA:111,13,1,0
+BRDA:111,13,2,0
+BRDA:111,13,3,0
+BRDA:111,13,4,0
+BRDA:111,13,5,0
+BRDA:111,13,6,0
+BRDA:111,13,7,0
+BRDA:111,13,0,0
+BRDA:111,13,8,0
+FN:147,System.Double[] SharpSharp.NeedsBetterPlace::GetRgbaAsColorspace(System.Double[],System.String)
+FNDA:0,System.Double[] SharpSharp.NeedsBetterPlace::GetRgbaAsColorspace(System.Double[],System.String)
+DA:148,0
+DA:149,0
+DA:150,0
+DA:151,0
+DA:152,0
+DA:153,0
+DA:156,0
+DA:157,0
+DA:158,0
+DA:159,0
+DA:160,0
+DA:161,0
+BRDA:152,31,0,0
+BRDA:152,44,0,0
+BRDA:152,31,1,0
+BRDA:152,44,1,0
+BRDA:152,62,0,0
+BRDA:152,62,1,0
+FN:162,System.Boolean SharpSharp.NeedsBetterPlace::Is16Bit(System.String)
+FNDA:0,System.Boolean SharpSharp.NeedsBetterPlace::Is16Bit(System.String)
+DA:163,0
+DA:164,0
+DA:165,0
+DA:166,0
+DA:167,0
+BRDA:165,24,0,0
+BRDA:165,24,1,0
+FN:168,System.Double SharpSharp.NeedsBetterPlace::MaximumImageAlpha(System.String)
+FNDA:0,System.Double SharpSharp.NeedsBetterPlace::MaximumImageAlpha(System.String)
+DA:169,0
+DA:170,0
+DA:171,0
+DA:172,0
+BRDA:171,19,0,0
+BRDA:171,19,1,0
+FN:173,System.ValueTuple`2<NetVips.Image,SharpSharp.Pipeline.ImageType> SharpSharp.NeedsBetterPlace::OpenInput(SharpSharp.InputDescriptor,System.String)
+FNDA:0,System.ValueTuple`2<NetVips.Image,SharpSharp.Pipeline.ImageType> SharpSharp.NeedsBetterPlace::OpenInput(SharpSharp.InputDescriptor,System.String)
+DA:174,0
+DA:175,0
+DA:180,0
+DA:181,0
+DA:183,0
+DA:184,0
+DA:185,0
+DA:186,0
+DA:187,0
+DA:189,0
+DA:190,0
+DA:191,0
+DA:194,0
+DA:195,0
+DA:196,0
+DA:197,0
+DA:198,0
+DA:200,0
+DA:201,0
+DA:202,0
+DA:204,0
+DA:205,0
+DA:206,0
+DA:208,0
+DA:209,0
+DA:210,0
+DA:211,0
+DA:213,0
+DA:215,0
+DA:216,0
+DA:217,0
+DA:218,0
+DA:219,0
+DA:220,0
+DA:222,0
+DA:223,0
+DA:224,0
+DA:225,0
+DA:227,0
+DA:228,0
+DA:229,0
+DA:230,0
+DA:231,0
+DA:233,0
+DA:234,0
+DA:235,0
+DA:237,0
+DA:238,0
+DA:239,0
+DA:240,0
+DA:241,0
+DA:242,0
+DA:244,0
+DA:245,0
+DA:248,0
+DA:249,0
+DA:252,0
+DA:253,0
+DA:254,0
+DA:255,0
+DA:256,0
+DA:258,0
+DA:259,0
+DA:260,0
+DA:262,0
+DA:263,0
+DA:264,0
+DA:266,0
+DA:267,0
+DA:268,0
+DA:269,0
+DA:271,0
+DA:272,0
+DA:273,0
+DA:274,0
+DA:275,0
+DA:276,0
+DA:277,0
+DA:279,0
+DA:280,0
+DA:282,0
+DA:283,0
+BRDA:180,25,0,0
+BRDA:181,42,0,0
+BRDA:184,93,0,0
+BRDA:184,93,1,0
+BRDA:181,42,1,0
+BRDA:190,153,0,0
+BRDA:190,153,1,0
+BRDA:200,223,0,0
+BRDA:200,223,1,0
+BRDA:200,243,0,0
+BRDA:200,243,1,0
+BRDA:204,286,0,0
+BRDA:204,286,1,0
+BRDA:208,324,0,0
+BRDA:208,324,1,0
+BRDA:215,413,0,0
+BRDA:215,426,0,0
+BRDA:215,413,1,0
+BRDA:215,426,1,0
+BRDA:215,446,0,0
+BRDA:215,446,1,0
+BRDA:180,25,1,0
+BRDA:225,515,0,0
+BRDA:233,598,0,0
+BRDA:233,598,1,0
+BRDA:225,515,1,0
+BRDA:244,710,0,0
+BRDA:244,710,1,0
+BRDA:248,755,0,0
+BRDA:248,755,1,0
+BRDA:258,825,0,0
+BRDA:258,825,1,0
+BRDA:258,845,0,0
+BRDA:258,845,1,0
+BRDA:262,888,0,0
+BRDA:262,888,1,0
+BRDA:266,926,0,0
+BRDA:266,926,1,0
+BRDA:272,1024,0,0
+BRDA:272,1037,0,0
+BRDA:272,1024,1,0
+BRDA:272,1037,1,0
+BRDA:272,1057,0,0
+BRDA:272,1057,1,0
+FN:8,System.Void SharpSharp.NeedsBetterPlace::.cctor()
+FNDA:0,System.Void SharpSharp.NeedsBetterPlace::.cctor()
+DA:9,0
+LF:203
+LH:9
+BRF:100
+BRH:2
+FNF:9
+FNH:1
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\OperationOptions.cs
+FN:6,System.Boolean SharpSharp.OperationOptions::get_MakeNormalized()
+FNDA:0,System.Boolean SharpSharp.OperationOptions::get_MakeNormalized()
+DA:7,0
+FN:2,System.Void SharpSharp.OperationOptions::.ctor(System.Boolean)
+FNDA:0,System.Void SharpSharp.OperationOptions::.ctor(System.Boolean)
+DA:3,0
+DA:4,0
+DA:5,0
+LF:4
+LH:0
+BRF:0
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\PngOptions.cs
+FN:15,System.Int32 SharpSharp.PngOptions::get_Colors()
+FNDA:0,System.Int32 SharpSharp.PngOptions::get_Colors()
+DA:16,0
+FN:17,System.Int32 SharpSharp.PngOptions::get_CompressionLevel()
+FNDA:0,System.Int32 SharpSharp.PngOptions::get_CompressionLevel()
+DA:18,0
+FN:19,System.Double SharpSharp.PngOptions::get_Dither()
+FNDA:0,System.Double SharpSharp.PngOptions::get_Dither()
+DA:20,0
+FN:21,System.Boolean SharpSharp.PngOptions::get_MakeProgressive()
+FNDA:0,System.Boolean SharpSharp.PngOptions::get_MakeProgressive()
+DA:22,0
+FN:23,System.Int32 SharpSharp.PngOptions::get_Quality()
+FNDA:0,System.Int32 SharpSharp.PngOptions::get_Quality()
+DA:24,0
+FN:25,System.Boolean SharpSharp.PngOptions::get_UseAdaptiveFiltering()
+FNDA:0,System.Boolean SharpSharp.PngOptions::get_UseAdaptiveFiltering()
+DA:26,0
+FN:27,System.Boolean SharpSharp.PngOptions::get_UsePalette()
+FNDA:0,System.Boolean SharpSharp.PngOptions::get_UsePalette()
+DA:28,0
+FN:4,System.Void SharpSharp.PngOptions::.ctor(System.Int32,System.Int32,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Double)
+FNDA:0,System.Void SharpSharp.PngOptions::.ctor(System.Int32,System.Int32,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Double)
+DA:5,0
+DA:6,0
+DA:7,0
+DA:8,0
+DA:9,0
+DA:10,0
+DA:11,0
+DA:12,0
+DA:13,0
+DA:14,0
+LF:17
+LH:0
+BRF:0
+BRH:0
+FNF:8
+FNH:0
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\ResizeOptions.cs
+FN:18,SharpSharp.CoverBehavior SharpSharp.ResizeOptions::get_Behavior()
+FNDA:0,SharpSharp.CoverBehavior SharpSharp.ResizeOptions::get_Behavior()
+DA:19,0
+FN:20,System.Boolean SharpSharp.ResizeOptions::get_FastShrinkOnLoad()
+FNDA:13,System.Boolean SharpSharp.ResizeOptions::get_FastShrinkOnLoad()
+DA:21,13
+FN:22,SharpSharp.Fit SharpSharp.ResizeOptions::get_Fit()
+FNDA:26,SharpSharp.Fit SharpSharp.ResizeOptions::get_Fit()
+DA:23,26
+FN:24,System.Int32 SharpSharp.ResizeOptions::get_Height()
+FNDA:13,System.Int32 SharpSharp.ResizeOptions::get_Height()
+DA:25,13
+FN:26,System.String SharpSharp.ResizeOptions::get_Kernel()
+FNDA:13,System.String SharpSharp.ResizeOptions::get_Kernel()
+DA:27,13
+FN:28,System.Int32 SharpSharp.ResizeOptions::get_Width()
+FNDA:13,System.Int32 SharpSharp.ResizeOptions::get_Width()
+DA:29,13
+FN:30,System.Boolean SharpSharp.ResizeOptions::get_WithoutEnlargement()
+FNDA:13,System.Boolean SharpSharp.ResizeOptions::get_WithoutEnlargement()
+DA:31,13
+FN:5,System.Void SharpSharp.ResizeOptions::.ctor(System.Nullable`1<System.Int32>,System.Nullable`1<System.Int32>,SharpSharp.Fit,SharpSharp.CoverBehavior,System.String,System.Boolean,System.Boolean)
+FNDA:40,System.Void SharpSharp.ResizeOptions::.ctor(System.Nullable`1<System.Int32>,System.Nullable`1<System.Int32>,SharpSharp.Fit,SharpSharp.CoverBehavior,System.String,System.Boolean,System.Boolean)
+DA:6,40
+DA:10,20
+DA:11,20
+DA:12,20
+DA:13,20
+DA:14,20
+DA:15,20
+DA:16,20
+DA:17,20
+BRDA:10,18,0,0
+BRDA:10,18,1,20
+BRDA:11,45,0,0
+BRDA:11,45,1,20
+LF:16
+LH:15
+BRF:4
+BRH:2
+FNF:8
+FNH:7
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\SharpSharpException.cs
+FN:4,System.Void SharpSharp.SharpSharpException::.ctor(System.String)
+FNDA:0,System.Void SharpSharp.SharpSharpException::.ctor(System.String)
+DA:5,0
+DA:6,0
+FN:7,System.Void SharpSharp.SharpSharpException::.ctor(System.String,System.Exception)
+FNDA:0,System.Void SharpSharp.SharpSharpException::.ctor(System.String,System.Exception)
+DA:8,0
+DA:9,0
+LF:4
+LH:0
+BRF:0
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\Stats.cs
+FN:4,SharpSharp.ChannelStats[] SharpSharp.Stats::get_ChannelStats()
+FNDA:0,SharpSharp.ChannelStats[] SharpSharp.Stats::get_ChannelStats()
+DA:5,0
+FN:6,System.Double SharpSharp.Stats::get_Entropy()
+FNDA:0,System.Double SharpSharp.Stats::get_Entropy()
+DA:7,0
+FN:8,System.Boolean SharpSharp.Stats::get_IsOpaque()
+FNDA:0,System.Boolean SharpSharp.Stats::get_IsOpaque()
+DA:9,0
+LF:3
+LH:0
+BRF:0
+BRH:0
+FNF:3
+FNH:0
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\StringExtensions.cs
+FN:8,System.Boolean SharpSharp.StringExtensions::EndsWithAnyOrdinalIgnoreCase(System.String,System.String[])
+FNDA:0,System.Boolean SharpSharp.StringExtensions::EndsWithAnyOrdinalIgnoreCase(System.String,System.String[])
+DA:9,0
+DA:10,0
+DA:11,0
+DA:12,0
+DA:14,0
+FN:16,System.Boolean SharpSharp.StringExtensions::EndsWithOrdinalIgnoreCase(System.String,System.String)
+FNDA:13,System.Boolean SharpSharp.StringExtensions::EndsWithOrdinalIgnoreCase(System.String,System.String)
+DA:17,13
+DA:18,13
+DA:19,13
+DA:20,13
+LF:9
+LH:4
+BRF:0
+BRH:0
+FNF:2
+FNH:1
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\ToBufferOptions.cs
+FN:24,System.Byte[] SharpSharp.ToBufferOptions::get_Buffer()
+FNDA:46,System.Byte[] SharpSharp.ToBufferOptions::get_Buffer()
+DA:25,46
+FN:29,System.Action`1<SharpSharp.OutputImageInfo> SharpSharp.ToBufferOptions::get_Callback()
+FNDA:0,System.Action`1<SharpSharp.OutputImageInfo> SharpSharp.ToBufferOptions::get_Callback()
+DA:30,0
+FN:16,System.Void SharpSharp.ToBufferOptions::.ctor(System.Byte[],System.Action`1<SharpSharp.OutputImageInfo>)
+FNDA:24,System.Void SharpSharp.ToBufferOptions::.ctor(System.Byte[],System.Action`1<SharpSharp.OutputImageInfo>)
+DA:17,24
+DA:18,12
+DA:19,12
+DA:20,12
+LF:6
+LH:5
+BRF:0
+BRH:0
+FNF:3
+FNH:2
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\ToFileOptions.cs
+FN:25,System.Action`1<SharpSharp.OutputImageInfo> SharpSharp.ToFileOptions::get_Callback()
+FNDA:0,System.Action`1<SharpSharp.OutputImageInfo> SharpSharp.ToFileOptions::get_Callback()
+DA:26,0
+FN:30,System.String SharpSharp.ToFileOptions::get_FilePath()
+FNDA:1,System.String SharpSharp.ToFileOptions::get_FilePath()
+DA:31,1
+FN:17,System.Void SharpSharp.ToFileOptions::.ctor(System.String,System.Action`1<SharpSharp.OutputImageInfo>)
+FNDA:2,System.Void SharpSharp.ToFileOptions::.ctor(System.String,System.Action`1<SharpSharp.OutputImageInfo>)
+DA:18,2
+DA:19,1
+DA:20,1
+DA:21,1
+LF:6
+LH:5
+BRF:0
+BRH:0
+FNF:3
+FNH:2
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\ToStreamOptions.cs
+FN:11,System.Action`1<SharpSharp.OutputImageInfo> SharpSharp.ToStreamOptions::get_Callback()
+FNDA:4,System.Action`1<SharpSharp.OutputImageInfo> SharpSharp.ToStreamOptions::get_Callback()
+DA:12,4
+FN:13,System.IO.Stream SharpSharp.ToStreamOptions::get_Stream()
+FNDA:2,System.IO.Stream SharpSharp.ToStreamOptions::get_Stream()
+DA:14,2
+FN:6,System.Void SharpSharp.ToStreamOptions::.ctor(System.IO.Stream,System.Action`1<SharpSharp.OutputImageInfo>)
+FNDA:4,System.Void SharpSharp.ToStreamOptions::.ctor(System.IO.Stream,System.Action`1<SharpSharp.OutputImageInfo>)
+DA:7,4
+DA:8,2
+DA:9,2
+DA:10,2
+LF:6
+LH:6
+BRF:0
+BRH:0
+FNF:3
+FNH:3
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\WebpOptions.cs
+FN:13,System.Int32 SharpSharp.WebpOptions::get_AlphaQuality()
+FNDA:0,System.Int32 SharpSharp.WebpOptions::get_AlphaQuality()
+DA:14,0
+FN:15,System.Int32 SharpSharp.WebpOptions::get_Quality()
+FNDA:0,System.Int32 SharpSharp.WebpOptions::get_Quality()
+DA:16,0
+FN:17,System.Int32 SharpSharp.WebpOptions::get_ReductionEffort()
+FNDA:0,System.Int32 SharpSharp.WebpOptions::get_ReductionEffort()
+DA:18,0
+FN:19,System.Boolean SharpSharp.WebpOptions::get_UseLossless()
+FNDA:0,System.Boolean SharpSharp.WebpOptions::get_UseLossless()
+DA:20,0
+FN:21,System.Boolean SharpSharp.WebpOptions::get_UseNearLossless()
+FNDA:0,System.Boolean SharpSharp.WebpOptions::get_UseNearLossless()
+DA:22,0
+FN:23,System.Boolean SharpSharp.WebpOptions::get_UseSmartSubsample()
+FNDA:0,System.Boolean SharpSharp.WebpOptions::get_UseSmartSubsample()
+DA:24,0
+FN:4,System.Void SharpSharp.WebpOptions::.ctor(System.Int32,System.Int32,System.Boolean,System.Boolean,System.Boolean,System.Int32)
+FNDA:0,System.Void SharpSharp.WebpOptions::.ctor(System.Int32,System.Int32,System.Boolean,System.Boolean,System.Boolean,System.Int32)
+DA:5,0
+DA:6,0
+DA:7,0
+DA:8,0
+DA:9,0
+DA:10,0
+DA:11,0
+DA:12,0
+LF:14
+LH:0
+BRF:0
+BRH:0
+FNF:7
+FNH:0
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\Pipeline\BufferImageSource.cs
+FN:10,System.Byte[] SharpSharp.Pipeline.BufferImageSource::get_Buffer()
+FNDA:39,System.Byte[] SharpSharp.Pipeline.BufferImageSource::get_Buffer()
+DA:11,39
+FN:12,System.ValueTuple`2<NetVips.Image,SharpSharp.Pipeline.ImageType> SharpSharp.Pipeline.BufferImageSource::Load(NetVips.VOption)
+FNDA:13,System.ValueTuple`2<NetVips.Image,SharpSharp.Pipeline.ImageType> SharpSharp.Pipeline.BufferImageSource::Load(NetVips.VOption)
+DA:13,13
+DA:14,13
+DA:15,13
+DA:17,26
+DA:18,13
+DA:19,13
+DA:21,13
+DA:22,13
+DA:23,13
+DA:24,13
+DA:25,13
+DA:26,13
+DA:27,13
+DA:34,13
+DA:36,0
+DA:37,0
+DA:39,13
+BRDA:17,20,0,13
+BRDA:17,20,1,13
+BRDA:21,55,0,0
+BRDA:21,55,1,13
+FN:5,System.Void SharpSharp.Pipeline.BufferImageSource::.ctor(System.Byte[],SharpSharp.ImageLoadOptions)
+FNDA:24,System.Void SharpSharp.Pipeline.BufferImageSource::.ctor(System.Byte[],SharpSharp.ImageLoadOptions)
+DA:6,24
+DA:7,12
+DA:8,12
+DA:9,12
+LF:22
+LH:20
+BRF:4
+BRH:3
+FNF:3
+FNH:3
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\Pipeline\ImageSource.cs
+FN:9,SharpSharp.ImageLoadOptions SharpSharp.Pipeline.ImageSource::get_Options()
+FNDA:26,SharpSharp.ImageLoadOptions SharpSharp.Pipeline.ImageSource::get_Options()
+DA:10,26
+FN:13,NetVips.VOption SharpSharp.Pipeline.ImageSource::BuildLoadOptionsFromImageType(SharpSharp.Pipeline.ImageType)
+FNDA:13,NetVips.VOption SharpSharp.Pipeline.ImageSource::BuildLoadOptionsFromImageType(SharpSharp.Pipeline.ImageType)
+DA:14,13
+DA:15,13
+DA:17,13
+DA:18,0
+DA:19,0
+DA:20,13
+DA:21,0
+DA:22,0
+DA:24,13
+DA:25,0
+DA:26,0
+DA:27,0
+DA:29,13
+DA:30,13
+BRDA:17,18,0,13
+BRDA:17,18,1,0
+BRDA:17,36,0,0
+BRDA:17,36,1,13
+BRDA:20,83,0,0
+BRDA:20,83,1,13
+BRDA:24,133,0,0
+BRDA:24,133,1,13
+FN:5,System.Void SharpSharp.Pipeline.ImageSource::.ctor(SharpSharp.ImageLoadOptions)
+FNDA:24,System.Void SharpSharp.Pipeline.ImageSource::.ctor(SharpSharp.ImageLoadOptions)
+DA:6,24
+DA:7,12
+DA:8,12
+LF:18
+LH:11
+BRF:8
+BRH:4
+FNF:3
+FNH:3
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\Pipeline\ImageType.cs
+FN:31,System.String SharpSharp.Pipeline.ImageType::get_Extension()
+FNDA:78,System.String SharpSharp.Pipeline.ImageType::get_Extension()
+DA:32,78
+FN:33,System.String SharpSharp.Pipeline.ImageType::get_ImageTypeId()
+FNDA:0,System.String SharpSharp.Pipeline.ImageType::get_ImageTypeId()
+DA:34,0
+FN:35,System.String SharpSharp.Pipeline.ImageType::get_MimeType()
+FNDA:0,System.String SharpSharp.Pipeline.ImageType::get_MimeType()
+DA:36,0
+FN:37,System.Boolean SharpSharp.Pipeline.ImageType::get_SupportsPages()
+FNDA:13,System.Boolean SharpSharp.Pipeline.ImageType::get_SupportsPages()
+DA:38,13
+FN:39,System.Boolean SharpSharp.Pipeline.ImageType::Equals(SharpSharp.Pipeline.ImageType)
+FNDA:39,System.Boolean SharpSharp.Pipeline.ImageType::Equals(SharpSharp.Pipeline.ImageType)
+DA:40,39
+DA:41,39
+DA:42,0
+DA:45,39
+DA:46,0
+DA:49,39
+DA:50,39
+BRDA:41,7,0,0
+BRDA:41,7,1,39
+BRDA:45,20,0,0
+BRDA:45,20,1,39
+BRDA:49,44,0,0
+BRDA:49,44,1,39
+FN:51,SharpSharp.Pipeline.ImageType SharpSharp.Pipeline.ImageType::FromBuffer(System.Byte[])
+FNDA:13,SharpSharp.Pipeline.ImageType SharpSharp.Pipeline.ImageType::FromBuffer(System.Byte[])
+DA:52,13
+DA:53,13
+DA:55,13
+DA:57,13
+DA:58,0
+DA:61,26
+DA:62,13
+DA:65,0
+DA:66,0
+DA:69,0
+DA:70,0
+DA:73,0
+DA:74,0
+DA:77,0
+DA:78,0
+DA:81,0
+DA:82,0
+DA:85,0
+DA:86,0
+DA:89,0
+DA:90,0
+DA:93,0
+DA:94,0
+DA:97,0
+DA:98,13
+BRDA:57,26,0,0
+BRDA:57,26,1,13
+BRDA:61,53,0,13
+BRDA:61,53,1,0
+BRDA:65,82,0,0
+BRDA:65,82,1,0
+BRDA:69,111,0,0
+BRDA:69,111,1,0
+BRDA:73,140,0,0
+BRDA:73,140,1,0
+BRDA:77,169,0,0
+BRDA:77,169,1,0
+BRDA:81,195,0,0
+BRDA:81,195,1,0
+BRDA:85,221,0,0
+BRDA:85,221,1,0
+BRDA:89,247,0,0
+BRDA:89,247,1,0
+BRDA:93,273,0,0
+BRDA:93,273,1,0
+FN:99,SharpSharp.Pipeline.ImageType SharpSharp.Pipeline.ImageType::FromFile(System.String)
+FNDA:0,SharpSharp.Pipeline.ImageType SharpSharp.Pipeline.ImageType::FromFile(System.String)
+DA:100,0
+DA:101,0
+DA:103,0
+DA:105,0
+DA:106,0
+DA:109,0
+DA:110,0
+DA:113,0
+DA:114,0
+DA:117,0
+DA:118,0
+DA:121,0
+DA:122,0
+DA:125,0
+DA:126,0
+DA:129,0
+DA:130,0
+DA:133,0
+DA:134,0
+DA:137,0
+DA:138,0
+DA:141,0
+DA:142,0
+DA:145,0
+DA:146,0
+DA:149,0
+DA:150,0
+DA:153,0
+DA:154,0
+DA:157,0
+DA:158,0
+DA:161,0
+DA:162,0
+BRDA:105,26,0,0
+BRDA:105,26,1,0
+BRDA:109,53,0,0
+BRDA:109,53,1,0
+BRDA:113,82,0,0
+BRDA:113,82,1,0
+BRDA:117,111,0,0
+BRDA:117,111,1,0
+BRDA:121,140,0,0
+BRDA:121,140,1,0
+BRDA:125,169,0,0
+BRDA:125,169,1,0
+BRDA:129,198,0,0
+BRDA:129,198,1,0
+BRDA:133,227,0,0
+BRDA:133,227,1,0
+BRDA:137,256,0,0
+BRDA:137,256,1,0
+BRDA:141,285,0,0
+BRDA:141,285,1,0
+BRDA:145,314,0,0
+BRDA:145,314,1,0
+BRDA:149,340,0,0
+BRDA:149,340,1,0
+BRDA:153,366,0,0
+BRDA:153,366,1,0
+BRDA:157,388,0,0
+BRDA:157,388,1,0
+BRDA:157,408,0,0
+BRDA:157,408,1,0
+FN:163,SharpSharp.Pipeline.ImageType SharpSharp.Pipeline.ImageType::FromImage(NetVips.Image)
+FNDA:0,SharpSharp.Pipeline.ImageType SharpSharp.Pipeline.ImageType::FromImage(NetVips.Image)
+DA:164,0
+DA:165,0
+DA:166,0
+DA:167,0
+BRDA:166,24,0,0
+BRDA:166,24,1,0
+FN:168,System.Boolean SharpSharp.Pipeline.ImageType::op_Equality(SharpSharp.Pipeline.ImageType,SharpSharp.Pipeline.ImageType)
+FNDA:65,System.Boolean SharpSharp.Pipeline.ImageType::op_Equality(SharpSharp.Pipeline.ImageType,SharpSharp.Pipeline.ImageType)
+DA:169,65
+FN:170,System.Boolean SharpSharp.Pipeline.ImageType::op_Inequality(SharpSharp.Pipeline.ImageType,SharpSharp.Pipeline.ImageType)
+FNDA:0,System.Boolean SharpSharp.Pipeline.ImageType::op_Inequality(SharpSharp.Pipeline.ImageType,SharpSharp.Pipeline.ImageType)
+DA:171,0
+FN:172,System.Boolean SharpSharp.Pipeline.ImageType::Equals(System.Object)
+FNDA:39,System.Boolean SharpSharp.Pipeline.ImageType::Equals(System.Object)
+DA:173,39
+BRDA:173,2,0,39
+BRDA:173,12,0,39
+BRDA:173,12,1,0
+BRDA:173,2,1,0
+FN:174,System.Int32 SharpSharp.Pipeline.ImageType::GetHashCode()
+FNDA:0,System.Int32 SharpSharp.Pipeline.ImageType::GetHashCode()
+DA:175,0
+DA:176,0
+DA:177,0
+DA:179,0
+BRDA:177,8,0,0
+BRDA:177,8,1,0
+BRDA:177,37,0,0
+BRDA:177,37,1,0
+FN:25,System.Void SharpSharp.Pipeline.ImageType::.ctor(System.String,System.String,System.Boolean)
+FNDA:32,System.Void SharpSharp.Pipeline.ImageType::.ctor(System.String,System.String,System.Boolean)
+DA:26,32
+DA:27,16
+DA:28,16
+DA:29,16
+DA:30,16
+FN:8,System.Void SharpSharp.Pipeline.ImageType::.cctor()
+FNDA:1,System.Void SharpSharp.Pipeline.ImageType::.cctor()
+DA:9,1
+DA:10,1
+DA:11,1
+DA:12,1
+DA:13,1
+DA:14,1
+DA:15,1
+DA:16,1
+DA:17,1
+DA:18,1
+DA:19,1
+DA:20,1
+DA:21,1
+DA:22,1
+DA:23,1
+DA:24,1
+LF:101
+LH:37
+BRF:66
+BRH:7
+FNF:14
+FNH:8
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\Pipeline\PipelineBaton.cs
+FN:9,SharpSharp.ChannelOptions SharpSharp.Pipeline.PipelineBaton::get_ChannelOptions()
+FNDA:13,SharpSharp.ChannelOptions SharpSharp.Pipeline.PipelineBaton::get_ChannelOptions()
+DA:10,13
+FN:11,System.Int32 SharpSharp.Pipeline.PipelineBaton::get_Channels()
+FNDA:26,System.Int32 SharpSharp.Pipeline.PipelineBaton::get_Channels()
+DA:12,26
+FN:13,SharpSharp.ColorizationOptions SharpSharp.Pipeline.PipelineBaton::get_ColorizationOptions()
+FNDA:13,SharpSharp.ColorizationOptions SharpSharp.Pipeline.PipelineBaton::get_ColorizationOptions()
+DA:14,13
+FN:15,SharpSharp.HeifOptions SharpSharp.Pipeline.PipelineBaton::get_HeifOptions()
+FNDA:0,SharpSharp.HeifOptions SharpSharp.Pipeline.PipelineBaton::get_HeifOptions()
+DA:16,0
+FN:17,System.Int32 SharpSharp.Pipeline.PipelineBaton::get_Height()
+FNDA:130,System.Int32 SharpSharp.Pipeline.PipelineBaton::get_Height()
+DA:18,130
+FN:19,NetVips.Image SharpSharp.Pipeline.PipelineBaton::get_Image()
+FNDA:13,NetVips.Image SharpSharp.Pipeline.PipelineBaton::get_Image()
+DA:20,13
+FN:21,SharpSharp.Pipeline.ImageType SharpSharp.Pipeline.PipelineBaton::get_InputImageType()
+FNDA:13,SharpSharp.Pipeline.ImageType SharpSharp.Pipeline.PipelineBaton::get_InputImageType()
+DA:22,13
+FN:23,SharpSharp.JpegOptions SharpSharp.Pipeline.PipelineBaton::get_JpegOptions()
+FNDA:39,SharpSharp.JpegOptions SharpSharp.Pipeline.PipelineBaton::get_JpegOptions()
+DA:24,39
+FN:25,SharpSharp.MetadataOptions SharpSharp.Pipeline.PipelineBaton::get_MetadataOptions()
+FNDA:25,SharpSharp.MetadataOptions SharpSharp.Pipeline.PipelineBaton::get_MetadataOptions()
+DA:26,25
+FN:27,SharpSharp.OperationOptions SharpSharp.Pipeline.PipelineBaton::get_OperationOptions()
+FNDA:13,SharpSharp.OperationOptions SharpSharp.Pipeline.PipelineBaton::get_OperationOptions()
+DA:28,13
+FN:29,SharpSharp.OutputImageInfo SharpSharp.Pipeline.PipelineBaton::get_OutputImageInfo()
+FNDA:41,SharpSharp.OutputImageInfo SharpSharp.Pipeline.PipelineBaton::get_OutputImageInfo()
+DA:30,41
+FN:31,SharpSharp.PngOptions SharpSharp.Pipeline.PipelineBaton::get_PngOptions()
+FNDA:0,SharpSharp.PngOptions SharpSharp.Pipeline.PipelineBaton::get_PngOptions()
+DA:32,0
+FN:33,SharpSharp.RawOptions SharpSharp.Pipeline.PipelineBaton::get_RawOptions()
+FNDA:0,SharpSharp.RawOptions SharpSharp.Pipeline.PipelineBaton::get_RawOptions()
+DA:34,0
+FN:35,SharpSharp.ResizeOptions SharpSharp.Pipeline.PipelineBaton::get_ResizeOptions()
+FNDA:111,SharpSharp.ResizeOptions SharpSharp.Pipeline.PipelineBaton::get_ResizeOptions()
+DA:36,111
+FN:37,SharpSharp.Pipeline.SharpenOptions SharpSharp.Pipeline.PipelineBaton::get_SharpenOptions()
+FNDA:13,SharpSharp.Pipeline.SharpenOptions SharpSharp.Pipeline.PipelineBaton::get_SharpenOptions()
+DA:38,13
+FN:39,SharpSharp.ToBufferOptions SharpSharp.Pipeline.PipelineBaton::get_ToBufferOptions()
+FNDA:47,SharpSharp.ToBufferOptions SharpSharp.Pipeline.PipelineBaton::get_ToBufferOptions()
+DA:40,47
+FN:41,SharpSharp.ToFileOptions SharpSharp.Pipeline.PipelineBaton::get_ToFileOptions()
+FNDA:15,SharpSharp.ToFileOptions SharpSharp.Pipeline.PipelineBaton::get_ToFileOptions()
+DA:42,15
+FN:43,SharpSharp.ToStreamOptions SharpSharp.Pipeline.PipelineBaton::get_ToStreamOptions()
+FNDA:30,SharpSharp.ToStreamOptions SharpSharp.Pipeline.PipelineBaton::get_ToStreamOptions()
+DA:44,30
+FN:45,SharpSharp.WebpOptions SharpSharp.Pipeline.PipelineBaton::get_WebpOptions()
+FNDA:0,SharpSharp.WebpOptions SharpSharp.Pipeline.PipelineBaton::get_WebpOptions()
+DA:46,0
+FN:47,System.Int32 SharpSharp.Pipeline.PipelineBaton::get_Width()
+FNDA:130,System.Int32 SharpSharp.Pipeline.PipelineBaton::get_Width()
+DA:48,130
+FN:4,System.Void SharpSharp.Pipeline.PipelineBaton::.ctor()
+FNDA:24,System.Void SharpSharp.Pipeline.PipelineBaton::.ctor()
+DA:5,24
+DA:6,12
+DA:7,12
+DA:8,12
+LF:24
+LH:20
+BRF:0
+BRH:0
+FNF:21
+FNH:17
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\Pipeline\Processor.cs
+FN:7,System.Void SharpSharp.Pipeline.Processor::Process(SharpSharp.Pipeline.ImageSource,SharpSharp.Pipeline.PipelineBaton)
+FNDA:13,System.Void SharpSharp.Pipeline.Processor::Process(SharpSharp.Pipeline.ImageSource,SharpSharp.Pipeline.PipelineBaton)
+DA:8,13
+DA:9,13
+DA:10,13
+DA:12,13
+DA:14,13
+DA:15,13
+DA:25,13
+DA:26,13
+DA:30,13
+DA:31,13
+DA:32,13
+DA:33,13
+DA:34,13
+DA:35,13
+DA:36,26
+DA:38,13
+DA:39,13
+DA:40,13
+DA:42,26
+DA:43,13
+DA:44,13
+DA:45,13
+DA:46,0
+DA:47,0
+DA:48,0
+DA:49,0
+DA:51,13
+DA:53,0
+DA:54,0
+DA:55,0
+DA:56,0
+DA:57,0
+DA:58,0
+DA:59,0
+DA:60,0
+DA:62,0
+DA:64,0
+DA:65,0
+DA:66,0
+DA:67,0
+DA:68,0
+DA:69,0
+DA:70,0
+DA:71,0
+DA:72,0
+DA:73,0
+DA:75,0
+DA:77,0
+DA:78,0
+DA:79,0
+DA:80,0
+DA:81,0
+DA:82,0
+DA:83,0
+DA:84,0
+DA:85,0
+DA:86,0
+DA:88,0
+DA:91,0
+DA:93,13
+DA:94,0
+DA:96,0
+DA:97,0
+DA:98,0
+DA:99,0
+DA:100,0
+DA:101,0
+DA:103,0
+DA:104,0
+DA:105,0
+DA:106,0
+DA:107,0
+DA:108,0
+DA:110,0
+DA:111,0
+DA:112,0
+DA:113,0
+DA:114,0
+DA:115,0
+DA:117,0
+DA:118,0
+DA:119,0
+DA:120,0
+DA:121,0
+DA:122,0
+DA:124,0
+DA:125,0
+DA:126,0
+DA:129,13
+DA:130,13
+DA:133,13
+DA:134,13
+DA:138,13
+DA:139,0
+DA:140,0
+DA:141,0
+DA:142,0
+DA:143,0
+DA:144,0
+DA:145,0
+DA:146,0
+DA:147,0
+DA:148,0
+DA:149,0
+DA:153,13
+DA:154,13
+DA:158,13
+DA:159,0
+DA:160,0
+DA:162,26
+DA:164,26
+DA:165,13
+DA:166,13
+DA:167,13
+DA:168,13
+DA:169,0
+DA:170,0
+DA:171,0
+DA:172,0
+DA:173,0
+DA:174,0
+DA:175,0
+DA:176,0
+DA:177,0
+DA:178,0
+DA:179,13
+DA:182,13
+DA:183,0
+DA:184,0
+DA:185,0
+DA:186,0
+DA:188,26
+DA:190,13
+DA:191,26
+DA:192,13
+DA:193,13
+DA:194,13
+DA:195,13
+DA:198,13
+DA:199,13
+DA:205,13
+DA:206,13
+DA:207,13
+DA:210,13
+DA:212,0
+DA:213,0
+DA:214,0
+DA:215,0
+DA:217,0
+DA:218,0
+DA:219,13
+DA:220,0
+DA:221,0
+DA:227,13
+DA:228,0
+DA:229,0
+DA:231,13
+DA:243,13
+DA:247,13
+DA:248,0
+DA:249,0
+DA:252,26
+DA:253,13
+DA:255,13
+DA:256,0
+DA:257,0
+DA:258,0
+DA:260,13
+DA:261,0
+DA:262,0
+DA:263,0
+DA:265,13
+DA:266,13
+DA:274,26
+DA:275,13
+DA:276,13
+DA:278,0
+DA:279,26
+DA:283,13
+DA:284,13
+DA:285,13
+DA:286,13
+DA:291,13
+DA:292,13
+DA:305,13
+DA:306,0
+DA:307,0
+DA:315,13
+DA:316,0
+DA:317,0
+DA:324,13
+DA:325,0
+DA:326,0
+DA:333,13
+DA:334,13
+DA:335,13
+DA:339,13
+DA:341,13
+DA:342,13
+DA:343,13
+DA:344,13
+DA:345,13
+DA:346,13
+DA:348,13
+DA:349,15
+DA:350,2
+DA:351,2
+DA:353,25
+DA:354,12
+DA:356,24
+DA:357,12
+DA:358,12
+DA:359,12
+DA:360,12
+DA:361,12
+DA:362,12
+DA:363,12
+DA:364,12
+DA:365,12
+DA:366,12
+DA:367,12
+DA:368,12
+DA:369,12
+DA:370,12
+DA:371,12
+DA:372,12
+DA:373,0
+DA:374,0
+DA:375,0
+DA:376,0
+DA:377,0
+DA:378,0
+DA:379,0
+DA:380,0
+DA:381,0
+DA:382,0
+DA:383,0
+DA:384,0
+DA:385,0
+DA:386,0
+DA:387,0
+DA:388,0
+DA:389,0
+DA:390,0
+DA:391,0
+DA:392,0
+DA:393,0
+DA:394,0
+DA:395,0
+DA:396,0
+DA:397,0
+DA:398,0
+DA:399,0
+DA:400,0
+DA:401,0
+DA:402,0
+DA:403,0
+DA:404,0
+DA:405,0
+DA:406,0
+DA:407,0
+DA:409,0
+DA:411,0
+DA:412,0
+DA:414,0
+DA:416,0
+DA:417,0
+DA:419,0
+DA:420,0
+DA:421,0
+DA:422,0
+DA:423,0
+DA:425,12
+DA:426,12
+DA:428,15
+DA:429,2
+DA:430,2
+DA:432,14
+DA:433,1
+DA:434,1
+DA:436,2
+DA:437,1
+DA:438,1
+DA:439,1
+DA:440,1
+DA:441,1
+DA:442,1
+DA:443,1
+DA:444,1
+DA:445,1
+DA:446,1
+DA:447,1
+DA:448,1
+DA:449,1
+DA:450,1
+DA:451,1
+DA:452,1
+DA:453,1
+DA:454,0
+DA:455,0
+DA:456,0
+DA:457,0
+DA:458,0
+DA:459,0
+DA:460,0
+DA:461,0
+DA:462,0
+DA:463,0
+DA:464,0
+DA:465,0
+DA:466,0
+DA:467,0
+DA:468,0
+DA:469,0
+DA:470,0
+DA:471,0
+DA:472,0
+DA:473,0
+DA:474,0
+DA:475,0
+DA:476,0
+DA:477,0
+DA:478,0
+DA:479,0
+DA:480,0
+DA:481,0
+DA:482,0
+DA:483,0
+DA:484,0
+DA:485,0
+DA:486,0
+DA:487,0
+DA:488,0
+DA:489,0
+DA:491,1
+DA:492,1
+DA:495,13
+DA:496,13
+BRDA:36,156,0,13
+BRDA:36,156,1,0
+BRDA:36,174,0,13
+BRDA:40,223,2,13
+BRDA:42,263,0,13
+BRDA:42,263,1,0
+BRDA:40,223,1,0
+BRDA:53,322,0,0
+BRDA:53,322,1,0
+BRDA:40,223,4,0
+BRDA:64,381,0,0
+BRDA:64,381,1,0
+BRDA:40,223,5,0
+BRDA:77,455,0,0
+BRDA:77,455,1,0
+BRDA:40,223,0,13
+BRDA:40,223,3,13
+BRDA:36,174,1,0
+BRDA:94,540,0,0
+BRDA:97,573,0,0
+BRDA:97,573,1,0
+BRDA:94,540,1,0
+BRDA:108,635,0,0
+BRDA:111,668,0,0
+BRDA:111,668,1,0
+BRDA:108,635,1,0
+BRDA:138,798,0,0
+BRDA:139,808,0,0
+BRDA:139,808,1,0
+BRDA:139,826,0,0
+BRDA:139,826,1,0
+BRDA:138,798,1,13
+BRDA:158,921,0,0
+BRDA:158,921,1,13
+BRDA:162,932,0,13
+BRDA:162,940,0,13
+BRDA:162,953,0,0
+BRDA:162,953,1,13
+BRDA:162,932,1,0
+BRDA:162,940,1,0
+BRDA:162,976,0,13
+BRDA:164,997,0,13
+BRDA:164,997,1,0
+BRDA:169,1049,0,0
+BRDA:169,1049,1,0
+BRDA:174,1101,0,0
+BRDA:174,1101,1,13
+BRDA:162,976,1,13
+BRDA:182,1140,0,13
+BRDA:182,1158,0,13
+BRDA:182,1158,1,0
+BRDA:182,1140,1,0
+BRDA:182,1186,0,0
+BRDA:182,1186,1,13
+BRDA:188,1233,0,13
+BRDA:190,1250,0,0
+BRDA:190,1250,1,13
+BRDA:191,1283,0,13
+BRDA:192,1300,0,0
+BRDA:192,1300,1,13
+BRDA:191,1283,1,13
+BRDA:188,1233,1,13
+BRDA:210,1466,0,0
+BRDA:210,1466,1,13
+BRDA:210,1491,0,0
+BRDA:210,1491,1,13
+BRDA:219,1561,0,0
+BRDA:219,1561,1,13
+BRDA:227,1619,0,0
+BRDA:227,1619,1,13
+BRDA:227,1639,0,0
+BRDA:227,1639,1,13
+BRDA:231,1672,0,0
+BRDA:231,1672,1,13
+BRDA:247,1715,0,0
+BRDA:247,1715,1,13
+BRDA:252,1742,0,13
+BRDA:255,1786,0,0
+BRDA:255,1786,1,13
+BRDA:260,1834,0,0
+BRDA:260,1834,1,13
+BRDA:252,1742,1,13
+BRDA:274,1908,0,13
+BRDA:274,1908,1,0
+BRDA:274,1934,0,13
+BRDA:276,1962,0,0
+BRDA:276,1962,1,13
+BRDA:279,1974,0,13
+BRDA:279,1974,1,13
+BRDA:279,1988,0,13
+BRDA:279,1988,1,0
+BRDA:279,2011,0,13
+BRDA:279,2011,1,13
+BRDA:274,1934,1,13
+BRDA:305,2129,0,0
+BRDA:306,2164,0,0
+BRDA:306,2164,1,0
+BRDA:306,2204,0,0
+BRDA:306,2204,1,0
+BRDA:305,2129,1,13
+BRDA:315,2242,0,0
+BRDA:315,2242,1,13
+BRDA:315,2262,0,0
+BRDA:315,2262,1,13
+BRDA:324,2284,0,0
+BRDA:324,2284,1,13
+BRDA:324,2304,0,0
+BRDA:324,2304,1,13
+BRDA:349,2440,0,2
+BRDA:349,2440,1,13
+BRDA:353,2474,0,12
+BRDA:356,2503,0,12
+BRDA:356,2503,1,0
+BRDA:373,2684,0,0
+BRDA:373,2684,1,0
+BRDA:391,2871,0,0
+BRDA:393,2930,0,0
+BRDA:393,2930,1,0
+BRDA:391,2871,1,0
+BRDA:407,3050,0,0
+BRDA:409,3067,0,0
+BRDA:409,3067,1,0
+BRDA:409,3080,0,0
+BRDA:409,3080,1,0
+BRDA:409,3105,0,0
+BRDA:409,3105,1,0
+BRDA:414,3137,0,0
+BRDA:414,3137,1,0
+BRDA:407,3050,1,0
+BRDA:353,2474,1,13
+BRDA:428,3246,0,2
+BRDA:428,3246,1,13
+BRDA:432,3289,0,1
+BRDA:436,3327,0,1
+BRDA:436,3327,1,0
+BRDA:454,3503,0,0
+BRDA:454,3503,1,0
+BRDA:473,3685,0,0
+BRDA:475,3744,0,0
+BRDA:475,3744,1,0
+BRDA:473,3685,1,1
+BRDA:432,3289,1,13
+BRDA:495,3866,1,13
+BRDA:495,3866,0,13
+LF:338
+LH:140
+BRF:144
+BRH:62
+FNF:1
+FNH:1
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\Pipeline\SharpenOptions.cs
+FN:27,System.Nullable`1<System.Double> SharpSharp.Pipeline.SharpenOptions::get_Flat()
+FNDA:0,System.Nullable`1<System.Double> SharpSharp.Pipeline.SharpenOptions::get_Flat()
+DA:28,0
+FN:29,System.Nullable`1<System.Double> SharpSharp.Pipeline.SharpenOptions::get_Jagged()
+FNDA:0,System.Nullable`1<System.Double> SharpSharp.Pipeline.SharpenOptions::get_Jagged()
+DA:30,0
+FN:31,System.Double SharpSharp.Pipeline.SharpenOptions::get_Sigma()
+FNDA:0,System.Double SharpSharp.Pipeline.SharpenOptions::get_Sigma()
+DA:32,0
+FN:4,System.Void SharpSharp.Pipeline.SharpenOptions::.ctor(System.Nullable`1<System.Double>,System.Nullable`1<System.Double>,System.Nullable`1<System.Double>)
+FNDA:0,System.Void SharpSharp.Pipeline.SharpenOptions::.ctor(System.Nullable`1<System.Double>,System.Nullable`1<System.Double>,System.Nullable`1<System.Double>)
+DA:5,0
+DA:6,0
+DA:7,0
+DA:8,0
+DA:9,0
+DA:10,0
+DA:11,0
+DA:13,0
+DA:14,0
+DA:15,0
+DA:16,0
+DA:17,0
+DA:18,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+BRDA:6,20,0,0
+BRDA:6,20,1,0
+BRDA:13,93,0,0
+BRDA:13,93,1,0
+BRDA:20,169,0,0
+BRDA:20,169,1,0
+LF:23
+LH:0
+BRF:6
+BRH:0
+FNF:4
+FNH:0
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\Pipeline\VipsImageSource.cs
+FN:13,System.ValueTuple`2<NetVips.Image,SharpSharp.Pipeline.ImageType> SharpSharp.Pipeline.VipsImageSource::Load(NetVips.VOption)
+FNDA:0,System.ValueTuple`2<NetVips.Image,SharpSharp.Pipeline.ImageType> SharpSharp.Pipeline.VipsImageSource::Load(NetVips.VOption)
+DA:14,0
+FN:8,System.Void SharpSharp.Pipeline.VipsImageSource::.ctor(NetVips.Image,SharpSharp.ImageLoadOptions)
+FNDA:0,System.Void SharpSharp.Pipeline.VipsImageSource::.ctor(NetVips.Image,SharpSharp.ImageLoadOptions)
+DA:9,0
+DA:10,0
+DA:11,0
+DA:12,0
+LF:5
+LH:0
+BRF:0
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:C:\Code\Github\randyridge\sharpsharp\SharpSharp\Pipeline\WorkInProgress.cs
+FN:12,NetVips.Image SharpSharp.Pipeline.WorkInProgress::get_Image()
+FNDA:0,NetVips.Image SharpSharp.Pipeline.WorkInProgress::get_Image()
+DA:13,0
+FN:14,SharpSharp.Pipeline.ImageType SharpSharp.Pipeline.WorkInProgress::get_ImageType()
+FNDA:0,SharpSharp.Pipeline.ImageType SharpSharp.Pipeline.WorkInProgress::get_ImageType()
+DA:15,0
+FN:16,System.Int32 SharpSharp.Pipeline.WorkInProgress::get_InputWidth()
+FNDA:0,System.Int32 SharpSharp.Pipeline.WorkInProgress::get_InputWidth()
+DA:17,0
+FN:18,System.Int32 SharpSharp.Pipeline.WorkInProgress::get_InputHeight()
+FNDA:0,System.Int32 SharpSharp.Pipeline.WorkInProgress::get_InputHeight()
+DA:19,0
+FN:5,System.Void SharpSharp.Pipeline.WorkInProgress::.ctor(NetVips.Image,SharpSharp.Pipeline.ImageType)
+FNDA:0,System.Void SharpSharp.Pipeline.WorkInProgress::.ctor(NetVips.Image,SharpSharp.Pipeline.ImageType)
+DA:6,0
+DA:7,0
+DA:8,0
+DA:9,0
+DA:10,0
+DA:11,0
+LF:10
+LH:0
+BRF:0
+BRH:0
+FNF:5
+FNH:0
+end_of_record
