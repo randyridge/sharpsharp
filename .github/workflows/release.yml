@@ -21,7 +21,7 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: Test
-        run: dotnet test --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov ./SharpSharp.Tests
+        run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov ./SharpSharp.Tests
   
       - name: Pack
         run: dotnet pack --configuration Release SharpSharp
