@@ -1,23 +1,22 @@
-﻿using System.Collections;
-using BenchmarkDotNet.Attributes;
+﻿using BenchmarkDotNet.Attributes;
 
 namespace SharpSharp.Benchmarks {
     [Config(typeof(DefaultConfig))]
     public class DifferenceHashBenchmark {
-        private readonly DifferenceHash hash;
+        private readonly byte[] buffer;
 
         public DifferenceHashBenchmark() {
             ImagePipeline
                 .FromFile(TestFiles.InputJpg)
                 .Png()
-                .ToBuffer(out var buffer);
-            hash = new DifferenceHash(buffer);
+                .ToBuffer(out var b);
+            buffer = b;
         }
 
-        [Benchmark]
-        public BitArray ComputeLong() => hash.ComputeLong();
+        [Benchmark(Baseline = true)]
+        public long ComputeLong() => DifferenceHash.HashLong(buffer);
 
         [Benchmark]
-        public BitArray ComputeShort() => hash.ComputeShort();
+        public short ComputeShort() => DifferenceHash.HashShort(buffer);
     }
 }
