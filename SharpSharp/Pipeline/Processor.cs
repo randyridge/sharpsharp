@@ -356,51 +356,54 @@ namespace SharpSharp.Pipeline {
                 if(baton.JpegOptions.HasValue()) {
                     var o = baton.JpegOptions;
                     bufferOptions.Buffer = image.JpegsaveBuffer(
-                        null,
-                        o.Quality,
-                        null,
-                        o.OptimizeCoding,
-                        o.MakeProgressive,
-                        o.NoSubsampling,
-                        o.ApplyTrellisQuantization,
-                        o.ApplyOvershootDeringing,
-                        o.OptimizeScans,
-                        o.QuantizationTable,
-                        strip // TODO: this
+                        q: o.Quality,
+                        profile: null,
+                        optimizeCoding: o.OptimizeCoding,
+                        interlace: o.MakeProgressive,
+                        noSubsample: o.NoSubsampling,
+                        trellisQuant: o.ApplyTrellisQuantization,
+                        overshootDeringing: o.ApplyOvershootDeringing,
+                        optimizeScans: o.OptimizeScans,
+                        quantTable: o.QuantizationTable,
+                        strip: strip,
+                        background: null,
+                        pageHeight: null
                     );
                     baton.OutputImageInfo.Format = "jpeg";
                 }
                 else if(baton.WebpOptions.HasValue()) {
                     var o = baton.WebpOptions;
                     bufferOptions.Buffer = image.WebpsaveBuffer(
-                        null, // TODO: Shouldn't this have a value for animations?
-                        o.Quality,
-                        o.UseLossless,
-                        null,
-                        o.UseSmartSubsample,
-                        o.UseNearLossless,
-                        o.AlphaQuality,
-                        null,
-                        null,
-                        null,
-                        o.ReductionEffort,
-                        strip
+                        q: o.Quality,
+                        lossless: o.UseLossless,
+                        preset: null,
+                        smartSubsample: o.UseSmartSubsample,
+                        nearLossless: o.UseNearLossless,
+                        alphaQ: o.AlphaQuality,
+                        minSize: null,
+                        kmin: null,
+                        kmax: null,
+                        reductionEffort: o.ReductionEffort,
+                        strip: strip,
+                        background: null,
+                        pageHeight: null // TODO: Shouldn't this have a value for animations?
                     );
                     baton.OutputImageInfo.Format = "webp";
                 }
                 else if(baton.PngOptions.HasValue()) {
                     var o = baton.PngOptions;
                     bufferOptions.Buffer = image.PngsaveBuffer(
-                        o.CompressionLevel,
-                        o.MakeProgressive,
-                        null,
-                        null,
-                        o.UseAdaptiveFiltering ? 0xF8 : 0x08, // TODO: enums
-                        o.UsePalette,
-                        o.Colors,
-                        o.Quality,
-                        o.Dither,
-                        strip
+                        compression: o.CompressionLevel,
+                        interlace: o.MakeProgressive,
+                        profile: null,
+                        filter: o.UseAdaptiveFiltering ? 0xF8 : 0x08, // TODO: enums
+                        palette: o.UsePalette,
+                        colours: o.Colors,
+                        q: o.Quality,
+                        dither: o.Dither,
+                        strip: strip,
+                        background: null,
+                        pageHeight: null
                     );
                     baton.OutputImageInfo.Format = "png";
                 }
@@ -436,54 +439,57 @@ namespace SharpSharp.Pipeline {
                 if(baton.JpegOptions.HasValue()) {
                     var o = baton.JpegOptions;
                     image.Jpegsave(
-                        path,
-                        null,
-                        o.Quality,
-                        null,
-                        o.OptimizeCoding,
-                        o.MakeProgressive,
-                        o.NoSubsampling,
-                        o.ApplyTrellisQuantization,
-                        o.ApplyOvershootDeringing,
-                        o.OptimizeScans,
-                        o.QuantizationTable,
-                        strip // TODO: this
+                        filename: path,
+                        q: o.Quality,
+                        profile: null,
+                        optimizeCoding: o.OptimizeCoding,
+                        interlace: o.MakeProgressive,
+                        noSubsample: o.NoSubsampling,
+                        trellisQuant: o.ApplyTrellisQuantization,
+                        overshootDeringing: o.ApplyOvershootDeringing,
+                        optimizeScans: o.OptimizeScans,
+                        quantTable: o.QuantizationTable,
+                        strip: strip,
+                        background: null,
+                        pageHeight: null
                     );
                     baton.OutputImageInfo.Format = "jpeg";
                 }
                 else if(baton.WebpOptions.HasValue()) {
                     var o = baton.WebpOptions;
                     image.Webpsave(
-                        path,
-                        null, // TODO: Shouldn't this have a value for animations?
-                        o.Quality,
-                        o.UseLossless,
-                        null,
-                        o.UseSmartSubsample,
-                        o.UseNearLossless,
-                        o.AlphaQuality,
-                        null,
-                        null,
-                        null,
-                        o.ReductionEffort,
-                        strip
+                        filename: path,
+                        q: o.Quality,
+                        lossless: o.UseLossless,
+                        preset: null,
+                        smartSubsample: o.UseSmartSubsample,
+                        nearLossless: o.UseNearLossless,
+                        alphaQ: o.AlphaQuality,
+                        minSize: null,
+                        kmin: null,
+                        kmax: null,
+                        reductionEffort: o.ReductionEffort,
+                        strip: strip,
+                        background: null,
+                        pageHeight: null // TODO: Shouldn't this have a value for animations?
                     );
                     baton.OutputImageInfo.Format = "webp";
                 }
                 else if(baton.PngOptions.HasValue()) {
                     var o = baton.PngOptions;
                     image.Pngsave(
-                        path,
-                        o.CompressionLevel,
-                        o.MakeProgressive,
-                        null,
-                        null,
-                        o.UseAdaptiveFiltering ? 0xF8 : 0x08, // TODO: enums
-                        o.UsePalette,
-                        o.Colors,
-                        o.Quality,
-                        o.Dither,
-                        strip
+                        filename: path,
+                        compression:o.CompressionLevel,
+                        interlace:o.MakeProgressive,
+                        profile:null,
+                        filter: o.UseAdaptiveFiltering ? 0xF8 : 0x08, // TODO: enums
+                        palette: o.UsePalette,
+                        colours: o.Colors,
+                        q: o.Quality,
+                        dither: o.Dither,
+                        strip: strip,
+                        background: null,
+                        pageHeight: null // TODO: value for animation?
                     );
                     baton.OutputImageInfo.Format = "png";
                 }
