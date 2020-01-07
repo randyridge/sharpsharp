@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using NetVips;
 using RandyRidge.Common;
 
@@ -50,7 +51,7 @@ namespace SharpSharp.Pipeline {
         }
 
         public static ImageType FromBuffer(byte[] buffer) {
-            Guard.NotNull(buffer, nameof(buffer));
+            Guard.NotNullOrEmpty(buffer, nameof(buffer));
 
             var result = Image.FindLoadBuffer(buffer);
 
@@ -155,6 +156,54 @@ namespace SharpSharp.Pipeline {
             }
 
             if(result.EndsWithOrdinalIgnoreCase("Magick") || result.EndsWithOrdinalIgnoreCase("MagickFile")) {
+                return Magick;
+            }
+
+            return Unknown;
+        }
+
+        public static ImageType FromStream(Stream stream) {
+            Guard.NotNull(stream, nameof(stream));
+
+            var result = Image.FindLoadStream(stream);
+
+            if(result == null) {
+                return Unknown;
+            }
+
+            if(result.EndsWithOrdinalIgnoreCase("JpegBuffer")) {
+                return Jpeg;
+            }
+
+            if(result.EndsWithOrdinalIgnoreCase("PngBuffer")) {
+                return Png;
+            }
+
+            if(result.EndsWithOrdinalIgnoreCase("WebpBuffer")) {
+                return WebP;
+            }
+
+            if(result.EndsWithOrdinalIgnoreCase("TiffBuffer")) {
+                return Tiff;
+            }
+
+            if(result.EndsWithOrdinalIgnoreCase("GifBuffer")) {
+                return Gif;
+            }
+
+            if(result.EndsWithOrdinalIgnoreCase("SvgBuffer")) {
+                return Svg;
+            }
+
+            if(result.EndsWithOrdinalIgnoreCase("HeifBuffer")) {
+                return Heif;
+            }
+
+            if(result.EndsWithOrdinalIgnoreCase("PdfBuffer")) {
+                return Pdf;
+            }
+
+            if(result.EndsWithOrdinalIgnoreCase("MagickBuffer")) {
                 return Magick;
             }
 
