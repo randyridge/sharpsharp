@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
+using System.IO;
 using System.Runtime.CompilerServices;
 
 namespace SharpSharp {
@@ -21,11 +21,27 @@ namespace SharpSharp {
         ///     A 64 bit difference hash.
         /// </returns>
         public static long HashLong(byte[] buffer) {
+            using var ms = GlobalStatics.RecyclableMemoryStreamManager.GetStream();
+            ms.Read(buffer);
+            return HashLong(ms);
+        }
+
+        /// <summary>
+        ///     Calculates a 64 bit difference hash.
+        /// </summary>
+        /// <param name="stream">
+        ///     The image stream to hash.
+        /// </param>
+        /// <returns>
+        ///     A 64 bit difference hash.
+        /// </returns>
+        public static long HashLong(Stream stream) {
             const int Width = 9;
             const int Height = 8;
+            // TODO: allocations
 
             ImagePipeline
-                .FromBuffer(buffer)
+                .FromStream(stream)
                 .Resize(new ResizeOptions(Width, Height, Fit.Fill))
                 .Grayscale()
                 .Normalize()
@@ -56,11 +72,27 @@ namespace SharpSharp {
         ///     A 16 bit difference hash.
         /// </returns>
         public static short HashShort(byte[] buffer) {
+            using var ms = GlobalStatics.RecyclableMemoryStreamManager.GetStream();
+            ms.Read(buffer);
+            return HashShort(ms);
+        }
+
+        /// <summary>
+        ///     Calculates a 16 bit difference hash.
+        /// </summary>
+        /// <param name="stream">
+        ///     The image stream to hash.
+        /// </param>
+        /// <returns>
+        ///     A 16 bit difference hash.
+        /// </returns>
+        public static short HashShort(Stream stream) {
             const int Width = 6;
             const int Height = 4;
+            // TODO: allocations
 
             ImagePipeline
-                .FromBuffer(buffer)
+                .FromStream(stream)
                 .Resize(new ResizeOptions(Width, Height, Fit.Fill))
                 .Grayscale()
                 .Normalize()
@@ -90,4 +122,3 @@ namespace SharpSharp {
         private static bool IsCorner(int x, int y, int width, int height) => (x == 0 || x == width - 2) && (y == 0 || y == height - 1);
     }
 }
-
