@@ -190,7 +190,7 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="stream" /> is null.
         /// </exception>
         public void ToStream(Stream stream) {
-            Guard.NotNull(stream, nameof(stream));
+            stream = Guard.NotNull(stream, nameof(stream));
             ToStream(new ToStreamOptions(stream, null));
         }
 
@@ -207,7 +207,39 @@ namespace SharpSharp {
         ///     Thrown if <paramref name="stream" /> or <paramref name="callback" /> is null.
         /// </exception>
         public void ToStream(Stream stream, Action<OutputImageInfo> callback) {
-            Guard.NotNull(stream, nameof(stream));
+            stream = Guard.NotNull(stream, nameof(stream));
+            Guard.NotNull(callback, nameof(callback));
+            ToStream(new ToStreamOptions(stream, callback));
+        }
+
+        /// <summary>
+        ///     Writes the result of the image pipeline to the specified stream.
+        /// </summary>
+        /// <param name="stream">
+        ///     The stream to write to.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="stream" /> is null.
+        /// </exception>
+        public void ToStream(out Stream stream) {
+            stream = new MemoryStream();
+            ToStream(new ToStreamOptions(stream, null));
+        }
+
+        /// <summary>
+        ///     Writes the result of the image pipeline to the specified stream and invokes a callback with <see cref="OutputImageInfo" />.
+        /// </summary>
+        /// <param name="stream">
+        ///     The stream to write to.
+        /// </param>
+        /// <param name="callback">
+        ///     The callback to receive <see cref="OutputImageInfo" />.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if <paramref name="stream" /> or <paramref name="callback" /> is null.
+        /// </exception>
+        public void ToStream(Action<OutputImageInfo> callback, out Stream stream) {
+            stream = new MemoryStream();
             Guard.NotNull(callback, nameof(callback));
             ToStream(new ToStreamOptions(stream, callback));
         }
