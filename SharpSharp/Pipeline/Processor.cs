@@ -274,7 +274,27 @@ namespace SharpSharp.Pipeline {
             if(image.Width != baton.Width || image.Height != baton.Height) {
                 var fit = baton.ResizeOptions.Fit;
                 if(fit == Fit.Contain) {
-                    // TODO: Embed
+                    var (img, background) = NeedsBetterPlace.ApplyAlpha(image, baton.ResizeOptions.Background.ToDoubles());
+                    image = img;
+
+                    // Embed
+
+                    // Calculate where to position the embeded image if gravity specified, else center.
+                    int left;
+                    int top;
+
+                    left = (int) Math.Round((baton.Width - image.Width) / 2.0, MidpointRounding.AwayFromZero);
+                    top = (int) Math.Round((baton.Height - image.Height) / 2.0, MidpointRounding.AwayFromZero);
+
+                    var width = Math.Max(image.Width, baton.Width);
+                    var height = Math.Max(image.Height, baton.Height);
+
+                    // TODO: gravity
+                    var (newLeft, newTop) = NeedsBetterPlace.CalculateEmbedPosition(image.Width, image.Height, baton.Width, baton.Height, Gravity.Center);
+                    left = newLeft;
+                    top = newTop;
+
+                    image = image.Embed(left, top, width, height, "background", background);
                 }
                 else if(fit != Fit.Fill && image.Width > baton.Width || image.Height > baton.Height) {
                     // Crop/max/min
