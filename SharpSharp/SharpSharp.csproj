@@ -4,14 +4,14 @@
     <!--<DocumentationFile>bin\SharpSharp.xml</DocumentationFile>-->
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IncludeSymbos>true</IncludeSymbos>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+    <TargetFramework>net5.0</TargetFramework>
     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <Version>0.1.13</Version>
+    <Version>0.2.0</Version>
     <Authors>Randy Ridge</Authors>
     <Company />
     <PackageProjectUrl>https://github.com/randyridge/sharpsharp</PackageProjectUrl>
@@ -50,9 +50,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="1.3.2" />
-    <PackageReference Include="NetVips" Version="1.2.0" />
-    <PackageReference Include="RandyRidge.Common" Version="0.1.20" />
+    <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="1.3.4" />
+    <PackageReference Include="NetVips" Version="1.2.3" />
+    <PackageReference Include="RandyRidge.Common" Version="0.2.1" />
     <!--<PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
