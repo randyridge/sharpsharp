@@ -38,7 +38,7 @@ namespace SharpSharp.Pipeline {
 
         public bool SupportsPages { get; }
 
-        public bool Equals(ImageType other) {
+        public bool Equals(ImageType? other) {
             if(other is null) {
                 return false;
             }
