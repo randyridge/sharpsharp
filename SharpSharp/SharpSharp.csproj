@@ -1,21 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <Authors>Randy Ridge</Authors>
+    <Company />
     <Description>.NET Core port of sharp.</Description>
     <!--<DocumentationFile>bin\SharpSharp.xml</DocumentationFile>-->
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <IncludeSymbos>true</IncludeSymbos>
-    <LangVersion>preview</LangVersion>
+    <IncludeSymbols>true</IncludeSymbols>
     <Nullable>enable</Nullable>
+    <PackageProjectUrl>https://github.com/randyridge/sharpsharp</PackageProjectUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <RepositoryUrl>https://github.com/randyridge/sharpsharp</RepositoryUrl>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <TargetFramework>net5.0</TargetFramework>
     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <Version>0.2.0</Version>
-    <Authors>Randy Ridge</Authors>
-    <Company />
-    <PackageProjectUrl>https://github.com/randyridge/sharpsharp</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/randyridge/sharpsharp</RepositoryUrl>
+    <Version>0.5.0</Version>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.1|AnyCPU'">
     <NoWarn>1701;1702;</NoWarn>
@@ -50,13 +49,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="1.3.4" />
-    <PackageReference Include="NetVips" Version="1.2.3" />
-    <PackageReference Include="RandyRidge.Common" Version="0.2.1" />
-    <!--<PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+    <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="1.3.6" />
+    <PackageReference Include="NetVips" Version="1.2.4" />
+    <PackageReference Include="RandyRidge.Common" Version="0.5.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>-->
+    </PackageReference>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>

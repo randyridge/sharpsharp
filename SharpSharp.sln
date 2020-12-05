@@ -18,8 +18,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpSharp.Tests", "SharpSh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpSharp.Benchmarks", "SharpSharp.Benchmarks\SharpSharp.Benchmarks.csproj", "{18E32D1C-E9DD-487B-ADCB-C5FB80D6752D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{4E5BC478-EC9C-49AB-8E49-DAA6F9CD2FB1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,10 +36,6 @@ Global
 		{18E32D1C-E9DD-487B-ADCB-C5FB80D6752D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18E32D1C-E9DD-487B-ADCB-C5FB80D6752D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18E32D1C-E9DD-487B-ADCB-C5FB80D6752D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4E5BC478-EC9C-49AB-8E49-DAA6F9CD2FB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E5BC478-EC9C-49AB-8E49-DAA6F9CD2FB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E5BC478-EC9C-49AB-8E49-DAA6F9CD2FB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E5BC478-EC9C-49AB-8E49-DAA6F9CD2FB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

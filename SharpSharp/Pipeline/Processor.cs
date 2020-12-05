@@ -380,7 +380,7 @@ namespace SharpSharp.Pipeline {
                         profile: null,
                         optimizeCoding: o.OptimizeCoding,
                         interlace: o.MakeProgressive,
-                        noSubsample: o.NoSubsampling,
+                        subsampleMode: "4:4:4", // TODO: this
                         trellisQuant: o.ApplyTrellisQuantization,
                         overshootDeringing: o.ApplyOvershootDeringing,
                         optimizeScans: o.OptimizeScans,
@@ -418,7 +418,6 @@ namespace SharpSharp.Pipeline {
                         profile: null,
                         filter: o.UseAdaptiveFiltering ? 0xF8 : 0x08, // TODO: enums
                         palette: o.UsePalette,
-                        colours: o.Colors,
                         q: o.Quality,
                         dither: o.Dither,
                         strip: strip,
@@ -464,7 +463,7 @@ namespace SharpSharp.Pipeline {
                         profile: null,
                         optimizeCoding: o.OptimizeCoding,
                         interlace: o.MakeProgressive,
-                        noSubsample: o.NoSubsampling,
+                        subsampleMode: "4:4:4", // TODO: this
                         trellisQuant: o.ApplyTrellisQuantization,
                         overshootDeringing: o.ApplyOvershootDeringing,
                         optimizeScans: o.OptimizeScans,
@@ -504,7 +503,6 @@ namespace SharpSharp.Pipeline {
                         profile:null,
                         filter: o.UseAdaptiveFiltering ? 0xF8 : 0x08, // TODO: enums
                         palette: o.UsePalette,
-                        colours: o.Colors,
                         q: o.Quality,
                         dither: o.Dither,
                         strip: strip,
