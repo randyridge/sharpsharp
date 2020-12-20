@@ -7,8 +7,8 @@ using Xunit;
 namespace SharpSharp {
 	public partial class ImagePipelineTester {
 		public static class VipsVersion {
-			[Fact]
-			public static void returns_version
+			//[Fact]
+			//public static void returns_version
 		}
 		public static class FromUriAsync {
 			[Fact]
