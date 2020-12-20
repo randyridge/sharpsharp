@@ -8,17 +8,17 @@ using Shouldly;
 using Xunit;
 
 namespace SharpSharp {
-    public static class TestFiles {
-        public static class AllFilesLoadable {
-            [Fact]
-            public static void can_locate_all_files() {
-                GetInputFilePaths().ForEach(path => File.Exists(path).ShouldBeTrue($"Couldn't find {path}."));
+	public static class TestFiles {
+		public static class AllFilesLoadable {
+			[Fact]
+			public static void can_locate_all_files() {
+				GetInputFilePaths().ForEach(path => File.Exists(path).ShouldBeTrue($"Couldn't find {path}."));
 
-                static IEnumerable<string> GetInputFilePaths() {
-                    return typeof(TestFiles).GetPublicStaticProperties(x => x.PropertyType == typeof(string)).Select(property => property?.GetValue(null) as string);
-                }
-            }
-        }
+				static IEnumerable<string> GetInputFilePaths() {
+					return typeof(TestFiles).GetPublicStaticProperties(x => x.PropertyType == typeof(string)).Select(property => property?.GetValue(null) as string);
+				}
+			}
+		}
 
         // @formatter:off
         public static string InputJpgWithLandscapeExif1 { get; } = GetInputFilePath("Landscape_1.jpg"); // https://github.com/recurser/exif-orientation-examples
@@ -99,14 +99,14 @@ namespace SharpSharp {
 
         public static string TestPattern { get; } = GetInputFilePath("test-pattern.png");
 
-        public static RandomFile OutputJpg() => new RandomFile(".jpg");
-        public static RandomFile OutputPng() => new RandomFile(".png");
-        public static RandomFile OutputWebP() => new RandomFile(".webp");
-        public static RandomFile OutputV() => new RandomFile(".v");
-        public static RandomFile OutputTiff() => new RandomFile(".tiff");
-        public static RandomFile OutputZoinks() => new RandomFile(".zoinks");
+        public static RandomFile OutputJpg() => new(".jpg");
+        public static RandomFile OutputPng() => new(".png");
+        public static RandomFile OutputWebP() => new(".webp");
+        public static RandomFile OutputV() => new(".v");
+        public static RandomFile OutputTiff() => new(".tiff");
+        public static RandomFile OutputZoinks() => new(".zoinks");
 
         private static string GetInputFilePath(string fileName) => Path.Join("SharpTestImages", fileName);
-        // @formatter:on
-    }
+		// @formatter:on
+	}
 }

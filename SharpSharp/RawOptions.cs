@@ -1,4 +1,4 @@
 ﻿namespace SharpSharp {
-    public sealed class RawOptions {
-    }
+	public sealed class RawOptions {
+	}
 }

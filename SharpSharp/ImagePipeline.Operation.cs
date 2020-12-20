@@ -5,7 +5,7 @@ using RandyRidge.Common;
 using SharpSharp.Pipeline;
 
 namespace SharpSharp {
-    public sealed partial class ImagePipeline {
+	public sealed partial class ImagePipeline {
 //        public ImagePipeline Blur(double sigma = -1) {
 //            options.BlurSigma = Guard.RangeInclusive(sigma, 0.3, 1000, nameof(sigma));
 //            return this;
@@ -72,28 +72,28 @@ namespace SharpSharp {
 //            return this;
 //        }
 
-        public ImagePipeline Normalize(bool makeNormalized = true) {
-            if(result.OperationOptions.HasValue()) {
-                result.OperationOptions.MakeNormalized = makeNormalized;
-            }
-            else {
-                result.OperationOptions = new OperationOptions(makeNormalized);
-            }
+		public ImagePipeline Normalize(bool makeNormalized = true) {
+			if(result.OperationOptions.HasValue()) {
+				result.OperationOptions.MakeNormalized = makeNormalized;
+			}
+			else {
+				result.OperationOptions = new OperationOptions(makeNormalized);
+			}
 
-            return this;
-        }
+			return this;
+		}
 
 //        public ImagePipeline Recomb(object matrix) => throw new NotImplementedException();
 
 //        public ImagePipeline Rotate() => AddOperationAndReturn(new ExifOrientationOperation());
 
-        public ImagePipeline Sharpen(double? sigma = null, double? flat = null, double? jagged = null) => Sharpen(new SharpenOptions(sigma, flat, jagged));
+		public ImagePipeline Sharpen(double? sigma = null, double? flat = null, double? jagged = null) => Sharpen(new SharpenOptions(sigma, flat, jagged));
 
-        public ImagePipeline Sharpen(SharpenOptions sharpenOptions) {
-            Guard.NotNull(sharpenOptions, nameof(sharpenOptions));
-            result.SharpenOptions = sharpenOptions;
-            return this;
-        }
+		public ImagePipeline Sharpen(SharpenOptions sharpenOptions) {
+			Guard.NotNull(sharpenOptions, nameof(sharpenOptions));
+			result.SharpenOptions = sharpenOptions;
+			return this;
+		}
 
 //        public ImagePipeline Threshold(bool performThreshold) => performThreshold ? Threshold() : Threshold(0);
 
@@ -102,5 +102,5 @@ namespace SharpSharp {
 //            options.ThresholdGrayscale = thresholdGrayscale;
 //            return this;
 //        }
-    }
+	}
 }

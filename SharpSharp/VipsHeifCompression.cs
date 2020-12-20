@@ -1,8 +1,8 @@
 ﻿namespace SharpSharp {
-    public enum HeifCompression {
-        Av1,
-        Avc,
-        Hevc,
-        Jpeg
-    }
+	public enum HeifCompression {
+		Av1,
+		Avc,
+		Hevc,
+		Jpeg
+	}
 }

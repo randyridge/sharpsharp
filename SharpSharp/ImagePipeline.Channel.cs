@@ -1,14 +1,13 @@
-﻿
-namespace SharpSharp {
-    public sealed partial class ImagePipeline {
-        public ImagePipeline RemoveAlpha() {
-            if(result.ChannelOptions == null) {
-                result.ChannelOptions = new ChannelOptions();
-            }
+﻿namespace SharpSharp {
+	public sealed partial class ImagePipeline {
+		public ImagePipeline RemoveAlpha() {
+			if(result.ChannelOptions == null) {
+				result.ChannelOptions = new ChannelOptions();
+			}
 
-            result.ChannelOptions.RemoveAlpha = true;
-            return this;
-        }
+			result.ChannelOptions.RemoveAlpha = true;
+			return this;
+		}
 
 //        public ImagePipeline EnsureAlpha() {
 //            options.EnsureAlpha = true;
@@ -59,5 +58,5 @@ namespace SharpSharp {
 //            }
 //            throw new ArgumentOutOfRangeException(nameof(boolOp), "Must be 'and', 'or', or 'eor'.");
 //        }
-    }
+	}
 }

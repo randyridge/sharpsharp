@@ -1,7 +1,7 @@
 ﻿using RandyRidge.Common;
 
 namespace SharpSharp {
-    public sealed partial class ImagePipeline {
+	public sealed partial class ImagePipeline {
 //        public ImagePipeline Tint(string color) {
 //            var c = Color.Parse(color);
 //            options.TintA = c.A;
@@ -9,15 +9,16 @@ namespace SharpSharp {
 //            return this;
 //        }
 
-        public ImagePipeline Grayscale(bool makeGrayscale = true) {
-            if(result.ColorizationOptions.HasValue()) {
-                result.ColorizationOptions.MakeGrayscale = makeGrayscale;
-            }
-            else {
-                result.ColorizationOptions = new ColorizationOptions(makeGrayscale);
-            }
-            return this;
-        }
+		public ImagePipeline Grayscale(bool makeGrayscale = true) {
+			if(result.ColorizationOptions.HasValue()) {
+				result.ColorizationOptions.MakeGrayscale = makeGrayscale;
+			}
+			else {
+				result.ColorizationOptions = new ColorizationOptions(makeGrayscale);
+			}
+
+			return this;
+		}
 
 //        public ImagePipeline ToColorspace(string colorspace) {
 //            Guard.NotNullOrWhiteSpace(colorspace, nameof(colorspace));
@@ -30,5 +31,5 @@ namespace SharpSharp {
 //            // TODO: this
 //            return this;
 //        }
-    }
+	}
 }
