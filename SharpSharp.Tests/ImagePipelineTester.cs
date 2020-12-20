@@ -5,7 +5,8 @@ using Shouldly;
 using Xunit;
 
 namespace SharpSharp {
-    public static class ImagePipelineTester {
+    public partial class ImagePipelineTester {
+	    
         public static class FromUriAsync {
             [Fact]
             public static async Task returns_pipeline() => (await ImagePipeline.FromUriAsync(TestValues.InputUri).ForAwait()).ShouldNotBeNull();
