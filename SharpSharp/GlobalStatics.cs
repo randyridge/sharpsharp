@@ -2,9 +2,9 @@
 using Microsoft.IO;
 
 namespace SharpSharp {
-    internal static class GlobalStatics {
-        public static HttpClient HttpClient { get; } = new HttpClient();
+	internal static class GlobalStatics {
+		public static HttpClient HttpClient { get; } = new();
 
-        public static RecyclableMemoryStreamManager RecyclableMemoryStreamManager { get; } = new RecyclableMemoryStreamManager();
-    }
+		public static RecyclableMemoryStreamManager RecyclableMemoryStreamManager { get; } = new();
+	}
 }
