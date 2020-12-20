@@ -6,6 +6,7 @@
     <!--<DocumentationFile>bin\SharpSharp.xml</DocumentationFile>-->
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IncludeSymbols>true</IncludeSymbols>
+    <IsPackable>true</IsPackable>
     <Nullable>enable</Nullable>
     <PackageProjectUrl>https://github.com/randyridge/sharpsharp</PackageProjectUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -14,7 +15,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <Version>0.5.0</Version>
+    <Version>0.5.1</Version>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.1|AnyCPU'">
     <NoWarn>1701;1702;</NoWarn>

@@ -6,6 +6,10 @@ using Xunit;
 
 namespace SharpSharp {
 	public partial class ImagePipelineTester {
+		public static class VipsVersion {
+			//[Fact]
+			//public static void returns_version
+		}
 		public static class FromUriAsync {
 			[Fact]
 			public static async Task returns_pipeline() => (await ImagePipeline.FromUriAsync(TestValues.InputUri).ForAwait()).ShouldNotBeNull();
