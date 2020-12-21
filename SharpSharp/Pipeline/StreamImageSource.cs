@@ -1,12 +1,13 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Net.Http;
 using NetVips;
 using RandyRidge.Common;
 
 namespace SharpSharp.Pipeline {
 	internal sealed class StreamImageSource : ImageSource {
 		public StreamImageSource(Stream stream, ImageLoadOptions options) : base(options) {
-			Guard.NotNull(stream, nameof(stream));
-			Stream = stream;
+			Stream = Guard.NotNull(stream, nameof(stream));
 		}
 
 		public Stream Stream { get; }
@@ -14,14 +15,12 @@ namespace SharpSharp.Pipeline {
 		public override (Image, ImageType) Load(VOption? options = null) {
 			try {
 				var imageType = ImageType.FromStream(Stream);
-
-				if(options == null) {
-					options = BuildLoadOptionsFromImageType(imageType);
-				}
+				Stream.Position = 0;
+				options ??= BuildLoadOptionsFromImageType(imageType);
 
 				var image = Image.NewFromStream(
-					Stream,
-					string.Empty,
+					Stream, 
+					null,
 					Options.UseSequentialRead ? Enums.Access.Sequential : Enums.Access.Random,
 					true,
 					options
@@ -35,7 +34,7 @@ namespace SharpSharp.Pipeline {
 				return (image, imageType);
 			}
 			catch(VipsException ex) {
-				throw new SharpSharpException("Error loading image from stream.", ex);
+				throw new SharpSharpException("Error loading image from buffer.", ex);
 			}
 		}
 	}

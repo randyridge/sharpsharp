@@ -2,7 +2,6 @@
   <PropertyGroup>
     <IsPackable>false</IsPackable>
     <IsWindows Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</IsWindows>
-    <LangVersion>preview</LangVersion>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
@@ -19,7 +18,7 @@
     <PackageReference Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.12.1" />
     <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="7.22.2.2" />
     <PackageReference Include="NetVips.Native" Version="8.10.1" />
-    <PackageReference Include="RandyRidge.Common" Version="0.5.0" />
+    <PackageReference Include="RandyRidge.Common" Version="0.5.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharpSharp\SharpSharp.csproj" />

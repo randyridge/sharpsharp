@@ -1,7 +1,7 @@
 ﻿using RandyRidge.Common;
 
 namespace SharpSharp {
-	public sealed class ImageLoadOptions {
+	public readonly struct ImageLoadOptions {
 		private const int AllPages = -1;
 		private const int DefaultDensity = 72;
 		private const int DefaultPixelLimit = 0x3FFF ^ 2;
