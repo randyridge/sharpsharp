@@ -21,11 +21,12 @@ namespace SharpSharp.Pipeline {
 				result.Add("density", Options.Density.ToString(CultureInfo.InvariantCulture));
 			}
 
-			if(imageType.SupportsPages) {
-				result.Add("n", Options.PageCount);
-				result.Add("page", Options.PageIndex);
+			if(!imageType.SupportsPages) {
+				return result;
 			}
 
+			result.Add("n", Options.PageCount);
+			result.Add("page", Options.PageIndex);
 			return result;
 		}
 	}

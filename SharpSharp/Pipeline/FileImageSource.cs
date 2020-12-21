@@ -2,22 +2,22 @@
 using RandyRidge.Common;
 
 namespace SharpSharp.Pipeline {
-	internal sealed class BufferImageSource : ImageSource {
-		public BufferImageSource(byte[] buffer, ImageLoadOptions options) : base(options) {
-			Buffer = Guard.NotNullOrEmpty(buffer, nameof(buffer));
+	internal sealed class FileImageSource : ImageSource {
+		public FileImageSource(string path, ImageLoadOptions options) : base(options) {
+			Path = Guard.NotNullOrEmpty(path, nameof(path));
 		}
 
-		public byte[] Buffer { get; }
+		public string Path { get; }
 
 		public override (Image, ImageType) Load(VOption? options = null) {
 			try {
-				var imageType = ImageType.FromBuffer(Buffer);
+				var imageType = ImageType.FromFile(Path);
 
 				options ??= BuildLoadOptionsFromImageType(imageType);
 
-				var image = Image.NewFromBuffer(
-					Buffer,
-					string.Empty,
+				var image = Image.NewFromFile(
+					Path, 
+					null,
 					Options.UseSequentialRead ? Enums.Access.Sequential : Enums.Access.Random,
 					true,
 					options
