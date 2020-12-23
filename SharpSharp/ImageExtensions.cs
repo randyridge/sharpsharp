@@ -43,9 +43,12 @@ namespace SharpSharp {
 			return image.Boolean(imageR, boolean);
 		}
 
-		public static Image Convolve(this Image image, double scale, double offset, double[] kernel) {
+		public static Image Convolve(this Image image, int width, int height, double scale, double offset, double[] kernel) {
 			Guard.NotNull(image, nameof(image));
-			return image.Conv(Image.NewFromArray(kernel, scale, offset));
+			var k = Image.NewFromMemory(kernel, width, height, 1, Enums.BandFormat.Double);
+			k.Set("scale", scale);
+			k.Set("offset", offset);
+			return image.Conv(k);
 		}
 
 		public static Image EnsureAlpha(this Image image) {

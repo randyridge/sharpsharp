@@ -12,7 +12,7 @@ namespace SharpSharp.Pipeline {
 			var (image, imageType) = LoadImage(imageSource, baton);
 
 			var (rotation, rotationOptions) = CalculateAngleOfRotation(baton, image);
-			image = RotatePreExtract(rotationOptions, rotation, image);
+			image = RotatePreExtract(image, rotation, rotationOptions);
 			image = Trim(baton, image);
 			image = PreExtraction(baton, image);
 
@@ -22,7 +22,7 @@ namespace SharpSharp.Pipeline {
 			var (xFactor, yFactor, targetResizeWidth, targetResizeHeight) = CalculateScaling(baton, inputWidth, inputHeight);
 			var (xShrink, yShrink) = CalculateIntegralBoxShrink(xFactor, yFactor);
 			var (xResidual, yResidual) = CalculateResidualFloatAffineTransformation(xShrink, xFactor, yShrink, yFactor);
-			image = ShrinkOnLoad(imageType, imageSource, image, baton, ref xFactor, ref yFactor, xShrink, yShrink, xResidual, yResidual, rotation, targetResizeWidth, targetResizeHeight);
+			image = ShrinkOnLoad(baton, image, imageType, imageSource, ref xFactor, ref yFactor, xShrink, yShrink, xResidual, yResidual, rotation, targetResizeWidth, targetResizeHeight);
 			image = EnsureDeviceIndependentColorSpace(image);
 			image = RemoveAlphaChannel(baton, image);
 			image = NegateColors(baton, image);
@@ -34,39 +34,41 @@ namespace SharpSharp.Pipeline {
 			var shouldBlur = !oo.BlurSigma.IsAboutEqualTo(0.0);
 			var shouldConvolve = oo.ConvolveKernelWidth * oo.ConvolveKernelHeight > 0;
 			var shouldSharpen = !oo.SharpenSigma.IsAboutEqualTo(0.0);
-			var shouldApplyMedian = oo.MedianSize > 0;
 			var shouldComposite = oo.Composite.HasValue();
-			var shouldModulate = !oo.Brightness.IsAboutEqualTo(1.0) || !oo.Saturation.IsAboutEqualTo(1.0) || !oo.Hue.IsAboutEqualTo(0.0);
-			image = CreateAlphaChannel(shouldComposite, image);
-			image = PremultiplyAlphaChannel(image, shouldResize, shouldBlur, shouldConvolve, shouldSharpen, shouldComposite);
-			image = Resize(baton, shouldResize, image, xFactor, yFactor);
-			image = RotatePostExtract(baton, rotation, image);
+			var shouldPremultiplyAlpha =  image.HasAlpha() && (shouldResize || shouldBlur || shouldConvolve || shouldSharpen || shouldComposite);
+			image = CreateAlphaChannel(image, shouldComposite);
+			image = PremultiplyAlphaChannel(image, shouldPremultiplyAlpha);
+			image = Resize(baton, image, shouldResize, xFactor, yFactor);
+			image = RotatePostExtract(baton, image, rotation);
 			image = Flip(baton, image);
 			image = Flop(baton, image);
 			image = JoinAdditionalColorChannels(baton, image);
 			image = CropOrEmbed(baton, image);
-
-			// TODO: Rotate post-extract non-90 angle
-			if (!baton.RotationOptions.RotateBeforePreExtract && !baton.RotationOptions.RotationAngle.IsAboutEqualTo(0.0)) {
-				var (img, background) = NeedsBetterPlace.ApplyAlpha(image, baton.RotationOptions.RotationBackground);
-				image = img.Rotate(baton.RotationOptions.RotationAngle, background: background);
-			}
-			// TODO: Post extraction
-			// TODO: Extend edges
-			// TODO: Median - must happen before blurring, due to the utility of blurring after thresholding
-			// TODO: Threshold - must happen before blurring, due to the utility of blurring after thresholding
-			// TODO: Blur
-			// TODO: Convolve
-			// TODO: Recomb:
-			// TODO: Modulate
-			// TODO: Sharpen
-
-			if(baton.SharpenOptions.HasValue()) {
-				image = ImageExtensions.Sharpen(image, baton.SharpenOptions.Sigma, baton.SharpenOptions.Flat ?? 1, baton.SharpenOptions.Jagged ?? 2);
-			}
-
+			image = RotatePostExtract(baton, image);
+			image = PostExtraction(baton, image);
+			image = AffineTransform(baton, image);
+			image = ExtendEdges(baton, image);
+			image = Median(baton, image);
+			image = Threshold(baton, image);
+			image = Blur(baton, image);
+			image = Convolve(baton, image);
+			image = Recomb(baton, image);
+			image = Modulate(baton, image);
+			image = Sharpen(baton, image);
 			// TODO: Composite
 			// TODO: Reverse premultiplication after all transformations:
+			// Reverse premultiplication after all transformations:
+			if (shouldPremultiplyAlpha) {
+				image = image.Unpremultiply();
+				// Cast pixel values to integer
+				if (NeedsBetterPlace.Is16Bit(image.Interpretation)) {
+					image = image.Cast(Enums.BandFormat.Ushort);
+				}
+				else {
+					image = image.Cast(Enums.BandFormat.Uchar);
+				}
+			}
+			/////////////////////baton.->premultiplied = shouldPremultiplyAlpha;
 			// TODO: Gamma decoding (brighten)
 			// TODO: Linear adjustment (a * in + b)
 
@@ -142,8 +144,8 @@ namespace SharpSharp.Pipeline {
 						null,
 						null,
 						null,
-						o.ReductionEffort,
-						strip // TODO: Shouldn't this have a value for animations?
+						reductionEffort: o.ReductionEffort,
+						strip: strip // TODO: Shouldn't this have a value for animations?
 					);
 					baton.OutputImageInfo.Format = "webp";
 				}
@@ -225,8 +227,8 @@ namespace SharpSharp.Pipeline {
 						null,
 						null,
 						null,
-						o.ReductionEffort,
-						strip // TODO: Shouldn't this have a value for animations?
+						reductionEffort: o.ReductionEffort,
+						strip: strip // TODO: Shouldn't this have a value for animations?
 					);
 					baton.OutputImageInfo.Format = "webp";
 				}
@@ -247,11 +249,126 @@ namespace SharpSharp.Pipeline {
 					);
 					baton.OutputImageInfo.Format = "png";
 				}
+				else if(baton.HeifOptions.HasValue()) {
+					var o = baton.HeifOptions;
+					image.Heifsave(path, o.Quality, o.UseLossless, o.Compression.ToString(), strip: strip);
+				}
 
 				baton.OutputImageInfo.Size = (int) new FileInfo(path).Length; // TODO: this seems bad
 			}
 
 			image?.Dispose();
+		}
+
+		private static Image Sharpen(PipelineBaton baton, Image image) {
+			var oo = baton.OperationOptions;
+			var shouldSharpen = !oo.SharpenSigma.IsAboutEqualTo(0.0);
+			if(shouldSharpen) {
+				image = ImageExtensions.Sharpen(image, oo.SharpenSigma, oo.SharpenFlat, oo.SharpenJagged);
+			}
+
+			return image;
+		}
+
+		private static Image Modulate(PipelineBaton baton, Image image) {
+			var oo = baton.OperationOptions;
+			var shouldModulate = !oo.Brightness.IsAboutEqualTo(1.0) || !oo.Saturation.IsAboutEqualTo(1.0) || oo.Hue != 0;
+			if(shouldModulate) {
+				image = image.Modulate(oo.Brightness, oo.Saturation, oo.Hue);
+			}
+
+			return image;
+		}
+
+		private static Image Recomb(PipelineBaton baton, Image image) {
+			var oo = baton.OperationOptions;
+			if(oo.RecombMatrix.HasValue()) {
+				image = image.Recomb(oo.RecombMatrix);
+			}
+
+			return image;
+		}
+
+		private static Image Convolve(PipelineBaton baton, Image image) {
+			var oo = baton.OperationOptions;
+			var shouldConvolve = oo.ConvolveKernelWidth * oo.ConvolveKernelHeight > 0;
+			if(shouldConvolve) {
+				image = image.Convolve(oo.ConvolveKernelWidth, oo.ConvolveKernelHeight, oo.ConvolveKernelScale, oo.ConvolveKernelOffset, oo.ConvolveKernel);
+			}
+
+			return image;
+		}
+
+		private static Image Blur(PipelineBaton baton, Image image) {
+			var sigma = baton.OperationOptions.BlurSigma;
+			var shouldBlur = !sigma.IsAboutEqualTo(0.0);
+			if(shouldBlur) {
+				image = image.Blur(sigma);
+			}
+
+			return image;
+		}
+
+		private static Image Threshold(PipelineBaton baton, Image image) {
+			// Threshold - must happen before blurring, due to the utility of blurring after thresholding
+			var oo = baton.OperationOptions;
+			if(oo.Threshold != 0) {
+				image = image.Threshold(oo.Threshold, oo.ThresholdGrayscale);
+			}
+
+			return image;
+		}
+
+		private static Image Median(PipelineBaton baton, Image image) {
+			// Median - must happen before blurring, due to the utility of blurring after thresholding
+			var oo = baton.OperationOptions;
+			var shouldApplyMedian = oo.MedianSize > 0;
+			if(shouldApplyMedian) {
+				image = image.Median(oo.MedianSize);
+			}
+
+			return image;
+		}
+
+		private static Image ExtendEdges(PipelineBaton baton, Image image) {
+			var ro = baton.ResizeOptions;
+			if(ro.ExtendTop > 0 || ro.ExtendBottom > 0 || ro.ExtendLeft > 0 || ro.ExtendRight > 0) {
+				var (img, bg) = NeedsBetterPlace.ApplyAlpha(image, baton.ResizeOptions.ExtendBackground);
+				// Embed
+				baton.Width = img.Width + ro.ExtendLeft + ro.ExtendRight;
+				baton.Height = img.Height + ro.ExtendTop + ro.ExtendBottom;
+				image = img.Embed(ro.ExtendLeft, ro.ExtendTop, baton.Width, baton.Height, Enums.Extend.Background, bg);
+			}
+
+			return image;
+		}
+
+		private static Image AffineTransform(PipelineBaton baton, Image image) {
+			var ro = baton.ResizeOptions;
+			if(ro.AffineMatrix.HasValue()) {
+				var (img, bg) = NeedsBetterPlace.ApplyAlpha(image, ro.AffineBackground);
+				image = img.Affine(ro.AffineMatrix, ro.AffineInterpolator, null, ro.AffineOdx, ro.AffineOdy, ro.AffineIdx, ro.AffineIdy, bg);
+			}
+
+			return image;
+		}
+
+		private static Image PostExtraction(PipelineBaton baton, Image image) {
+			var resizeOptions = baton.ResizeOptions;
+			if(resizeOptions.TopOffsetPost != -1) {
+				image = image.ExtractArea(resizeOptions.LeftOffsetPost, resizeOptions.TopOffsetPost, resizeOptions.WidthPost, resizeOptions.HeightPost);
+			}
+
+			return image;
+		}
+
+		private static Image RotatePostExtract(PipelineBaton baton, Image image) {
+			if(!baton.RotationOptions.RotateBeforePreExtract && !baton.RotationOptions.RotationAngle.IsAboutEqualTo(0.0)) {
+				var (img, background) = NeedsBetterPlace.ApplyAlpha(image, baton.RotationOptions.RotationBackground);
+				image = img.Rotate(baton.RotationOptions.RotationAngle, background:background);
+			}
+
+			return image;
 		}
 
 		private Image JoinAdditionalColorChannels(PipelineBaton baton, Image image) {
@@ -335,7 +452,7 @@ namespace SharpSharp.Pipeline {
 			return image;
 		}
 
-		private static Image RotatePostExtract(PipelineBaton baton, string rotation, Image image) {
+		private static Image RotatePostExtract(PipelineBaton baton, Image image, string rotation) {
 			if(!baton.RotationOptions.RotateBeforePreExtract && rotation != Enums.Angle.D0) {
 				image = image.Rot(rotation);
 				image = image.RemoveExifOrientation();
@@ -344,7 +461,7 @@ namespace SharpSharp.Pipeline {
 			return image;
 		}
 
-		private static Image Resize(PipelineBaton baton, bool shouldResize, Image image, double xFactor, double yFactor) {
+		private static Image Resize(PipelineBaton baton, Image image, bool shouldResize, double xFactor, double yFactor) {
 			if(shouldResize) {
 				var kernel = baton.ResizeOptions.Kernel;
 				// Ensure shortest edge is at least 1 pixel
@@ -364,8 +481,7 @@ namespace SharpSharp.Pipeline {
 			return image;
 		}
 
-		private static Image PremultiplyAlphaChannel(Image image, bool shouldResize, bool shouldBlur, bool shouldConvolve, bool shouldSharpen, bool shouldComposite) {
-			var shouldPremultiplyAlpha = image.HasAlpha() && (shouldResize || shouldBlur || shouldConvolve || shouldSharpen || shouldComposite);
+		private static Image PremultiplyAlphaChannel(Image image, bool shouldPremultiplyAlpha) {
 			// Premultiply image alpha channel before all transformations to avoid
 			// dark fringing around bright pixels
 			// See: http://entropymine.com/imageworsener/resizealpha/
@@ -376,7 +492,7 @@ namespace SharpSharp.Pipeline {
 			return image;
 		}
 
-		private static Image CreateAlphaChannel(bool shouldComposite, Image image) {
+		private static Image CreateAlphaChannel(Image image, bool shouldComposite) {
 			if(shouldComposite && !image.HasAlpha()) {
 				image = image.EnsureAlpha();
 			}
@@ -440,7 +556,7 @@ namespace SharpSharp.Pipeline {
 			return image;
 		}
 
-		private static Image ShrinkOnLoad(ImageType imageType, ImageSource imageSource, Image image, PipelineBaton baton, ref double xFactor, ref double yFactor, int xShrink, int yShrink, double xResidual, double yResidual, string rotation, int targetResizeWidth, int targetResizeHeight) {
+		private static Image ShrinkOnLoad(PipelineBaton baton, Image image, ImageType imageType, ImageSource imageSource, ref double xFactor, ref double yFactor, int xShrink, int yShrink, double xResidual, double yResidual, string rotation, int targetResizeWidth, int targetResizeHeight) {
 			var shrinkOnLoad = 1;
 			var shrinkOnLoadFactor = 1;
 
@@ -453,7 +569,7 @@ namespace SharpSharp.Pipeline {
 			// If integral x and y shrink are equal, try to use shrink-on-load for JPEG and WebP,
 			// but not when applying gamma correction, pre-resize extract or trim
 			if(xShrink == yShrink && xShrink >= 2 * shrinkOnLoadFactor && (imageType == ImageType.Jpeg || imageType == ImageType.WebP)
-				&& baton.OperationOptions.Gamma == 0 && baton.PreExtractionOptions.TopOffset == -1 && baton.TrimOptions.TrimThreshold.IsAboutEqualTo(0.0)) {
+				&& baton.OperationOptions.Gamma == 0 && baton.ResizeOptions.TopOffsetPre == -1 && baton.TrimOptions.TrimThreshold.IsAboutEqualTo(0.0)) {
 				if(xShrink >= 8 * shrinkOnLoadFactor) {
 					xFactor /= 8;
 					yFactor /= 8;
@@ -499,7 +615,7 @@ namespace SharpSharp.Pipeline {
 				var shrunkOnLoadWidth = image.Width;
 				var shrunkOnLoadHeight = image.Height;
 
-				if (!baton.PreExtractionOptions.RotateBeforePreExtract && (rotation == Enums.Angle.D90 || rotation == Enums.Angle.D270)) {
+				if (!baton.ResizeOptions.RotateBeforePreExtract && (rotation == Enums.Angle.D90 || rotation == Enums.Angle.D270)) {
 					// Swap when rotating by 90 or 270 degrees
 					xFactor = shrunkOnLoadWidth / (double) targetResizeHeight;
 					yFactor = shrunkOnLoadHeight / (double) targetResizeWidth;
@@ -532,7 +648,7 @@ namespace SharpSharp.Pipeline {
 				xFactor = inputWidth / (double) baton.Width;
 				yFactor = inputHeight / (double) baton.Height;
 				switch(baton.ResizeOptions.Canvas) {
-					case Fit.Cover:
+					case Canvas.Crop:
 						if(xFactor < yFactor) {
 							targetResizeHeight = (int) Math.Round(inputHeight / xFactor, MidpointRounding.AwayFromZero);
 							yFactor = xFactor;
@@ -543,7 +659,7 @@ namespace SharpSharp.Pipeline {
 						}
 
 						break;
-					case Fit.Contain:
+					case Canvas.Embed:
 						if(xFactor > yFactor) {
 							targetResizeHeight = (int) Math.Round(inputHeight / xFactor, MidpointRounding.AwayFromZero);
 							yFactor = xFactor;
@@ -554,7 +670,7 @@ namespace SharpSharp.Pipeline {
 						}
 
 						break;
-					case Fit.Inside:
+					case Canvas.Max:
 						if(xFactor > yFactor) {
 							targetResizeHeight = (int) Math.Round(inputHeight / xFactor, MidpointRounding.AwayFromZero);
 							yFactor = xFactor;
@@ -567,7 +683,7 @@ namespace SharpSharp.Pipeline {
 						}
 
 						break;
-					case Fit.Outside:
+					case Canvas.Min:
 						if(xFactor < yFactor) {
 							targetResizeHeight = (int) Math.Round(inputHeight / xFactor, MidpointRounding.AwayFromZero);
 							yFactor = xFactor;
@@ -580,7 +696,7 @@ namespace SharpSharp.Pipeline {
 						}
 
 						break;
-					case Fit.Fill:
+					case Canvas.IgnoreAspectRatio:
 						// TODO: rotation stuff
 						break;
 				}
@@ -588,7 +704,7 @@ namespace SharpSharp.Pipeline {
 			else if(baton.Width > 0) {
 				// Fixed width
 				xFactor = inputWidth / (double) baton.Width;
-				if(baton.ResizeOptions.Canvas == Fit.Fill) {
+				if(baton.ResizeOptions.Canvas == Canvas.IgnoreAspectRatio) {
 					targetResizeHeight = inputHeight;
 					baton.Height = inputHeight;
 				}
@@ -602,7 +718,7 @@ namespace SharpSharp.Pipeline {
 			else if(baton.Height > 0) {
 				// Fixed height
 				yFactor = inputHeight / (double) baton.Height;
-				if(baton.ResizeOptions.Canvas == Fit.Fill) {
+				if(baton.ResizeOptions.Canvas == Canvas.IgnoreAspectRatio) {
 					targetResizeWidth = inputWidth;
 					baton.Width = inputWidth;
 				}
@@ -729,15 +845,15 @@ namespace SharpSharp.Pipeline {
 		}
 
 		private static Image PreExtraction(PipelineBaton baton, Image image) {
-			var preExtractionOptions = baton.PreExtractionOptions;
-			if(preExtractionOptions.TopOffset != -1) {
-				image = image.ExtractArea(preExtractionOptions.LeftOffset, preExtractionOptions.TopOffset, preExtractionOptions.Width, preExtractionOptions.Height);
+			var ro = baton.ResizeOptions;
+			if(ro.TopOffsetPre != -1) {
+				image = image.ExtractArea(ro.LeftOffsetPre, ro.TopOffsetPre, ro.Width, ro.Height);
 			}
 
 			return image;
 		}
 
-		private static Image RotatePreExtract(RotationOptions rotationOptions, string rotation, Image image) {
+		private static Image RotatePreExtract(Image image, string rotation, RotationOptions rotationOptions) {
 			if(rotationOptions.RotateBeforePreExtract) {
 				if(rotation != Enums.Angle.D0) {
 					image = image.Rot(rotation);

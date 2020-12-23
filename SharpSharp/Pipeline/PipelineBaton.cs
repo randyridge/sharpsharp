@@ -2,16 +2,11 @@
 
 namespace SharpSharp.Pipeline {
 	internal sealed class PipelineBaton {
-		public PipelineBaton() {
-			MetadataOptions = new MetadataOptions();
-			ResizeOptions = new ResizeOptions();
-		}
-
 		public ChannelOptions? ChannelOptions { get; set; }
 
 		public int Channels { get; set; }
 
-		public CropOffsetOptions CropOffsetOptions { get; set; }
+		public CropOffsetOptions CropOffsetOptions { get; set; } = new();
 		
 		public HeifOptions? HeifOptions { get; set; }
 
@@ -23,21 +18,19 @@ namespace SharpSharp.Pipeline {
 
 		public JpegOptions? JpegOptions { get; set; }
 
-		public MetadataOptions MetadataOptions { get; set; }
+		public MetadataOptions MetadataOptions { get; set; } = new();
 
-		public OperationOptions OperationOptions { get; set; }
+		public OperationOptions OperationOptions { get; set; } = new();
 
 		internal OutputImageInfo? OutputImageInfo { get; set; }
 
 		public PngOptions? PngOptions { get; set; }
 
-		public PreExtractionOptions PreExtractionOptions { get; set; }
-
 		public RawOptions? RawOptions { get; set; }
 
-		public ResizeOptions ResizeOptions { get; set; }
+		public ResizeOptions ResizeOptions { get; set; } = new();
 
-		public RotationOptions RotationOptions { get; set; }
+		public RotationOptions RotationOptions { get; set; } = new();
 
 		public SharpenOptions? SharpenOptions { get; set; }
 
@@ -47,7 +40,7 @@ namespace SharpSharp.Pipeline {
 
 		public ToStreamOptions? ToStreamOptions { get; set; }
 
-		public TrimOptions TrimOptions { get; set; }
+		public TrimOptions TrimOptions { get; set; } = new();
 
 		public WebpOptions? WebpOptions { get; set; }
 
