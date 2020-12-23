@@ -5,11 +5,15 @@ using RandyRidge.Common;
 
 namespace SharpSharp {
 	public sealed partial class ImagePipeline {
+		public ImagePipeline Avif() => Heif(new HeifOptions());
+
+		public ImagePipeline Avif(HeifOptions options) => Heif(options);
+		
 		public ImagePipeline Heif() => Heif(new HeifOptions());
 
 		public ImagePipeline Heif(HeifOptions options) {
-			Guard.NotNull(options, nameof(options));
-			result.HeifOptions = options;
+			options = Guard.NotNull(options, nameof(options));
+			baton.HeifOptions = options;
 			return this;
 		}
 
@@ -35,7 +39,7 @@ namespace SharpSharp {
 		/// </exception>
 		public ImagePipeline Jpeg(JpegOptions options) {
 			Guard.NotNull(options, nameof(options));
-			result.JpegOptions = options;
+			baton.JpegOptions = options;
 			return this;
 		}
 
@@ -61,7 +65,7 @@ namespace SharpSharp {
 		/// </exception>
 		public ImagePipeline Png(PngOptions options) {
 			Guard.NotNull(options, nameof(options));
-			result.PngOptions = options;
+			baton.PngOptions = options;
 			return this;
 		}
 
@@ -69,7 +73,7 @@ namespace SharpSharp {
 
 		public ImagePipeline Raw(RawOptions options) {
 			Guard.NotNull(options, nameof(options));
-			result.RawOptions = options;
+			baton.RawOptions = options;
 			return this;
 		}
 
@@ -91,7 +95,7 @@ namespace SharpSharp {
 public void ToBuffer(out byte[] buffer) {
 			buffer = Array.Empty<byte>();
 			ToBuffer(new ToBufferOptions(buffer, null));
-			buffer = result.ToBufferOptions!.Buffer;
+			buffer = baton.ToBufferOptions!.Buffer;
 		}
 
 /// <summary>
@@ -110,7 +114,7 @@ public void ToBuffer(out byte[] buffer) {
 public void ToBuffer(Action<OutputImageInfo> callback, out byte[] buffer) {
 			buffer = Array.Empty<byte>();
 			ToBuffer(new ToBufferOptions(buffer, callback));
-			buffer = result.ToBufferOptions!.Buffer;
+			buffer = baton.ToBufferOptions!.Buffer;
 		}
 
 /// <summary>
@@ -124,7 +128,7 @@ public void ToBuffer(Action<OutputImageInfo> callback, out byte[] buffer) {
 /// </exception>
 public void ToBuffer(ToBufferOptions bufferOptions) {
 			Guard.NotNull(bufferOptions, nameof(bufferOptions));
-			result.ToBufferOptions = bufferOptions;
+			baton.ToBufferOptions = bufferOptions;
 			Execute();
 		}
 
@@ -178,7 +182,7 @@ public void ToFile(string filePath, Action<OutputImageInfo> callback) {
 /// </exception>
 public void ToFile(ToFileOptions fileOptions) {
 			Guard.NotNull(fileOptions, nameof(fileOptions));
-			result.ToFileOptions = fileOptions;
+			baton.ToFileOptions = fileOptions;
 			Execute();
 		}
 
@@ -259,10 +263,10 @@ public void ToStream(Action<OutputImageInfo> callback, out Stream stream) {
 /// </exception>
 public void ToStream(ToStreamOptions streamOptions) {
 			Guard.NotNull(streamOptions, nameof(streamOptions));
-			result.ToStreamOptions = streamOptions;
+			baton.ToStreamOptions = streamOptions;
 			Execute();
 			if(streamOptions.Callback.HasValue()) {
-				streamOptions.Callback(result.OutputImageInfo!);
+				streamOptions.Callback(baton.OutputImageInfo!);
 			}
 		}
 
@@ -296,7 +300,7 @@ public void ToStream(ToStreamOptions streamOptions) {
 		/// </exception>
 		public ImagePipeline Webp(WebpOptions options) {
 			Guard.NotNull(options, nameof(options));
-			result.WebpOptions = options;
+			baton.WebpOptions = options;
 			return this;
 		}
 
@@ -304,7 +308,7 @@ public void ToStream(ToStreamOptions streamOptions) {
 
 		public ImagePipeline WithMetadata(MetadataOptions options) {
 			Guard.NotNull(options, nameof(options));
-			result.MetadataOptions = options;
+			baton.MetadataOptions = options;
 			return this;
 		}
 	}

@@ -1,4 +1,6 @@
-﻿namespace SharpSharp {
+﻿using RandyRidge.Common;
+
+namespace SharpSharp {
 	public enum Orientation {
 		TopLeft = 1,
 		TopRight = 2,

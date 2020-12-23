@@ -11,8 +11,8 @@ namespace SharpSharp.Pipeline {
 
 		public int Channels { get; set; }
 
-		public ColorizationOptions? ColorizationOptions { get; set; }
-
+		public CropOffsetOptions CropOffsetOptions { get; set; }
+		
 		public HeifOptions? HeifOptions { get; set; }
 
 		public int Height { get; set; }
@@ -25,15 +25,19 @@ namespace SharpSharp.Pipeline {
 
 		public MetadataOptions MetadataOptions { get; set; }
 
-		public OperationOptions? OperationOptions { get; set; }
+		public OperationOptions OperationOptions { get; set; }
 
 		internal OutputImageInfo? OutputImageInfo { get; set; }
 
 		public PngOptions? PngOptions { get; set; }
 
+		public PreExtractionOptions PreExtractionOptions { get; set; }
+
 		public RawOptions? RawOptions { get; set; }
 
 		public ResizeOptions ResizeOptions { get; set; }
+
+		public RotationOptions RotationOptions { get; set; }
 
 		public SharpenOptions? SharpenOptions { get; set; }
 
@@ -42,6 +46,8 @@ namespace SharpSharp.Pipeline {
 		public ToFileOptions? ToFileOptions { get; set; }
 
 		public ToStreamOptions? ToStreamOptions { get; set; }
+
+		public TrimOptions TrimOptions { get; set; }
 
 		public WebpOptions? WebpOptions { get; set; }
 

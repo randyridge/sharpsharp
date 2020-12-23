@@ -9,12 +9,12 @@ namespace SharpSharp {
 	public sealed partial class ImagePipeline {
 		private readonly ImageSource imageSource;
 		private readonly Processor processor;
-		private readonly PipelineBaton result;
+		private readonly PipelineBaton baton;
 
 		// Called by the From* methods in the partial ImagePipeline.Constructor
 		private ImagePipeline(ImageSource imageSource) {
 			this.imageSource = Guard.NotNull(imageSource, nameof(imageSource));
-			result = new PipelineBaton();
+			baton = new PipelineBaton();
 			processor = new Processor();
 		}
 
@@ -25,7 +25,7 @@ namespace SharpSharp {
 
 		// Called by the To* methods in the partial ImagePipeline.Output
 		private void Execute() {
-			processor.Process(imageSource, result);
+			processor.Process(imageSource, baton);
 		}
 	}
 }

@@ -9,309 +9,48 @@ namespace SharpSharp.Pipeline {
 			Guard.NotNull(imageSource, nameof(imageSource));
 			Guard.NotNull(baton, nameof(baton));
 
-			var (image, imageType) = imageSource.Load();
+			var (image, imageType) = LoadImage(imageSource, baton);
 
-			baton.Image = image;
-			baton.InputImageType = imageType;
+			var (rotation, rotationOptions) = CalculateAngleOfRotation(baton, image);
+			image = RotatePreExtract(rotationOptions, rotation, image);
+			image = Trim(baton, image);
+			image = PreExtraction(baton, image);
 
-			// TODO: Calculate angle of rotation
-			// var rotation = VipsAngle.Angle0;
+			var (inputWidth, inputHeight) = GetPreResizeWidthAndHeight(baton, image, rotation);
+			ClipWithoutEnlargement(baton, inputWidth, inputHeight);
 
-			// TODO: rotate pre-extract
-			// TODO: trim
-			// TODO: pre-extraction
+			var (xFactor, yFactor, targetResizeWidth, targetResizeHeight) = CalculateScaling(baton, inputWidth, inputHeight);
+			var (xShrink, yShrink) = CalculateIntegralBoxShrink(xFactor, yFactor);
+			var (xResidual, yResidual) = CalculateResidualFloatAffineTransformation(xShrink, xFactor, yShrink, yFactor);
+			image = ShrinkOnLoad(imageType, imageSource, image, baton, ref xFactor, ref yFactor, xShrink, yShrink, xResidual, yResidual, rotation, targetResizeWidth, targetResizeHeight);
+			image = EnsureDeviceIndependentColorSpace(image);
+			image = RemoveAlphaChannel(baton, image);
+			image = NegateColors(baton, image);
+			image = ApplyGamma(baton, image);
+			image = ConvertToGrayscale(baton, image);
 
-			// Get pre-resize image width and height
-			var inputHeight = image.Height;
-			var inputWidth = image.Width;
-			// TODO: More rotation stuff
-
-			// Scaling calculations
-			var xFactor = 1.0;
-			var yFactor = 1.0;
-			baton.Height = baton.ResizeOptions.Height;
-			baton.Width = baton.ResizeOptions.Width;
-			var targetResizeHeight = baton.Height;
-			var targetResizeWidth = baton.Width;
-			if(baton.Width > 0 && baton.Height > 0) {
-				// Fixed width and height
-				xFactor = inputWidth / (double) baton.Width;
-				yFactor = inputHeight / (double) baton.Height;
-				switch(baton.ResizeOptions.Fit) {
-					case Fit.Cover:
-						if(xFactor < yFactor) {
-							targetResizeHeight = (int) Math.Round(inputHeight / xFactor, MidpointRounding.AwayFromZero);
-							yFactor = xFactor;
-						}
-						else {
-							targetResizeWidth = (int) Math.Round(inputWidth / yFactor, MidpointRounding.AwayFromZero);
-							xFactor = yFactor;
-						}
-
-						break;
-					case Fit.Contain:
-						if(xFactor > yFactor) {
-							targetResizeHeight = (int) Math.Round(inputHeight / xFactor, MidpointRounding.AwayFromZero);
-							yFactor = xFactor;
-						}
-						else {
-							targetResizeWidth = (int) Math.Round(inputWidth / yFactor, MidpointRounding.AwayFromZero);
-							xFactor = yFactor;
-						}
-
-						break;
-					case Fit.Inside:
-						if(xFactor > yFactor) {
-							targetResizeHeight = (int) Math.Round(inputHeight / xFactor, MidpointRounding.AwayFromZero);
-							yFactor = xFactor;
-							baton.Height = targetResizeHeight;
-						}
-						else {
-							targetResizeWidth = (int) Math.Round(inputWidth / yFactor, MidpointRounding.AwayFromZero);
-							xFactor = yFactor;
-							baton.Width = targetResizeWidth;
-						}
-
-						break;
-					case Fit.Outside:
-						if(xFactor < yFactor) {
-							targetResizeHeight = (int) Math.Round(inputHeight / xFactor, MidpointRounding.AwayFromZero);
-							yFactor = xFactor;
-							baton.Height = targetResizeHeight;
-						}
-						else {
-							targetResizeWidth = (int) Math.Round(inputWidth / yFactor, MidpointRounding.AwayFromZero);
-							xFactor = yFactor;
-							baton.Height = targetResizeWidth;
-						}
-
-						break;
-					case Fit.Fill:
-						// TODO: rotation stuff
-						break;
-				}
-			}
-			else if(baton.Width > 0) {
-				// Fixed width
-				xFactor = inputWidth / (double) baton.Width;
-				if(baton.ResizeOptions.Fit == Fit.Fill) {
-					targetResizeHeight = inputHeight;
-					baton.Height = inputHeight;
-				}
-				else {
-					// Auto height
-					yFactor = xFactor;
-					targetResizeHeight = (int) Math.Round(inputHeight / yFactor, MidpointRounding.AwayFromZero);
-					baton.Height = targetResizeHeight;
-				}
-			}
-			else if(baton.Height > 0) {
-				// Fixed height
-				yFactor = inputHeight / (double) baton.Height;
-				if(baton.ResizeOptions.Fit == Fit.Fill) {
-					targetResizeWidth = inputWidth;
-					baton.Width = inputWidth;
-				}
-				else {
-					// Auto width
-					xFactor = yFactor;
-					targetResizeWidth = (int) Math.Round(inputWidth / xFactor, MidpointRounding.AwayFromZero);
-					baton.Width = targetResizeWidth;
-				}
-			}
-			else {
-				// Identity transform
-				baton.Width = inputWidth;
-				baton.Height = inputHeight;
-			}
-
-			// Calculate integral box shrink
-			var xShrink = Math.Max(1, (int) Math.Floor(xFactor));
-			var yShrink = Math.Max(1, (int) Math.Floor(yFactor));
-
-			// Calculate residual float affine transformation
-			var xResidual = xShrink / xFactor;
-			var yResidual = yShrink / yFactor;
-
-			// Do not enlarge the output if the input width *or* height
-			// are already less than the required dimensions
-			if(baton.ResizeOptions.WithoutEnlargement) {
-				if(inputWidth < baton.Width || inputHeight < baton.Height) {
-					xFactor = 1.0;
-					yFactor = 1.0;
-					xShrink = 1;
-					yShrink = 1;
-					xResidual = 1.0;
-					yResidual = 1.0;
-					baton.Width = inputWidth;
-					baton.Height = inputHeight;
-				}
-			}
-
-			// If integral x and y shrink are equal, try to use shrink-on-load for JPEG and WebP,
-			// but not when applying gamma correction, pre-resize extract or trim
-			var shrinkOnLoad = 1;
-			var shrinkOnLoadFactor = 1;
-
-			// Leave at least a factor of two for the final resize step, when fastShrinkOnLoad: false
-			// for more consistent results and avoid occasional small image shifting
-			if(!baton.ResizeOptions.FastShrinkOnLoad) {
-				shrinkOnLoadFactor = 2;
-			}
-
-			if(xShrink == yShrink && xShrink >= 2 * shrinkOnLoadFactor && (imageType == ImageType.Jpeg || imageType == ImageType.WebP)) {
-				// TODO: && baton->gamma == 0 && baton->topOffsetPre == -1 && baton->trimThreshold == 0.0
-				if(xShrink >= 8 * shrinkOnLoadFactor) {
-					xFactor /= 8;
-					yFactor /= 8;
-					shrinkOnLoad = 8;
-				}
-				else if(xShrink >= 4 * shrinkOnLoadFactor) {
-					xFactor /= 4;
-					yFactor /= 4;
-					shrinkOnLoad = 4;
-				}
-				else if(xShrink >= 2 * shrinkOnLoadFactor) {
-					xFactor /= 2;
-					yFactor /= 2;
-					shrinkOnLoad = 2;
-				}
-			}
-
-			// Help ensure a final kernel-based reduction to prevent shrink aliasing
-			if(shrinkOnLoad > 1 && (xResidual.IsAboutEqualTo(1.0) || yResidual.IsAboutEqualTo(1.0))) {
-				shrinkOnLoad /= 2;
-				xFactor *= 2;
-				yFactor *= 2;
-			}
-
-			if(shrinkOnLoad > 1) {
-				// Reload input using shrink-on-load
-				var access = imageSource.Options.UseSequentialRead ? Enums.Access.Sequential : Enums.Access.Random;
-				if(imageSource is BufferImageSource bufferImageSource) {
-					image = imageType == ImageType.Jpeg ?
-						Image.JpegloadBuffer(bufferImageSource.Buffer, shrinkOnLoad, null, null, access, true) :
-						Image.WebploadBuffer(bufferImageSource.Buffer, imageSource.Options.PageIndex, imageSource.Options.PageCount, null, null, access, true);
-				}
-
-				// Recalculate integral shrink and double residual
-				var shrunkOnLoadWidth = image.Width;
-				var shrunkOnLoadHeight = image.Height;
-				// TODO: rotation pre extract stuff
-				// if(baton.rotateBeforePreExtract
-				//xFactor = shrunkOnLoadWidth / (double) targetResizeHeight;
-				//yFactor = shrunkOnLoadHeight / (double) targetResizeWidth;
-				// else {
-				xFactor = shrunkOnLoadWidth / (double) targetResizeWidth;
-				yFactor = shrunkOnLoadHeight / (double) targetResizeHeight;
-			}
-
-			// Ensure we're using a device-independent colour space
-			if(image.HasProfile() && image.Interpretation != Enums.Interpretation.Labs) {
-				// Convert to sRGB using embedded profile
-				try {
-					image = image.IccTransform("srgb", null, Enums.Intent.Perceptual, true);
-				}
-				catch {
-					// Ignore failure of embedded profile
-				}
-			}
-			else if(image.Interpretation == Enums.Interpretation.Cmyk) {
-				image = image.IccTransform("srgb", null, Enums.Intent.Perceptual, null, "cmyk");
-			}
-
-			// TODO: Flatten image to remove alpha channel
-			// TODO: Negate the colors in the image
-			// TODO: Gamma encoding (darken)
-			// TODO: Convert to grayscale (linear, therefore after gamma encoding, if any)
-			if(baton.ColorizationOptions.HasValue() && baton.ColorizationOptions.MakeGrayscale) {
-				image = image.Colourspace(Enums.Interpretation.Bw);
-			}
-
+			var oo = baton.OperationOptions;
 			var shouldResize = !xFactor.IsAboutEqualTo(1.0) || !yFactor.IsAboutEqualTo(1.0);
-			// TODO: var shouldBlur 
-			// TODO: var shouldConf
-			// TODO: var shouldSharpen
-			// TODO: var shouldApplyMedian
-			// TODO: var shouldComposite
-			// TODO: var shouldModulate
-
-			//if(shouldComposite && !image.HasAlpha()) {
-			//    image = image.EnsureAlpha();
-			//}
-
-			var shouldPremultiplyAlpha = image.HasAlpha() && shouldResize; // TODO: (shouldResize || shouldBlur || shouldConv || shouldSharpen || shouldComposite);
-			// Premultiply image alpha channel before all transformations to avoid
-			// dark fringing around bright pixels
-			// See: http://entropymine.com/imageworsener/resizealpha/
-			if(shouldPremultiplyAlpha) {
-				image = image.Premultiply();
-			}
-
-			// Resize
-			if(shouldResize) {
-				var kernel = baton.ResizeOptions.Kernel;
-				// Ensure shortest edge is at least 1 pixel
-				if(image.Width / xFactor < 0.5) {
-					xFactor = 2 * image.Width;
-					baton.Width = 1;
-				}
-
-				if(image.Height / yFactor < 0.5) {
-					yFactor = 2 * image.Height;
-					baton.Height = 1;
-				}
-
-				image = image.Resize(1.0 / xFactor, kernel, 1.0 / yFactor);
-			}
-
-			// TODO: Rotate post-extract 90-angle
-			// TODO: Flip
-			// TODO: Flop
-			// TODO: Join additional color channels to the image
-
-			// Crop/embed
-			if(image.Width != baton.Width || image.Height != baton.Height) {
-				var fit = baton.ResizeOptions.Fit;
-				if(fit == Fit.Contain) {
-					var (img, background) = NeedsBetterPlace.ApplyAlpha(image, baton.ResizeOptions.Background.ToDoubles());
-					image = img;
-
-					// Embed
-
-					// Calculate where to position the embeded image if gravity specified, else center.
-					int left;
-					int top;
-
-					left = (int) Math.Round((baton.Width - image.Width) / 2.0, MidpointRounding.AwayFromZero);
-					top = (int) Math.Round((baton.Height - image.Height) / 2.0, MidpointRounding.AwayFromZero);
-
-					var width = Math.Max(image.Width, baton.Width);
-					var height = Math.Max(image.Height, baton.Height);
-
-					// TODO: gravity
-					var (newLeft, newTop) = NeedsBetterPlace.CalculateEmbedPosition(image.Width, image.Height, baton.Width, baton.Height, Gravity.Center);
-					left = newLeft;
-					top = newTop;
-
-					image = image.Embed(left, top, width, height, "background", background);
-				}
-				else if(fit != Fit.Fill && image.Width > baton.Width || image.Height > baton.Height) {
-					// Crop/max/min
-					// TODO: if(baton.Position < 9) {
-					// Gravity-based crop
-					var (left, top) = NeedsBetterPlace.CalculateCrop(image.Width, image.Height, baton.Width, baton.Height, Gravity.Center); //, baton.Position);
-					var width = Math.Min(image.Width, baton.Width);
-					var height = Math.Min(image.Height, baton.Height);
-					image = image.ExtractArea(left, top, width, height);
-					//}
-					//else {
-					// TODO: Attention-based or Entropy-based crop
-					//}
-				}
-			}
+			var shouldBlur = !oo.BlurSigma.IsAboutEqualTo(0.0);
+			var shouldConvolve = oo.ConvolveKernelWidth * oo.ConvolveKernelHeight > 0;
+			var shouldSharpen = !oo.SharpenSigma.IsAboutEqualTo(0.0);
+			var shouldApplyMedian = oo.MedianSize > 0;
+			var shouldComposite = oo.Composite.HasValue();
+			var shouldModulate = !oo.Brightness.IsAboutEqualTo(1.0) || !oo.Saturation.IsAboutEqualTo(1.0) || !oo.Hue.IsAboutEqualTo(0.0);
+			image = CreateAlphaChannel(shouldComposite, image);
+			image = PremultiplyAlphaChannel(image, shouldResize, shouldBlur, shouldConvolve, shouldSharpen, shouldComposite);
+			image = Resize(baton, shouldResize, image, xFactor, yFactor);
+			image = RotatePostExtract(baton, rotation, image);
+			image = Flip(baton, image);
+			image = Flop(baton, image);
+			image = JoinAdditionalColorChannels(baton, image);
+			image = CropOrEmbed(baton, image);
 
 			// TODO: Rotate post-extract non-90 angle
+			if (!baton.RotationOptions.RotateBeforePreExtract && !baton.RotationOptions.RotationAngle.IsAboutEqualTo(0.0)) {
+				var (img, background) = NeedsBetterPlace.ApplyAlpha(image, baton.RotationOptions.RotationBackground);
+				image = img.Rotate(baton.RotationOptions.RotationAngle, background: background);
+			}
 			// TODO: Post extraction
 			// TODO: Extend edges
 			// TODO: Median - must happen before blurring, due to the utility of blurring after thresholding
@@ -332,7 +71,7 @@ namespace SharpSharp.Pipeline {
 			// TODO: Linear adjustment (a * in + b)
 
 			// Apply normalization - stretch luminance to cover full dynamic range
-			if(baton.OperationOptions.HasValue() && baton.OperationOptions.MakeNormalized) {
+			if(baton.OperationOptions.HasValue() && baton.OperationOptions.Normalize) {
 				image = image.Normalize();
 			}
 
@@ -404,9 +143,7 @@ namespace SharpSharp.Pipeline {
 						null,
 						null,
 						o.ReductionEffort,
-						strip,
-						null,
-						null // TODO: Shouldn't this have a value for animations?
+						strip // TODO: Shouldn't this have a value for animations?
 					);
 					baton.OutputImageInfo.Format = "webp";
 				}
@@ -428,7 +165,7 @@ namespace SharpSharp.Pipeline {
 				}
 				else if(baton.RawOptions.HasValue()) {
 					// Write raw, uncompressed image data to buffer
-					if(baton.ColorizationOptions.HasValue() && baton.ColorizationOptions.MakeGrayscale || image.Interpretation == Enums.Interpretation.Bw) {
+					if(baton.OperationOptions.Grayscale || image.Interpretation == Enums.Interpretation.Bw) {
 						// Extract first band for greyscale image
 						image = image[0];
 					}
@@ -489,9 +226,7 @@ namespace SharpSharp.Pipeline {
 						null,
 						null,
 						o.ReductionEffort,
-						strip,
-						null,
-						null // TODO: Shouldn't this have a value for animations?
+						strip // TODO: Shouldn't this have a value for animations?
 					);
 					baton.OutputImageInfo.Format = "webp";
 				}
@@ -517,6 +252,517 @@ namespace SharpSharp.Pipeline {
 			}
 
 			image?.Dispose();
+		}
+
+		private Image JoinAdditionalColorChannels(PipelineBaton baton, Image image) {
+			// TODO: this
+			//if(baton.OperationOptions.JoinChannelIn.HasValue()) {
+			//	for(var i = 0; i < baton.OperationOptions.JoinChannelIn.Length; i++) {
+			//		var (joinImage, joinImageType) = sharp::OpenInput(baton->joinChannelIn[i]);
+			//		image = image.bandjoin(joinImage);
+			//	}
+			//	image = image.copy(VImage::option()->set("interpretation", baton->colourspace));
+			//}
+			return image;
+		}
+
+		private static Image CropOrEmbed(PipelineBaton baton, Image image) {
+			if(image.Width == baton.Width && image.Height == baton.Height) {
+				return image;
+			}
+
+			if(baton.ResizeOptions.Canvas == Canvas.Embed) {
+				image = Embed(baton, image);
+			}
+			else if(baton.ResizeOptions.Canvas != Canvas.IgnoreAspectRatio && (image.Width > baton.Width || image.Height > baton.Height)) {
+				image = (int) baton.ResizeOptions.Position < 9 ? GravityCrop(baton, image) : AttentionOrEntropyCrop(baton, image);
+			}
+
+			return image;
+		}
+
+		private static Image AttentionOrEntropyCrop(PipelineBaton baton, Image image) {
+			if(baton.Width > image.Width) {
+				baton.Width = image.Width;
+			}
+
+			if(baton.Height > image.Height) {
+				baton.Height = image.Height;
+			}
+
+			image = image.Tilecache(access:Enums.Access.Random, threaded:true);
+			image = image.Smartcrop(baton.Width, baton.Height, (int) baton.ResizeOptions.Position == 16 ? Enums.Interesting.Entropy : Enums.Interesting.Attention);
+			baton.CropOffsetOptions.HasCropOffset = true;
+			baton.CropOffsetOptions.Left = image.Xoffset;
+			baton.CropOffsetOptions.Top = image.Yoffset;
+			return image;
+		}
+
+		private static Image GravityCrop(PipelineBaton baton, Image image) {
+			var (left, top) = NeedsBetterPlace.CalculateCrop(image.Width, image.Height, baton.Width, baton.Height, baton.ResizeOptions.Position);
+			var width = Math.Min(image.Width, baton.Width);
+			var height = Math.Min(image.Height, baton.Height);
+			image = image.ExtractArea(left, top, width, height);
+			return image;
+		}
+
+		private static Image Embed(PipelineBaton baton, Image image) {
+			var (img, background) = NeedsBetterPlace.ApplyAlpha(image, baton.ResizeOptions.Background);
+			image = img;
+			// Calculate where to position the embedded image if gravity specified, else center.
+			var width = Math.Max(image.Width, baton.Width);
+			var height = Math.Max(image.Height, baton.Height);
+			var (left, top) = NeedsBetterPlace.CalculateEmbedPosition(image.Width, image.Height, baton.Width, baton.Height, baton.ResizeOptions.Position);
+			image = image.Embed(left, top, width, height, "background", background);
+			return image;
+		}
+
+		private static Image Flop(PipelineBaton baton, Image image) {
+			if(baton.RotationOptions.Flop) {
+				image = image.Flip(Enums.Direction.Horizontal);
+				image = image.RemoveExifOrientation();
+			}
+
+			return image;
+		}
+
+		private static Image Flip(PipelineBaton baton, Image image) {
+			if(baton.RotationOptions.Flip) {
+				image = image.Flip(Enums.Direction.Vertical);
+				image = image.RemoveExifOrientation();
+			}
+
+			return image;
+		}
+
+		private static Image RotatePostExtract(PipelineBaton baton, string rotation, Image image) {
+			if(!baton.RotationOptions.RotateBeforePreExtract && rotation != Enums.Angle.D0) {
+				image = image.Rot(rotation);
+				image = image.RemoveExifOrientation();
+			}
+
+			return image;
+		}
+
+		private static Image Resize(PipelineBaton baton, bool shouldResize, Image image, double xFactor, double yFactor) {
+			if(shouldResize) {
+				var kernel = baton.ResizeOptions.Kernel;
+				// Ensure shortest edge is at least 1 pixel
+				if(image.Width / xFactor < 0.5) {
+					xFactor = 2 * image.Width;
+					baton.Width = 1;
+				}
+
+				if(image.Height / yFactor < 0.5) {
+					yFactor = 2 * image.Height;
+					baton.Height = 1;
+				}
+
+				image = image.Resize(1.0 / xFactor, kernel, 1.0 / yFactor);
+			}
+
+			return image;
+		}
+
+		private static Image PremultiplyAlphaChannel(Image image, bool shouldResize, bool shouldBlur, bool shouldConvolve, bool shouldSharpen, bool shouldComposite) {
+			var shouldPremultiplyAlpha = image.HasAlpha() && (shouldResize || shouldBlur || shouldConvolve || shouldSharpen || shouldComposite);
+			// Premultiply image alpha channel before all transformations to avoid
+			// dark fringing around bright pixels
+			// See: http://entropymine.com/imageworsener/resizealpha/
+			if(shouldPremultiplyAlpha) {
+				image = image.Premultiply();
+			}
+
+			return image;
+		}
+
+		private static Image CreateAlphaChannel(bool shouldComposite, Image image) {
+			if(shouldComposite && !image.HasAlpha()) {
+				image = image.EnsureAlpha();
+			}
+
+			return image;
+		}
+
+		private static Image ConvertToGrayscale(PipelineBaton baton, Image image) {
+			if(baton.OperationOptions.Grayscale) {
+				image = image.Colourspace(Enums.Interpretation.Bw);
+			}
+
+			return image;
+		}
+
+		private static Image ApplyGamma(PipelineBaton baton, Image image) {
+			var gamma = baton.OperationOptions.Gamma;
+			if(gamma >= 1 && gamma <= 3) {
+				image = image.Gamma(1.0 / gamma);
+			}
+
+			return image;
+		}
+
+		private static Image NegateColors(PipelineBaton baton, Image image) {
+			if(baton.OperationOptions.Negate) {
+				image = image.Invert();
+			}
+
+			return image;
+		}
+
+		private static Image RemoveAlphaChannel(PipelineBaton baton, Image image) {
+			if(baton.OperationOptions.Flatten && image.HasAlpha()) {
+				// Scale up 8-bit values to match 16-bit input image
+				var multiplier = image.Interpretation.Is16Bit() ? 256.0 : 1.0;
+				// Background color
+				var fb = baton.OperationOptions.FlattenBackground;
+				var background = new[] {fb[0] * multiplier, fb[1] * multiplier, fb[2] * multiplier};
+				image = image.Flatten(background);
+			}
+
+			return image;
+		}
+
+		private static Image EnsureDeviceIndependentColorSpace(Image image) {
+			var imageInterpretation = image.Interpretation;
+			if(image.HasProfile() && imageInterpretation != Enums.Interpretation.Labs && imageInterpretation != Enums.Interpretation.Grey16) {
+				// Convert to sRGB using embedded profile
+				try {
+					image = image.IccTransform("srgb", null, Enums.Intent.Perceptual, true, depth:imageInterpretation == Enums.Interpretation.Rgb16 ? 16 : 8);
+				}
+				catch {
+					// Ignore failure of embedded profile
+				}
+			}
+			else if(imageInterpretation == Enums.Interpretation.Cmyk) {
+				image = image.IccTransform("srgb", null, Enums.Intent.Perceptual, null, "cmyk");
+			}
+
+			return image;
+		}
+
+		private static Image ShrinkOnLoad(ImageType imageType, ImageSource imageSource, Image image, PipelineBaton baton, ref double xFactor, ref double yFactor, int xShrink, int yShrink, double xResidual, double yResidual, string rotation, int targetResizeWidth, int targetResizeHeight) {
+			var shrinkOnLoad = 1;
+			var shrinkOnLoadFactor = 1;
+
+			// Leave at least a factor of two for the final resize step, when fastShrinkOnLoad: false
+			// for more consistent results and avoid occasional small image shifting
+			if(!baton.ResizeOptions.FastShrinkOnLoad) {
+				shrinkOnLoadFactor = 2;
+			}
+
+			// If integral x and y shrink are equal, try to use shrink-on-load for JPEG and WebP,
+			// but not when applying gamma correction, pre-resize extract or trim
+			if(xShrink == yShrink && xShrink >= 2 * shrinkOnLoadFactor && (imageType == ImageType.Jpeg || imageType == ImageType.WebP)
+				&& baton.OperationOptions.Gamma == 0 && baton.PreExtractionOptions.TopOffset == -1 && baton.TrimOptions.TrimThreshold.IsAboutEqualTo(0.0)) {
+				if(xShrink >= 8 * shrinkOnLoadFactor) {
+					xFactor /= 8;
+					yFactor /= 8;
+					shrinkOnLoad = 8;
+				}
+				else if(xShrink >= 4 * shrinkOnLoadFactor) {
+					xFactor /= 4;
+					yFactor /= 4;
+					shrinkOnLoad = 4;
+				}
+				else if(xShrink >= 2 * shrinkOnLoadFactor) {
+					xFactor /= 2;
+					yFactor /= 2;
+					shrinkOnLoad = 2;
+				}
+			}
+
+			// Help ensure a final kernel-based reduction to prevent shrink aliasing
+			if(shrinkOnLoad > 1 && (xResidual.IsAboutEqualTo(1.0) || yResidual.IsAboutEqualTo(1.0))) {
+				shrinkOnLoad /= 2;
+				xFactor *= 2;
+				yFactor *= 2;
+			}
+
+			if(shrinkOnLoad > 1) {
+				// Reload input using shrink-on-load
+				var access = imageSource.Options.UseSequentialRead ? Enums.Access.Sequential : Enums.Access.Random;
+				if(imageSource is BufferImageSource bufferImageSource) {
+					image = imageType == ImageType.Jpeg ?
+						Image.JpegloadBuffer(bufferImageSource.Buffer, shrinkOnLoad, null, null, access, true) :
+						Image.WebploadBuffer(bufferImageSource.Buffer, imageSource.Options.PageIndex, imageSource.Options.PageCount, null, null, access, true);
+				}
+				else if(imageSource is FileImageSource fileImageSource) {
+					if(imageType == ImageType.Jpeg) {
+						image = Image.Jpegload(fileImageSource.Path, shrinkOnLoad, null, null, access, true);
+					}
+					else if(imageType == ImageType.WebP) {
+						image = Image.Webpload(fileImageSource.Path, imageSource.Options.PageIndex, imageSource.Options.PageCount, null, null, access, true);
+					}
+				}
+
+				// Recalculate integral shrink and double residual
+				var shrunkOnLoadWidth = image.Width;
+				var shrunkOnLoadHeight = image.Height;
+
+				if (!baton.PreExtractionOptions.RotateBeforePreExtract && (rotation == Enums.Angle.D90 || rotation == Enums.Angle.D270)) {
+					// Swap when rotating by 90 or 270 degrees
+					xFactor = shrunkOnLoadWidth / (double) targetResizeHeight;
+					yFactor = shrunkOnLoadHeight / (double) targetResizeWidth;
+				} else {
+					xFactor = shrunkOnLoadWidth / (double) targetResizeWidth;
+					yFactor = shrunkOnLoadHeight / (double) targetResizeHeight;
+				}
+			}
+
+			return image;
+		}
+
+		private static (double xResidual, double yResidual) CalculateResidualFloatAffineTransformation(int xShrink, double xFactor, int yShrink, double yFactor) 
+			=> (xShrink / xFactor, yShrink / yFactor);
+
+		private static (int XShrink, int YShrink) CalculateIntegralBoxShrink(double xFactor, double yFactor) =>
+			(Math.Max(1, (int) Math.Floor(xFactor)), Math.Max(1, (int) Math.Floor(yFactor)));
+
+		private static (double XFactor, double YFactor, int TargetResizeWidth, int TargetResizeHeight) CalculateScaling(PipelineBaton baton, int inputWidth, int inputHeight) {
+			var xFactor = 1.0;
+			var yFactor = 1.0;
+
+			baton.Height = baton.ResizeOptions.Height;
+			baton.Width = baton.ResizeOptions.Width;
+			var targetResizeHeight = baton.Height;
+			var targetResizeWidth = baton.Width;
+
+			if(baton.Width > 0 && baton.Height > 0) {
+				// Fixed width and height
+				xFactor = inputWidth / (double) baton.Width;
+				yFactor = inputHeight / (double) baton.Height;
+				switch(baton.ResizeOptions.Canvas) {
+					case Fit.Cover:
+						if(xFactor < yFactor) {
+							targetResizeHeight = (int) Math.Round(inputHeight / xFactor, MidpointRounding.AwayFromZero);
+							yFactor = xFactor;
+						}
+						else {
+							targetResizeWidth = (int) Math.Round(inputWidth / yFactor, MidpointRounding.AwayFromZero);
+							xFactor = yFactor;
+						}
+
+						break;
+					case Fit.Contain:
+						if(xFactor > yFactor) {
+							targetResizeHeight = (int) Math.Round(inputHeight / xFactor, MidpointRounding.AwayFromZero);
+							yFactor = xFactor;
+						}
+						else {
+							targetResizeWidth = (int) Math.Round(inputWidth / yFactor, MidpointRounding.AwayFromZero);
+							xFactor = yFactor;
+						}
+
+						break;
+					case Fit.Inside:
+						if(xFactor > yFactor) {
+							targetResizeHeight = (int) Math.Round(inputHeight / xFactor, MidpointRounding.AwayFromZero);
+							yFactor = xFactor;
+							baton.Height = targetResizeHeight;
+						}
+						else {
+							targetResizeWidth = (int) Math.Round(inputWidth / yFactor, MidpointRounding.AwayFromZero);
+							xFactor = yFactor;
+							baton.Width = targetResizeWidth;
+						}
+
+						break;
+					case Fit.Outside:
+						if(xFactor < yFactor) {
+							targetResizeHeight = (int) Math.Round(inputHeight / xFactor, MidpointRounding.AwayFromZero);
+							yFactor = xFactor;
+							baton.Height = targetResizeHeight;
+						}
+						else {
+							targetResizeWidth = (int) Math.Round(inputWidth / yFactor, MidpointRounding.AwayFromZero);
+							xFactor = yFactor;
+							baton.Height = targetResizeWidth;
+						}
+
+						break;
+					case Fit.Fill:
+						// TODO: rotation stuff
+						break;
+				}
+			}
+			else if(baton.Width > 0) {
+				// Fixed width
+				xFactor = inputWidth / (double) baton.Width;
+				if(baton.ResizeOptions.Canvas == Fit.Fill) {
+					targetResizeHeight = inputHeight;
+					baton.Height = inputHeight;
+				}
+				else {
+					// Auto height
+					yFactor = xFactor;
+					targetResizeHeight = (int) Math.Round(inputHeight / yFactor, MidpointRounding.AwayFromZero);
+					baton.Height = targetResizeHeight;
+				}
+			}
+			else if(baton.Height > 0) {
+				// Fixed height
+				yFactor = inputHeight / (double) baton.Height;
+				if(baton.ResizeOptions.Canvas == Fit.Fill) {
+					targetResizeWidth = inputWidth;
+					baton.Width = inputWidth;
+				}
+				else {
+					// Auto width
+					xFactor = yFactor;
+					targetResizeWidth = (int) Math.Round(inputWidth / xFactor, MidpointRounding.AwayFromZero);
+					baton.Width = targetResizeWidth;
+				}
+			}
+			else {
+				// Identity transform
+				baton.Width = inputWidth;
+				baton.Height = inputHeight;
+			}
+
+			return (xFactor, yFactor, targetResizeWidth, targetResizeHeight);
+		}
+
+		private static (string Rotation, RotationOptions rotationOptions) CalculateAngleOfRotation(PipelineBaton baton, Image image) {
+			var rotationOptions = baton.RotationOptions;
+			string rotation;
+			if(rotationOptions.UseExifOrientation) {
+				// Rotate and flip image according to Exif orientation
+				var (rotationString, flip, flop) = CalculateExifRotationAndFlip(image.ExifOrientation());
+				rotation = rotationString;
+				rotationOptions.Flip = rotationOptions.Flip || flip;
+				rotationOptions.Flop = rotationOptions.Flop || flop;
+			}
+			else {
+				rotation = CalculateAngleRotation(rotationOptions.Angle);
+			}
+
+			return (rotation, rotationOptions);
+		}
+
+		private static string CalculateAngleRotation(int angle) {
+			angle %= 360;
+
+			if(angle < 0) {
+				angle = 360 + angle;
+			}
+
+			return angle switch {
+				90 => Enums.Angle.D90,
+				180 => Enums.Angle.D180,
+				270 => Enums.Angle.D270,
+				_ => Enums.Angle.D0
+			};
+		}
+
+		private static (string Rotation, bool Flip, bool Flop) CalculateExifRotationAndFlip(int exifOrientation) {
+			var rotation = Enums.Angle.D0;
+			var flip = false;
+			var flop = false;
+			switch(exifOrientation) {
+				case 6: {
+					rotation = Enums.Angle.D90;
+					break;
+				}
+				case 3:
+					rotation = Enums.Angle.D180;
+					break;
+				case 8:
+					rotation = Enums.Angle.D270;
+					break;
+				case 2:
+					flop = true;
+					break; // flop 1
+				case 7:
+					flip = true;
+					rotation = Enums.Angle.D90;
+					break; // flip 6
+				case 4:
+					flop = true;
+					rotation = Enums.Angle.D180;
+					break; // flop 3
+				case 5:
+					flip = true;
+					rotation = Enums.Angle.D270;
+					break; // flip 8
+			}
+
+			return (rotation, flip, flop);
+		}
+
+		private static (int IntputWidth, int InputHeight) GetPreResizeWidthAndHeight(PipelineBaton baton, Image image, string rotation) {
+			var inputWidth = image.Width;
+			var inputHeight = image.Height;
+
+			if(baton.RotationOptions.RotateBeforePreExtract || rotation != Enums.Angle.D90 && rotation != Enums.Angle.D270) {
+				return (inputWidth, inputHeight);
+			}
+
+			// Swap input output width and height when rotating by 90 or 270 degrees
+			var temp = inputWidth;
+			inputWidth = inputHeight;
+			inputHeight = temp;
+			return (inputWidth, inputHeight);
+		}
+
+		private static void ClipWithoutEnlargement(PipelineBaton baton, int inputWidth, int inputHeight) {
+			var resizeOptions = baton.ResizeOptions;
+			if(!resizeOptions.WithoutEnlargement) {
+				return;
+			}
+
+			// Override target width and height if exceeds respective value from input file
+
+			if(resizeOptions.Width > inputWidth) {
+				resizeOptions.Width = inputWidth;
+			}
+
+			if(resizeOptions.Height > inputHeight) {
+				resizeOptions.Height = inputHeight;
+			}
+		}
+
+		private static (Image Image, ImageType ImageType) LoadImage(ImageSource imageSource, PipelineBaton baton) {
+			var (image, imageType) = imageSource.Load();
+			baton.Image = image;
+			baton.InputImageType = imageType;
+			return (image, imageType);
+		}
+
+		private static Image PreExtraction(PipelineBaton baton, Image image) {
+			var preExtractionOptions = baton.PreExtractionOptions;
+			if(preExtractionOptions.TopOffset != -1) {
+				image = image.ExtractArea(preExtractionOptions.LeftOffset, preExtractionOptions.TopOffset, preExtractionOptions.Width, preExtractionOptions.Height);
+			}
+
+			return image;
+		}
+
+		private static Image RotatePreExtract(RotationOptions rotationOptions, string rotation, Image image) {
+			if(rotationOptions.RotateBeforePreExtract) {
+				if(rotation != Enums.Angle.D0) {
+					image = image.Rot(rotation);
+					image = image.RemoveExifOrientation();
+				}
+
+				if(rotationOptions.RotationAngle != 0.0) {
+					var (img, background) = NeedsBetterPlace.ApplyAlpha(image, rotationOptions.RotationBackground);
+					image = img;
+					image = image.Rotate(rotationOptions.RotationAngle, background:background);
+				}
+			}
+
+			return image;
+		}
+
+		private static Image Trim(PipelineBaton baton, Image image) {
+			var trimOptions = baton.TrimOptions;
+			if(trimOptions.TrimThreshold > 0.0) {
+				image = image.Trim(trimOptions.TrimThreshold);
+				trimOptions.TrimOffsetLeft = image.Xoffset;
+				trimOptions.TrimOffsetTop = image.Yoffset;
+			}
+
+			return image;
 		}
 	}
 }

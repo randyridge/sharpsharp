@@ -1,11 +1,11 @@
 ﻿namespace SharpSharp {
 	public sealed partial class ImagePipeline {
 		public ImagePipeline RemoveAlpha() {
-			if(result.ChannelOptions == null) {
-				result.ChannelOptions = new ChannelOptions();
+			if(baton.ChannelOptions == null) {
+				baton.ChannelOptions = new ChannelOptions();
 			}
 
-			result.ChannelOptions.RemoveAlpha = true;
+			baton.ChannelOptions.RemoveAlpha = true;
 			return this;
 		}
 

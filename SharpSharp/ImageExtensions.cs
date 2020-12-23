@@ -192,9 +192,11 @@ namespace SharpSharp {
 			return image.HasAlpha() ? image.ExtractBand(0, image.Bands - 1) : image;
 		}
 
-		public static void RemoveExifOrientation(this Image image) {
-			Guard.NotNull(image, nameof(image));
-			image.Remove("orientation");
+		public static Image RemoveExifOrientation(this Image image) {
+			image = Guard.NotNull(image, nameof(image));
+			var copy = image.Copy();
+			copy.Remove("orientation");
+			return copy;
 		}
 
 		public static void SetDensity(this Image image, double density) {

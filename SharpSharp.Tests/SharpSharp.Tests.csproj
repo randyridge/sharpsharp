@@ -34,5 +34,8 @@
     <Compile Update="ImagePipelineTester.Constructor.cs">
       <DependentUpon>ImagePipelineTester.cs</DependentUpon>
     </Compile>
+    <Compile Update="ImagePipelineTester.Output.cs">
+      <DependentUpon>ImagePipelineTester.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
