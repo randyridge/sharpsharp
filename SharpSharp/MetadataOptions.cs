@@ -1,14 +1,11 @@
 ﻿namespace SharpSharp {
-	public sealed class MetadataOptions {
-		public MetadataOptions(bool includeMetadata = false, Orientation? orientation = null) {
-			IncludeMetadata = includeMetadata;
-			Orientation = orientation;
-		}
+	public sealed record MetadataOptions {
+		public string Icc { get; set; } = string.Empty;
 
-		public bool IncludeMetadata { get; }
+		public int Orientation { get; set; } = -1;
 
-		public Orientation? Orientation { get; }
+		public bool ShouldStripMetadata => !WithMetadata;
 
-		public bool ShouldStripMetadata => !IncludeMetadata;
+		public bool WithMetadata { get; set; } = false;
 	}
 }

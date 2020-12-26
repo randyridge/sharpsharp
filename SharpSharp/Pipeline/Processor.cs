@@ -26,7 +26,7 @@ namespace SharpSharp.Pipeline {
 			image = EnsureDeviceIndependentColorSpace(image);
 			image = RemoveAlphaChannel(baton, image);
 			image = NegateColors(baton, image);
-			image = ApplyGamma(baton, image);
+			image = ApplyGammaEncoding(baton, image);
 			image = ConvertToGrayscale(baton, image);
 
 			var oo = baton.OperationOptions;
@@ -56,47 +56,33 @@ namespace SharpSharp.Pipeline {
 			image = Modulate(baton, image);
 			image = Sharpen(baton, image);
 			// TODO: Composite
-			// TODO: Reverse premultiplication after all transformations:
-			// Reverse premultiplication after all transformations:
-			if (shouldPremultiplyAlpha) {
-				image = image.Unpremultiply();
-				// Cast pixel values to integer
-				if (NeedsBetterPlace.Is16Bit(image.Interpretation)) {
-					image = image.Cast(Enums.BandFormat.Ushort);
-				}
-				else {
-					image = image.Cast(Enums.BandFormat.Uchar);
-				}
-			}
-			/////////////////////baton.->premultiplied = shouldPremultiplyAlpha;
-			// TODO: Gamma decoding (brighten)
-			// TODO: Linear adjustment (a * in + b)
-
-			// Apply normalization - stretch luminance to cover full dynamic range
-			if(baton.OperationOptions.HasValue() && baton.OperationOptions.Normalize) {
-				image = image.Normalize();
-			}
-
+			image = ReversePremultiplication(baton, image, shouldPremultiplyAlpha);
+			image = ApplyGammaDecoding(baton, image);
+			image = LinearAdjustment(baton, image);
+			image = Normalize(baton, image);
 			// TODO: Apply bitwise boolean operation between images
-			// TODO: Apply per-channel Bandbool bitwise operations after all other operations
-			// TODO: Tint the image
-			// TODO: Extract an image channel (aka vips band)
-			// TODO: Remove alpha channel, if any
-			if(baton.ChannelOptions.HasValue() && baton.ChannelOptions.RemoveAlpha) {
-				image = image.RemoveAlpha();
-			}
-
-			// TODO: Ensure alpha channel, if missing
-			// TODO: Convert image to sRGB, if not already
-			// TODO: Override EXIF Orientation tag
+			image = ApplyBandBoolOp(baton, image);
+			image = Tint(baton, image);
+			image = ExtractVipsBand(baton, image);
+			image = RemoveAlphaChannelIfAny(baton, image);
+			image = EnsureAlphaChannelIfMissing(baton, image);
+			image = ConvertToSrgb(baton, image);
+			image = ApplyIccProfile(baton, image);
+			image = OverrideExifOrientation(baton, image);
 
 			// Number of channels used in output image
 			baton.Channels = image.Bands;
 			baton.Width = image.Width;
 			baton.Height = image.Height;
 
+			var supportsGifOutput = NetVips.NetVips.TypeFind("VipsOperation", "magicksave") != IntPtr.Zero &&
+			                        NetVips.NetVips.TypeFind("VipsOperation", "magicksave_buffer") != IntPtr.Zero;
+			var ao = baton.AnimationOptions;
+			image = image.SetAnimationProperties(ao.PageHeight, ao.Delay, ao.Loop);
+			
 			// Output
 			// TODO: Buffer out
+			// TODO: Checkpoint ****************************************************************
 			var strip = baton.MetadataOptions.ShouldStripMetadata;
 
 			baton.OutputImageInfo = new OutputImageInfo {
@@ -251,13 +237,158 @@ namespace SharpSharp.Pipeline {
 				}
 				else if(baton.HeifOptions.HasValue()) {
 					var o = baton.HeifOptions;
-					image.Heifsave(path, o.Quality, o.UseLossless, o.Compression.ToString(), strip: strip);
+					image.Heifsave("lichtenstein.avif", q: 50, compression: Enums.ForeignHeifCompression.Av1, speed: 6, strip: true);
+					//image.Heifsave(path, o.Quality, o.UseLossless, o.Compression, 5, strip);
 				}
 
 				baton.OutputImageInfo.Size = (int) new FileInfo(path).Length; // TODO: this seems bad
 			}
 
 			image?.Dispose();
+		}
+
+		private static Image OverrideExifOrientation(PipelineBaton baton, Image image) {
+			// Override EXIF Orientation tag
+			var mo = baton.MetadataOptions;
+			if(mo.WithMetadata && mo.Orientation != -1) {
+				image = image.SetExifOrientation(mo.Orientation);
+			}
+			
+			return image;
+		}
+
+		private static Image ApplyIccProfile(PipelineBaton baton, Image image) {
+			// Apply output ICC profile
+			var icc = baton.MetadataOptions.Icc;
+			if(icc.HasValue()) {
+				image = image.IccTransform(icc, null, Enums.Intent.Perceptual, null, "srgb");
+			}
+
+			return image;
+		}
+
+		private static Image ConvertToSrgb(PipelineBaton baton, Image image) {
+			// Convert image to sRGB, if not already
+			if(image.Interpretation.Is16Bit()) {
+				image = image.Cast(Enums.BandFormat.Ushort);
+			}
+
+			var colorSpace = baton.OperationOptions.ColorSpace;
+			if(image.Interpretation == colorSpace) {
+				return image;
+			}
+
+			// Convert colorspace, pass the current known interpretation so libvips doesn't have to guess
+			image = image.Colourspace(colorSpace, image.Interpretation);
+			// Transform colors from embedded profile to output profile
+			if(baton.MetadataOptions.WithMetadata && image.HasProfile()) {
+				image = image.IccTransform(colorSpace, embedded:true);
+			}
+
+			return image;
+		}
+
+		private static Image EnsureAlphaChannelIfMissing(PipelineBaton baton, Image image) {
+			// Ensure alpha channel, if missing
+			if(baton.OperationOptions.EnsureAlpha) {
+				image = image.EnsureAlpha();
+			}
+
+			return image;
+		}
+
+		private static Image RemoveAlphaChannelIfAny(PipelineBaton baton, Image image) {
+			// Remove alpha channel, if any
+			if(baton.OperationOptions.RemoveAlpha) {
+				image = image.RemoveAlpha();
+			}
+
+			return image;
+		}
+
+		private static Image ExtractVipsBand(PipelineBaton baton, Image image) {
+			var ec = baton.OperationOptions.ExtractChannel;
+			if(ec > -1) {
+				if(ec >= image.Bands) {
+					if(ec == 3 && image.HasAlpha()) {
+						baton.OperationOptions.ExtractChannel = image.Bands - 1;
+					}
+					else {
+						throw new Exception("Cannot extract channel from image. Too few channels in image.");
+					}
+				}
+
+				var interpretation = image.Interpretation.Is16Bit() ?
+					Enums.Interpretation.Grey16 : Enums.Interpretation.Bw;
+				image = image
+					.ExtractBand(baton.OperationOptions.ExtractChannel);
+				image.Set("interpretation", interpretation);
+			}
+
+			return image;
+		}
+
+		private static Image Tint(PipelineBaton baton, Image image) {
+			// Tint the image
+			var oo = baton.OperationOptions;
+			if(oo.TintA < 128.0 || oo.TintB < 128.0) {
+				image = image.Tint(oo.TintA, oo.TintB);
+			}
+
+			return image;
+		}
+
+		private static Image ApplyBandBoolOp(PipelineBaton baton, Image image) {
+			// Apply per-channel Bandbool bitwise operations after all other operations
+			var bandBoolOp = baton.OperationOptions.BandBoolOp;
+			if(bandBoolOp.HasValue()) {
+				image = image.Bandbool(bandBoolOp);
+			}
+
+			return image;
+		}
+
+		private static Image Normalize(PipelineBaton baton, Image image) {
+			if(baton.OperationOptions.Normalize) {
+				image = image.Normalize();
+			}
+
+			return image;
+		}
+
+		private static Image LinearAdjustment(PipelineBaton baton, Image image) {
+			// Linear adjustment (a * in + b)
+			var oo = baton.OperationOptions;
+			if(!oo.LinearA.IsAboutEqualTo(1.0) || !oo.LinearB.IsAboutEqualTo(0.0)) {
+				image = image.Linear(oo.LinearA, oo.LinearB);
+			}
+
+			return image;
+		}
+
+		private static Image ApplyGammaDecoding(PipelineBaton baton, Image image) {
+			var gammaOut = baton.OperationOptions.GammaOut;
+			if(gammaOut >= 1 && gammaOut <= 3) {
+				image = image.Gamma(gammaOut);
+			}
+
+			return image;
+		}
+
+		private static Image ReversePremultiplication(PipelineBaton baton, Image image, bool shouldPremultiplyAlpha) {
+			if(shouldPremultiplyAlpha) {
+				image = image.Unpremultiply();
+				// Cast pixel values to integer
+				if(NeedsBetterPlace.Is16Bit(image.Interpretation)) {
+					image = image.Cast(Enums.BandFormat.Ushort);
+				}
+				else {
+					image = image.Cast(Enums.BandFormat.Uchar);
+				}
+			}
+
+			baton.OperationOptions.Premultiplied = shouldPremultiplyAlpha;
+			return image;
 		}
 
 		private static Image Sharpen(PipelineBaton baton, Image image) {
@@ -508,7 +639,7 @@ namespace SharpSharp.Pipeline {
 			return image;
 		}
 
-		private static Image ApplyGamma(PipelineBaton baton, Image image) {
+		private static Image ApplyGammaEncoding(PipelineBaton baton, Image image) {
 			var gamma = baton.OperationOptions.Gamma;
 			if(gamma >= 1 && gamma <= 3) {
 				image = image.Gamma(1.0 / gamma);

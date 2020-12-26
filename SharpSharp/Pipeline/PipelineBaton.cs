@@ -2,8 +2,7 @@
 
 namespace SharpSharp.Pipeline {
 	internal sealed class PipelineBaton {
-		public ChannelOptions? ChannelOptions { get; set; }
-
+		public AnimationOptions AnimationOptions { get; set; } = new();
 		public int Channels { get; set; }
 
 		public CropOffsetOptions CropOffsetOptions { get; set; } = new();

@@ -11,13 +11,13 @@ namespace SharpSharp {
 		private const int WebpMaximumResolution = short.MaxValue / 2;
 
 		public static Image Bandbool(this Image image, string boolean) {
-			Guard.NotNull(image, nameof(image));
+			image = Guard.NotNull(image, nameof(image));
 			image = image.Bandbool(boolean);
 			return image.Copy(interpretation:Enums.Interpretation.Bw);
 		}
 
 		public static Image Blur(this Image image, double sigma = -1.0) {
-			Guard.NotNull(image, nameof(image));
+			image = Guard.NotNull(image, nameof(image));
 			if(!sigma.IsAboutEqualTo(-1.0)) {
 				// Slower, accurate Gaussian blur
 				return image.Gaussblur(sigma);
@@ -38,13 +38,13 @@ namespace SharpSharp {
 		}
 
 		public static Image Boolean(this Image image, Image imageR, string boolean) {
-			Guard.NotNull(image, nameof(image));
-			Guard.NotNull(imageR, nameof(imageR));
+			image = Guard.NotNull(image, nameof(image));
+			imageR = Guard.NotNull(imageR, nameof(imageR));
 			return image.Boolean(imageR, boolean);
 		}
 
 		public static Image Convolve(this Image image, int width, int height, double scale, double offset, double[] kernel) {
-			Guard.NotNull(image, nameof(image));
+			image = Guard.NotNull(image, nameof(image));
 			var k = Image.NewFromMemory(kernel, width, height, 1, Enums.BandFormat.Double);
 			k.Set("scale", scale);
 			k.Set("offset", offset);
@@ -52,35 +52,35 @@ namespace SharpSharp {
 		}
 
 		public static Image EnsureAlpha(this Image image) {
-			Guard.NotNull(image, nameof(image));
+			image = Guard.NotNull(image, nameof(image));
 			return image.HasAlpha() ? image : image.BandjoinConst(new[] {image.Interpretation.MaximumImageAlpha()});
 		}
 
 		public static int ExifOrientation(this Image image) {
-			Guard.NotNull(image, nameof(image));
+			image = Guard.NotNull(image, nameof(image));
 			return image.GetTypeOf("orientation") == GValue.GIntType ? Convert.ToInt32(image.Get("orientation"), CultureInfo.InvariantCulture) : 0;
 		}
 
 		public static Image Gamma(this Image image, double exponent) {
-			Guard.NotNull(image, nameof(image));
-			if(image.HasAlpha()) {
-				var alpha = image[image.Bands - 1];
-				return image
-					.RemoveAlpha()
-					.Gamma(exponent)
-					.Bandjoin(alpha);
+			image = Guard.NotNull(image, nameof(image));
+			if(!image.HasAlpha()) {
+				return image.Gamma(exponent);
 			}
 
-			return image.Gamma(exponent);
+			var alpha = image[image.Bands - 1];
+			return image
+				.RemoveAlpha()
+				.Gamma(exponent)
+				.Bandjoin(alpha);
 		}
 
 		public static int GetDensity(this Image image) {
-			Guard.NotNull(image, nameof(image));
+			image = Guard.NotNull(image, nameof(image));
 			return (int) Math.Round(image.Xres * MillimetersInInch, MidpointRounding.AwayFromZero);
 		}
 
 		public static bool HasAlpha(this Image image) {
-			Guard.NotNull(image, nameof(image));
+			image = Guard.NotNull(image, nameof(image));
 			var bands = image.Bands;
 			var interpretation = image.Interpretation;
 			return bands == 2 && interpretation == Enums.Interpretation.Bw ||
@@ -89,12 +89,12 @@ namespace SharpSharp {
 		}
 
 		public static bool HasDensity(this Image image) {
-			Guard.NotNull(image, nameof(image));
+			image = Guard.NotNull(image, nameof(image));
 			return image.Xres > 1.0;
 		}
 
 		public static bool HasProfile(this Image image) {
-			Guard.NotNull(image, nameof(image));
+			image = Guard.NotNull(image, nameof(image));
 			try {
 				return image.Get("icc-profile-data").HasValue();
 			}
@@ -104,7 +104,7 @@ namespace SharpSharp {
 		}
 
 		public static bool HasValidDimensions(this Image image, ImageType imageType) {
-			Guard.NotNull(image, nameof(image));
+			image = Guard.NotNull(image, nameof(image));
 
 			if(imageType == ImageType.Jpeg) {
 				return image.Width <= JpegMaximumResolution && image.Height <= JpegMaximumResolution;
@@ -118,35 +118,36 @@ namespace SharpSharp {
 		}
 
 		public static Image Linear(this Image image, double a, double b) {
-			Guard.NotNull(image, nameof(image));
-			if(image.HasAlpha()) {
-				var alpha = image[image.Bands - 1];
-				return image
-					.RemoveAlpha()
-					.Linear(new[] {a}, new[] {b})
-					.Bandjoin(alpha);
+			image = Guard.NotNull(image, nameof(image));
+			if(!image.HasAlpha()) {
+				return image.Linear(new[] {a}, new[] {b});
 			}
 
-			return image.Linear(new[] {a}, new[] {b});
+			var alpha = image[image.Bands - 1];
+			return image
+				.RemoveAlpha()
+				.Linear(new[] {a}, new[] {b})
+				.Bandjoin(alpha);
 		}
 
 		public static Image Modulate(this Image image, double brightness, double saturation, int hue) {
-			Guard.NotNull(image, nameof(image));
-			if(image.HasAlpha()) {
-				var alpha = image[image.Bands - 1];
+			image = Guard.NotNull(image, nameof(image));
+			if(!image.HasAlpha()) {
 				return image
-					.RemoveAlpha()
 					.Colourspace(Enums.Interpretation.Lch)
-					.Linear(new[] {brightness, saturation, 1}, new[] {0, 0, (double) hue})
-					.Bandjoin(alpha);
+					.Linear(new[] {brightness, saturation, 1}, new[] {0, 0, (double) hue});
 			}
 
+			var alpha = image[image.Bands - 1];
 			return image
+				.RemoveAlpha()
 				.Colourspace(Enums.Interpretation.Lch)
-				.Linear(new[] {brightness, saturation, 1}, new[] {0, 0, (double) hue});
+				.Linear(new[] {brightness, saturation, 1}, new[] {0, 0, (double) hue})
+				.Bandjoin(alpha);
 		}
 
 		public static Image Normalize(this Image image) {
+			image = Guard.NotNull(image, nameof(image));
 			var typeBeforeNormalize = image.Interpretation;
 			if(typeBeforeNormalize == Enums.Interpretation.Rgb) {
 				typeBeforeNormalize = Enums.Interpretation.Srgb;
@@ -181,7 +182,7 @@ namespace SharpSharp {
 		}
 
 		public static Image Recomb(this Image image, double[] matrix) {
-			Guard.NotNull(image, nameof(image));
+			image = Guard.NotNull(image, nameof(image));
 			var m = image.Bands == 3 ?
 				Image.NewFromArray(matrix) :
 				Image.NewFromArray(new[,] {{matrix[0], matrix[1], matrix[2], 0.0}, {matrix[3], matrix[4], matrix[5], 0.0}, {matrix[6], matrix[7], matrix[8], 0.0}, {0.0, 0.0, 0.0, 1.0}});
@@ -191,7 +192,7 @@ namespace SharpSharp {
 		}
 
 		public static Image RemoveAlpha(this Image image) {
-			Guard.NotNull(image, nameof(image));
+			image = Guard.NotNull(image, nameof(image));
 			return image.HasAlpha() ? image.ExtractBand(0, image.Bands - 1) : image;
 		}
 
@@ -202,21 +203,59 @@ namespace SharpSharp {
 			return copy;
 		}
 
-		public static void SetDensity(this Image image, double density) {
-			Guard.NotNull(image, nameof(image));
+		public static Image SetAnimationProperties(this Image image, int pageHeight, int[] delay, int loop) {
+			image = Guard.NotNull(image, nameof(image));
+			var hasDelay = delay.HasValue();
+
+			if (pageHeight == 0) {
+				pageHeight = image.PageHeight;
+			}
+
+			if(pageHeight == 0) {
+				return image;
+			}
+
+			// TODO: these probably throw.
+			if (!hasDelay) {
+				delay = (int[]) image.Get("delay");
+				hasDelay = true;
+			}
+
+			if (loop == -1) {
+				loop = Convert.ToInt32(image.Get("loop"));
+			}
+
+			// It is necessary to create the copy as otherwise, pageHeight will be ignored!
+			var copy = image.Copy();
+			copy.Set("page-height", pageHeight);
+			if(hasDelay) {
+				copy.Set("delay", delay);
+			}
+
+			if(loop != -1) {
+				copy.Set("loop", loop);
+			}
+
+			return copy;
+		}
+		
+		public static Image SetDensity(this Image image, double density) {
+			image = Guard.NotNull(image, nameof(image));
 			var pixelsPerMillimeter = density / MillimetersInInch;
 			image.Set("Xres", pixelsPerMillimeter);
 			image.Set("Yres", pixelsPerMillimeter);
 			image.Set("resolution-unit", "in");
+			return image;
 		}
 
-		public static void SetExifOrientation(this Image image, int orientation) {
-			Guard.NotNull(image, nameof(image));
+		public static Image SetExifOrientation(this Image image, int orientation) {
+			image = Guard.NotNull(image, nameof(image));
 			image.Set("orientation", orientation);
+			return image;
 		}
 
 		public static Image Sharpen(this Image image, double sigma = -1.0, double flat = 0, double jagged = 0) {
-			Guard.NotNull(image, nameof(image));
+			image = Guard.NotNull(image, nameof(image));
 			if(sigma.IsAboutEqualTo(-1.0)) {
 				// Fast, mild sharpen
 				var m = new[,] {{-1.0, -1.0, -1.0}, {-1.0, 32.0, -1.0}, {-1.0, -1.0, -1.0}};
@@ -237,11 +276,12 @@ namespace SharpSharp {
 		}
 
 		public static Image Threshold(this Image image, double threshold, bool thresholdGrayscale) {
-			Guard.NotNull(image, nameof(image));
+			image = Guard.NotNull(image, nameof(image));
 			return thresholdGrayscale ? image.Colourspace(Enums.Interpretation.Bw) >= threshold : image >= threshold;
 		}
 
 		public static Image Tint(this Image image, double a, double b) {
+			image = Guard.NotNull(image, nameof(image));
 			var typeBeforeTint = image.Interpretation;
 			if(typeBeforeTint == Enums.Interpretation.Rgb) {
 				typeBeforeTint = Enums.Interpretation.Srgb;
@@ -262,7 +302,7 @@ namespace SharpSharp {
 		}
 
 		public static Image Trim(this Image image, double threshold) {
-			Guard.NotNull(image, nameof(image));
+			image = Guard.NotNull(image, nameof(image));
 			if(image.Width < 3 && image.Height < 3) {
 				throw new VipsException("Image to trim must be at least 3*3 pixels.");
 			}
