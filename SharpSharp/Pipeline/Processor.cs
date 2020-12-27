@@ -96,6 +96,20 @@ namespace SharpSharp.Pipeline {
 			if(baton.ToFileOptions.HasValue()) {
 				var fo = baton.ToFileOptions;
 				var path = fo.FilePath;
+
+				//var isJpeg = sharp::IsJpeg(baton->fileOut);
+				//var isPng = sharp::IsPng(baton->fileOut);
+				//var isWebp = sharp::IsWebp(baton->fileOut);
+				//var isGif = sharp::IsGif(baton->fileOut);
+				//var isTiff = sharp::IsTiff(baton->fileOut);
+				//var isHeif = sharp::IsHeif(baton->fileOut);
+				//var isDz = sharp::IsDz(baton->fileOut);
+				//var isDzZip = sharp::IsDzZip(baton->fileOut);
+				//var isV = sharp::IsV(baton->fileOut);
+				//var mightMatchInput = baton->formatOut == "input";
+				//var willMatchInput = mightMatchInput &&
+				//	!(isJpeg || isPng || isWebp || isGif || isTiff || isHeif || isDz || isDzZip || isV);
+
 				// File output
 				if(baton.JpegOptions.HasValue()) {
 					var o = baton.JpegOptions;

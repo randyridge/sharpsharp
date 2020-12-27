@@ -28,6 +28,7 @@
     <PackageReference Include="NetVips" Version="1.2.4.232-develop" />
     <PackageReference Include="NetVips.Native" Version="8.10.5.1" />
     <PackageReference Include="RandyRidge.Common" Version="0.5.2" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharpSharp\SharpSharp.csproj" />
