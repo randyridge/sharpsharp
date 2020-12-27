@@ -1,20 +1,13 @@
-﻿using RandyRidge.Common;
+﻿using NetVips;
 
 namespace SharpSharp {
-	public sealed class HeifOptions {
-		public HeifOptions(int quality = 50, string heifCompression = "av1", bool useLossless = false, int speed = 5) {
-			Quality = Guard.RangeInclusive(quality, 1, 100, nameof(quality));
-			Compression = heifCompression;
-			Speed = speed;
-			UseLossless = useLossless;
-		}
+	public sealed record HeifOptions {
+		public string Compression { get; set; } = Enums.ForeignHeifCompression.Av1;
 
-		public string Compression { get; }
+		public int Quality { get; set; } = 50;
 
-		public int Quality { get; }
+		public int Speed { get; set; } = 5;
 
-		public int Speed { get; }
-
-		public bool UseLossless { get; }
+		public bool UseLossless { get; set; } = false;
 	}
 }

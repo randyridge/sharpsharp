@@ -15,8 +15,8 @@
     <TargetFramework>net5.0</TargetFramework>
     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <Version>0.5.2</Version>
-    <Platforms>AnyCPU;x64</Platforms>
+    <Version>0.6.0-alpha1</Version>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.1|AnyCPU'">
     <NoWarn>1701;1702;</NoWarn>
@@ -58,16 +58,12 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="1.3.6" />
+    <PackageReference Include="NetVips" Version="1.2.4.232-develop" />
     <PackageReference Include="RandyRidge.Common" Version="0.5.2" />
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="NetVips">
-      <HintPath>..\..\..\oss\net-vips\src\NetVips\bin\AnyCPU\Release\netstandard2.0\Windows\NetVips.dll</HintPath>
-    </Reference>
   </ItemGroup>
 </Project>

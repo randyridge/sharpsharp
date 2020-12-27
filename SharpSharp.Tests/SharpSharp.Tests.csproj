@@ -5,7 +5,7 @@
     <RootNamespace>SharpSharp</RootNamespace>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Platforms>AnyCPU;x64</Platforms>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="SharpTestImages\**\*.*">
@@ -19,8 +19,8 @@
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
     <PackageReference Include="Moq" Version="4.15.2" />
-    <PackageReference Include="NetVips" Version="1.2.4" />
-    <PackageReference Include="NetVips.Native" Version="8.10.5" />
+    <PackageReference Include="NetVips" Version="1.2.4.232-develop" />
+    <PackageReference Include="NetVips.Native" Version="8.10.5.1" />
     <PackageReference Include="RandyRidge.Common" Version="0.5.2" />
     <PackageReference Include="Shouldly" Version="4.0.3" />
     <PackageReference Include="xunit" Version="2.4.1" />

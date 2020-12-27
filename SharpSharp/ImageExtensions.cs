@@ -6,6 +6,7 @@ using SharpSharp.Pipeline;
 
 namespace SharpSharp {
 	internal static class ImageExtensions {
+		private const int GifMaximumResolution = ushort.MaxValue;
 		private const int JpegMaximumResolution = ushort.MaxValue;
 		private const double MillimetersInInch = 25.4;
 		private const int WebpMaximumResolution = short.MaxValue / 2;
@@ -103,18 +104,27 @@ namespace SharpSharp {
 			}
 		}
 
-		public static bool HasValidDimensions(this Image image, ImageType imageType) {
+		public static void AssertImageTypeDimensions(this Image image, ImageType imageType) {
 			image = Guard.NotNull(image, nameof(image));
 
+			var height = image.PageHeight == 0 ? image.Height : image.PageHeight;
+			var width = image.Width;
+
 			if(imageType == ImageType.Jpeg) {
-				return image.Width <= JpegMaximumResolution && image.Height <= JpegMaximumResolution;
+				if(width > JpegMaximumResolution || height > JpegMaximumResolution) {
+					throw new InvalidOperationException("Processed image is too large for the JPEG format.");
+				}
 			}
-
 			if(imageType == ImageType.WebP) {
-				return image.Width <= WebpMaximumResolution && image.Height <= WebpMaximumResolution;
+				if(width > WebpMaximumResolution || height > WebpMaximumResolution) {
+					throw new InvalidOperationException("Processed image is too large for the WebP format.");
+				}
 			}
-
-			return true;
+			if(imageType == ImageType.Gif) {
+				if(width > GifMaximumResolution || height > GifMaximumResolution) {
+					throw new InvalidOperationException("Processed image is too large for the GIF format.");
+				}
+			}
 		}
 
 		public static Image Linear(this Image image, double a, double b) {
@@ -207,33 +217,32 @@ namespace SharpSharp {
 			image = Guard.NotNull(image, nameof(image));
 			var hasDelay = delay.HasValue();
 
-			if (pageHeight == 0) {
-				pageHeight = image.PageHeight;
+			if(pageHeight == 0 && image.GetTypeOf("page-height") != IntPtr.Zero) {
+				pageHeight = (int) image.Get("page-height");
 			}
 
 			if(pageHeight == 0) {
 				return image;
 			}
 
-			// TODO: these probably throw.
-			if (!hasDelay) {
+			if(!hasDelay && image.GetTypeOf("delay") != IntPtr.Zero) {
 				delay = (int[]) image.Get("delay");
 				hasDelay = true;
 			}
 
-			if (loop == -1) {
-				loop = Convert.ToInt32(image.Get("loop"));
+			if (loop == -1 && image.GetTypeOf("loop") != IntPtr.Zero) {
+				loop = (int) image.Get("loop");
 			}
 
 			// It is necessary to create the copy as otherwise, pageHeight will be ignored!
 			var copy = image.Copy();
-			copy.Set("page-height", pageHeight);
+			copy.Set(GValue.GIntType, "page-height", pageHeight);
 			if(hasDelay) {
-				copy.Set("delay", delay);
+				copy.Set(GValue.ArrayIntType, "delay", delay);
 			}
 
 			if(loop != -1) {
-				copy.Set("loop", loop);
+				copy.Set(GValue.GIntType, "loop", loop);
 			}
 
 			return copy;
