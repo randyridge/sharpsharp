@@ -1,6 +1,6 @@
 ﻿namespace SharpSharp {
 	public sealed record PngOptions {
-		public int Colors { get; set; } = 256,
+		public int Colors { get; set; } = 256;
 
 		public int CompressionLevel { get; set; } = 9;
 

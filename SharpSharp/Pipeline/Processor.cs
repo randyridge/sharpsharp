@@ -861,6 +861,8 @@ namespace SharpSharp.Pipeline {
 
 			image.AssertImageTypeDimensions(ImageType.Png);
 
+			image.Set("colours", po.Colors);
+
 			bo.Buffer = image.PngsaveBuffer(
 				compression:po.CompressionLevel,
 				interlace:po.MakeProgressive,
@@ -887,6 +889,8 @@ namespace SharpSharp.Pipeline {
 			}
 
 			image.AssertImageTypeDimensions(ImageType.Png);
+
+			image.Set("colours", po.Colors);
 
 			image.Pngsave(
 				filename:fo.FilePath,
@@ -915,6 +919,8 @@ namespace SharpSharp.Pipeline {
 			}
 
 			image.AssertImageTypeDimensions(ImageType.Png);
+
+			image.Set("colours", po.Colors);
 
 			image.PngsaveStream(
 				stream:so.Stream,
