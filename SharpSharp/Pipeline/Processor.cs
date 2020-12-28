@@ -107,16 +107,50 @@ namespace SharpSharp.Pipeline {
 				baton.OutputImageInfo.Size = (int) new FileInfo(baton.ToFileOptions.FilePath).Length; // TODO: this seems bad
 			}
 
-
-			//if(baton.ToStreamOptions.HasValue()) {
-			//	baton.ToStreamOptions.Stream.Write(streamBytes);
-			//}
+			if(baton.ToStreamOptions.HasValue()) {
+				PotentiallySaveJpegStream(baton, image, imageType);
+				PotentiallySavePngStream(baton, image, imageType);
+				PotentiallySaveWebpStream(baton, image, imageType);
+				//PotentiallySaveGifStream(baton, image, imageType); // TODO: Throws!
+				//PotentiallySaveTiffStream(baton, image, imageType);// TODO: Throws!
+				PotentiallySaveHeifStream(baton, image, imageType);
+				PotentiallySaveRawStream(baton, image, imageType);
+				// TODO: Handle unknown
+				baton.OutputImageInfo.Size = (int) baton.ToStreamOptions.Stream.Length; // TODO: this seems bad
+			}
 
 			image?.Dispose();
 		}
 
 		private static bool MightMatchInput(string path) => path == "input";
 		private static bool WillMatchInput(string path) => MightMatchInput(path) && !(Common.IsJpeg(path) || Common.IsPng(path) || Common.IsWebp(path) || Common.IsGif(path) || Common.IsTiff(path) || Common.IsHeif(path) || Common.IsDz(path) || Common.IsDzZip(path) || Common.IsV(path));
+
+		private static void PotentiallySaveJpegStream(PipelineBaton baton, Image image, ImageType imageType) {
+			var formatOut = baton.OutputImageInfo.Format;
+			var jo = baton.JpegOptions;
+			var so = baton.ToStreamOptions;
+			if(jo == null || so == null || (formatOut != "jpeg")) {
+				return;
+			}
+
+			image.AssertImageTypeDimensions(ImageType.Jpeg);
+
+			image.JpegsaveStream(
+				stream: so.Stream,
+				q: jo.Quality,
+				optimizeCoding:jo.OptimizeCoding,
+				interlace:jo.MakeProgressive,
+				subsampleMode:jo.Subsampling == "4:4:4" ? Enums.ForeignJpegSubsample.Off : Enums.ForeignJpegSubsample.On,
+				trellisQuant:jo.ApplyTrellisQuantization,
+				overshootDeringing:jo.ApplyOvershootDeringing,
+				optimizeScans:jo.OptimizeScans,
+				quantTable:jo.QuantizationTable,
+				strip:baton.MetadataOptions.ShouldStripMetadata
+			);
+
+			baton.Channels = Math.Min(baton.Channels, baton.OperationOptions.ColorSpace == Enums.Interpretation.Cmyk ? 4 : 3);
+			baton.OutputImageInfo.Format = "jpeg";
+		}
 
 		private static void PotentiallySaveVFile(PipelineBaton baton, Image image, ImageType imageType) {
 			var formatOut = baton.OutputImageInfo.Format;
@@ -332,9 +366,31 @@ namespace SharpSharp.Pipeline {
 					image = image.Cast(Enums.BandFormat.Uchar);
 				}
 
-				baton.OutputImageInfo.Format = "raw";
-				// Get raw image data
 				bo.Buffer = image.WriteToBuffer(baton.OutputImageInfo.Format);
+
+				baton.OutputImageInfo.Format = "raw";
+			}
+		}
+		private static void PotentiallySaveRawStream(PipelineBaton baton, Image image, ImageType imageType) {
+			var formatOut = baton.OutputImageInfo.Format;
+			var ro = baton.RawOptions;
+			var so = baton.ToStreamOptions;
+			if(ro != null && so != null && (formatOut == "raw" || (formatOut == "input" && imageType == ImageType.Raw))) {
+				// Write raw, uncompressed image data to buffer
+				if(baton.OperationOptions.Grayscale || image.Interpretation == Enums.Interpretation.Bw) {
+					// Extract first band for greyscale image
+					image = image[0];
+					baton.Channels = 1;
+				}
+
+				if(image.Format != Enums.BandFormat.Uchar) {
+					// Cast pixels to uint8 (unsigned char)
+					image = image.Cast(Enums.BandFormat.Uchar);
+				}
+
+				image.WriteToStream(so.Stream, baton.OutputImageInfo.Format);
+
+				baton.OutputImageInfo.Format = "raw";
 			}
 		}
 
@@ -347,6 +403,28 @@ namespace SharpSharp.Pipeline {
 			}
 
 			bo.Buffer = image.HeifsaveBuffer(
+				q: ho.Quality,
+				lossless: ho.UseLossless,
+				compression: ho.Compression,
+				speed: ho.Speed,
+				strip: baton.MetadataOptions.ShouldStripMetadata,
+				background: null,
+				pageHeight: null
+			);
+
+			baton.OutputImageInfo.Format = "heif";
+		}
+
+		private static void PotentiallySaveHeifStream(PipelineBaton baton, Image image, ImageType imageType) {
+			var formatOut = baton.OutputImageInfo.Format;
+			var ho = baton.HeifOptions;
+			var so = baton.ToStreamOptions;
+			if(ho == null || so == null || (formatOut != "heif" && (formatOut != "input" || imageType != ImageType.Heif))) {
+				return;
+			}
+
+			image.HeifsaveStream(
+				stream: so.Stream,
 				q: ho.Quality,
 				lossless: ho.UseLossless,
 				compression: ho.Compression,
@@ -406,6 +484,11 @@ namespace SharpSharp.Pipeline {
 			baton.OutputImageInfo.Format = "tiff";
 		}
 
+		private static void PotentiallySaveTiffStream(PipelineBaton baton, Image image, ImageType imageType) {
+			throw new NotImplementedException("It doesn't appear we can save TIFF to a stream in netvips/libvips.");
+
+		}
+
 		private static Image SetAnimationPropertiesIfAny(PipelineBaton baton, Image image) {
 			var ao = baton.AnimationOptions;
 			image = image.SetAnimationProperties(ao.PageHeight, ao.Delay, ao.Loop);
@@ -435,6 +518,10 @@ namespace SharpSharp.Pipeline {
 			baton.OutputImageInfo.Format = "gif";
 		}
 
+		private static void PotentiallySaveGifStream(PipelineBaton baton, Image image, ImageType imageType) {
+			throw new NotImplementedException("It doesn't appear we can save GIF to a stream in netvips/libvips.");
+		}
+
 		private static void PotentiallySaveWebpBuffer(PipelineBaton baton, Image image, ImageType imageType) {
 			var formatOut = baton.OutputImageInfo.Format;
 			var wo = baton.WebpOptions;
@@ -446,6 +533,37 @@ namespace SharpSharp.Pipeline {
 			image.AssertImageTypeDimensions(ImageType.WebP);
 
 			bo.Buffer = image.WebpsaveBuffer(
+				q: wo.Quality,
+				lossless: wo.UseLossless,
+				preset: null,
+				smartSubsample: wo.UseSmartSubsample,
+				nearLossless: wo.UseNearLossless,
+				alphaQ: wo.AlphaQuality,
+				minSize: null,
+				kmin: null,
+				kmax: null,
+				reductionEffort: wo.ReductionEffort,
+				profile: null,
+				strip: baton.MetadataOptions.ShouldStripMetadata,
+				background: null,
+				pageHeight: null
+			);
+
+			baton.OutputImageInfo.Format = "webp";
+		}
+
+		private static void PotentiallySaveWebpStream(PipelineBaton baton, Image image, ImageType imageType) {
+			var formatOut = baton.OutputImageInfo.Format;
+			var wo = baton.WebpOptions;
+			var so = baton.ToStreamOptions;
+			if(so == null || wo == null || (formatOut != "webp" && (formatOut != "input" || imageType != ImageType.WebP))) {
+				return;
+			}
+
+			image.AssertImageTypeDimensions(ImageType.WebP);
+
+			image.WebpsaveStream(
+				stream: so.Stream,
 				q: wo.Quality,
 				lossless: wo.UseLossless,
 				preset: null,
@@ -485,6 +603,34 @@ namespace SharpSharp.Pipeline {
 				po.Dither,
 				null,
 				baton.MetadataOptions.ShouldStripMetadata
+			);
+
+			baton.OutputImageInfo.Format = "png";
+		}
+
+		private static void PotentiallySavePngStream(PipelineBaton baton, Image image, ImageType imageType) {
+			var formatOut = baton.OutputImageInfo.Format;
+			var po = baton.PngOptions;
+			var so = baton.ToStreamOptions;
+			if(po == null || so == null || (formatOut != "png" && (formatOut != "input" || (imageType != ImageType.Png && imageType != ImageType.Gif && imageType != ImageType.Svg)))) {
+				return;
+			}
+
+			image.AssertImageTypeDimensions(ImageType.Png);
+
+			image.PngsaveStream(
+				stream: so.Stream,
+				compression: po.CompressionLevel, 
+				interlace: po.MakeProgressive,
+				profile: null,
+				filter: po.UseAdaptiveFiltering ? 0xF8 : 0x08,  // TODO: Send netvips the enum for png https://libvips.github.io/libvips/API/current/VipsForeignSave.html#VipsForeignPngFilter https://www.w3.org/TR/PNG-Filters.html
+				palette: po.UsePalette,
+				q: po.Quality,
+				dither: po.Dither,
+				bitdepth: null,
+				strip: baton.MetadataOptions.ShouldStripMetadata,
+				background: null,
+				pageHeight: null
 			);
 
 			baton.OutputImageInfo.Format = "png";
