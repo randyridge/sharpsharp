@@ -90,88 +90,21 @@ namespace SharpSharp.Pipeline {
 					PotentiallySaveTiffBuffer(baton, image, imageType);
 					PotentiallySaveHeifBuffer(baton, image, imageType);
 					PotentiallySaveRawBuffer(baton, image, imageType);
-					baton.OutputImageInfo.Size = baton.ToBufferOptions.Buffer.Length;
 					// TODO: Handle unknown
+					baton.OutputImageInfo.Size = baton.ToBufferOptions.Buffer.Length;
 			}
+
 			if(baton.ToFileOptions.HasValue()) {
-				var fo = baton.ToFileOptions;
-				var path = fo.FilePath;
-
-				//var isJpeg = sharp::IsJpeg(baton->fileOut);
-				//var isPng = sharp::IsPng(baton->fileOut);
-				//var isWebp = sharp::IsWebp(baton->fileOut);
-				//var isGif = sharp::IsGif(baton->fileOut);
-				//var isTiff = sharp::IsTiff(baton->fileOut);
-				//var isHeif = sharp::IsHeif(baton->fileOut);
-				//var isDz = sharp::IsDz(baton->fileOut);
-				//var isDzZip = sharp::IsDzZip(baton->fileOut);
-				//var isV = sharp::IsV(baton->fileOut);
-				//var mightMatchInput = baton->formatOut == "input";
-				//var willMatchInput = mightMatchInput &&
-				//	!(isJpeg || isPng || isWebp || isGif || isTiff || isHeif || isDz || isDzZip || isV);
-
-				// File output
-				if(baton.JpegOptions.HasValue()) {
-					var o = baton.JpegOptions;
-					image.Jpegsave(
-						path,
-						o.Quality,
-						null,
-						o.OptimizeCoding,
-						o.MakeProgressive,
-						subsampleMode:"4:4:4", // TODO: this
-						trellisQuant:o.ApplyTrellisQuantization,
-						overshootDeringing:o.ApplyOvershootDeringing,
-						optimizeScans:o.OptimizeScans,
-						quantTable:o.QuantizationTable,
-						strip: baton.MetadataOptions.ShouldStripMetadata,
-						background:null,
-						pageHeight:null
-					);
-					baton.OutputImageInfo.Format = "jpeg";
-				}
-				else if(baton.WebpOptions.HasValue()) {
-					var o = baton.WebpOptions;
-					image.Webpsave(
-						path,
-						o.Quality,
-						o.UseLossless,
-						null,
-						o.UseSmartSubsample,
-						o.UseNearLossless,
-						o.AlphaQuality,
-						null,
-						null,
-						null,
-						reductionEffort: o.ReductionEffort,
-						strip: baton.MetadataOptions.ShouldStripMetadata
-					);
-					baton.OutputImageInfo.Format = "webp";
-				}
-				else if(baton.PngOptions.HasValue()) {
-					var o = baton.PngOptions;
-					image.Pngsave(
-						path,
-						o.CompressionLevel,
-						o.MakeProgressive,
-						null,
-						o.UseAdaptiveFiltering ? 0xF8 : 0x08, // TODO: enums
-						o.UsePalette,
-						o.Quality,
-						o.Dither,
-						strip: baton.MetadataOptions.ShouldStripMetadata,
-						background:null,
-						pageHeight:null // TODO: value for animation?
-					);
-					baton.OutputImageInfo.Format = "png";
-				}
-				else if(baton.HeifOptions.HasValue()) {
-					var o = baton.HeifOptions;
-					image.Heifsave("lichtenstein.avif", q: 50, compression: Enums.ForeignHeifCompression.Av1, speed: 6, strip: true);
-					//image.Heifsave(path, o.Quality, o.UseLossless, o.Compression, 5, strip);
-				}
-
-				//baton.OutputImageInfo.Size = (int) new FileInfo(path).Length; // TODO: this seems bad
+				PotentiallySaveJpegFile(baton, image, imageType);
+				PotentiallySavePngFile(baton, image, imageType);
+				PotentiallySaveWebpFile(baton, image, imageType);
+				PotentiallySaveGifFile(baton, image, imageType);
+				PotentiallySaveTiffFile(baton, image, imageType);
+				PotentiallySaveHeifFile(baton, image, imageType);
+				// TODO: PotentiallySaveDzFile(baton, image, imageType);
+				PotentiallySaveVFile(baton, image, imageType);
+				// TODO: Handle unknown
+				baton.OutputImageInfo.Size = (int) new FileInfo(baton.ToFileOptions.FilePath).Length; // TODO: this seems bad
 			}
 
 
@@ -182,6 +115,206 @@ namespace SharpSharp.Pipeline {
 			image?.Dispose();
 		}
 
+		private static bool MightMatchInput(string path) => path == "input";
+		private static bool WillMatchInput(string path) => MightMatchInput(path) && !(Common.IsJpeg(path) || Common.IsPng(path) || Common.IsWebp(path) || Common.IsGif(path) || Common.IsTiff(path) || Common.IsHeif(path) || Common.IsDz(path) || Common.IsDzZip(path) || Common.IsV(path));
+
+		private static void PotentiallySaveVFile(PipelineBaton baton, Image image, ImageType imageType) {
+			var formatOut = baton.OutputImageInfo.Format;
+			var fo = baton.ToFileOptions;
+			if(fo == null || (formatOut != "v" && (!MightMatchInput(fo.FilePath) || !Common.IsV(fo.FilePath)) && (!WillMatchInput(fo.FilePath) || imageType != ImageType.Vips))) {
+				return;
+			}
+
+			image.Vipssave(
+				filename: fo.FilePath,
+				strip: baton.MetadataOptions.ShouldStripMetadata,
+				background: null,
+				pageHeight: null
+			);
+
+			baton.OutputImageInfo.Format = "v";
+		}
+
+		private static void PotentiallySaveHeifFile(PipelineBaton baton, Image image, ImageType imageType) {
+			var formatOut = baton.OutputImageInfo.Format;
+			var ho = baton.HeifOptions;
+			var fo = baton.ToFileOptions;
+			if(ho == null || fo == null || (formatOut != "heif" && (!MightMatchInput(fo.FilePath) || !Common.IsHeif(fo.FilePath)) && (!WillMatchInput(fo.FilePath) || imageType != ImageType.Heif))) {
+				return;
+			}
+
+			image.Heifsave(
+				q: ho.Quality,
+				lossless: ho.UseLossless,
+				compression: ho.Compression,
+				speed: ho.Speed,
+				strip: baton.MetadataOptions.ShouldStripMetadata,
+				background: null,
+				pageHeight: null,
+				filename: fo.FilePath
+			);
+
+			baton.OutputImageInfo.Format = "heif";
+		}
+
+		private static void PotentiallySaveTiffFile(PipelineBaton baton, Image image, ImageType imageType) {
+			var formatOut = baton.OutputImageInfo.Format;
+			var to = baton.TiffOptions;
+			var fo = baton.ToFileOptions;
+			if(to == null || fo == null || (formatOut != "tiff" && (!MightMatchInput(fo.FilePath) || !Common.IsTiff(fo.FilePath)) && (!WillMatchInput(fo.FilePath) || imageType != ImageType.Tiff))) {
+				return;
+			}
+
+			if(to.Compression == Enums.ForeignTiffCompression.Jpeg) {
+				image.AssertImageTypeDimensions(ImageType.Jpeg);
+				baton.Channels = Math.Min(baton.Channels, 3);
+			}
+
+			// TODO: this isn't in sharp yet, opened issue
+			// Cast pixel values to float, if required
+			if(to.Predictor == Enums.ForeignTiffPredictor.Float) {
+				image = image.Cast(Enums.BandFormat.Float);
+			}
+
+			image.Tiffsave(
+				compression: to.Compression,
+				q: to.Quality,
+				predictor: to.Predictor,
+				profile: null,
+				tile: to.Tile,
+				tileWidth: to.TileWidth,
+				tileHeight: to.TileHeight,
+				pyramid:to.Pyramid,
+				miniswhite: null,
+				bitdepth: to.BitDepth,
+				resunit: null,
+				xres: to.XRes,
+				yres: to.YRes,
+				bigtiff: null,
+				properties: null,
+				regionShrink: null,
+				level: null,
+				subifd: null,
+				lossless: null,
+				depth: null,
+				strip: baton.MetadataOptions.ShouldStripMetadata,
+				background: null,
+				pageHeight: null,
+				filename: fo.FilePath
+			);
+
+			baton.OutputImageInfo.Format = "tiff";
+		}
+
+		private static void PotentiallySaveGifFile(PipelineBaton baton, Image image, ImageType imageType) {
+			var formatOut = baton.OutputImageInfo.Format;
+			var go = baton.GifOptions;
+			var fo = baton.ToFileOptions;
+			if(go != null && fo != null && (formatOut == "gif" || (MightMatchInput(fo.FilePath) && Common.IsGif(fo.FilePath)) || (WillMatchInput(fo.FilePath) && imageType == ImageType.Gif && SupportsGifOutput))) {
+				image.AssertImageTypeDimensions(ImageType.Gif);
+
+				image.Magicksave(
+					format:"gif",
+					quality:null,
+					optimizeGifFrames:go.OptimizeFrames,
+					optimizeGifTransparency:go.OptimizeTransparency,
+					strip:baton.MetadataOptions.ShouldStripMetadata,
+					background:null,
+					pageHeight:null,
+					filename: fo.FilePath
+				);
+
+				baton.OutputImageInfo.Format = "gif";
+			}
+		}
+
+		private static void PotentiallySaveWebpFile(PipelineBaton baton, Image image, ImageType imageType) {
+			var formatOut = baton.OutputImageInfo.Format;
+			var wo = baton.WebpOptions;
+			var fo = baton.ToFileOptions;
+			if(wo == null || fo == null || (formatOut != "webp" && ((!MightMatchInput(fo.FilePath) || !Common.IsWebp(fo.FilePath)) && (!WillMatchInput(fo.FilePath) || imageType != ImageType.WebP)))) {
+				return;
+			}
+
+			image.AssertImageTypeDimensions(ImageType.WebP);
+
+			image.Webpsave(
+				filename: fo.FilePath,
+				q: wo.Quality,
+				lossless: wo.UseLossless,
+				preset: null,
+				smartSubsample: wo.UseSmartSubsample,
+				nearLossless: wo.UseNearLossless,
+				alphaQ: wo.AlphaQuality,
+				minSize: null,
+				kmin: null,
+				kmax: null,
+				reductionEffort: wo.ReductionEffort,
+				strip: baton.MetadataOptions.ShouldStripMetadata,
+				profile: null,
+				background: null,
+				pageHeight: null
+			);
+
+			baton.OutputImageInfo.Format = "webp";
+		}
+
+		private static void PotentiallySavePngFile(PipelineBaton baton, Image image, ImageType imageType) {
+			var formatOut = baton.OutputImageInfo.Format;
+			var po = baton.PngOptions;
+			var fo = baton.ToFileOptions;
+			if(po == null || fo == null || (formatOut != "png" && ((!MightMatchInput(fo.FilePath) || !Common.IsPng(fo.FilePath)) && (!WillMatchInput(fo.FilePath) || (imageType != ImageType.Png && imageType != ImageType.Gif && imageType != ImageType.Svg))))) {
+				return;
+			}
+
+			image.AssertImageTypeDimensions(ImageType.Png);
+
+			image.Pngsave(
+				filename: fo.FilePath,
+				compression: po.CompressionLevel,
+				interlace: po.MakeProgressive,
+				profile: null,
+				filter: po.UseAdaptiveFiltering ? 0xF8 : 0x08, // TODO: Send netvips the enum for png https://libvips.github.io/libvips/API/current/VipsForeignSave.html#VipsForeignPngFilter https://www.w3.org/TR/PNG-Filters.html
+				palette: po.UsePalette,
+				q: po.Quality,
+				dither: po.Dither,
+				bitdepth: null,
+				strip: baton.MetadataOptions.ShouldStripMetadata,
+				background: null,
+				pageHeight: null
+			);
+
+			baton.OutputImageInfo.Format = "png";
+		}
+
+		private static void PotentiallySaveJpegFile(PipelineBaton baton, Image image, ImageType imageType) {
+			var formatOut = baton.OutputImageInfo.Format;
+			var jo = baton.JpegOptions;
+			var fo = baton.ToFileOptions;
+			if(jo == null || fo == null || formatOut != "jpeg" && (!MightMatchInput(fo.FilePath) || !Common.IsJpeg(fo.FilePath)) && (!WillMatchInput(fo.FilePath) || imageType != ImageType.Jpeg)) {
+				return;
+			}
+
+			image.AssertImageTypeDimensions(ImageType.Jpeg);
+
+			image.Jpegsave(
+				filename: fo.FilePath,
+				q: jo.Quality,
+				profile: null,
+				subsampleMode: jo.Subsampling == "4:4:4" ? Enums.ForeignJpegSubsample.Off : Enums.ForeignJpegSubsample.On,
+				optimizeCoding: jo.OptimizeCoding,
+				interlace: jo.MakeProgressive,
+				trellisQuant: jo.ApplyTrellisQuantization,
+				overshootDeringing: jo.ApplyOvershootDeringing,
+				optimizeScans: jo.OptimizeScans,
+				quantTable: jo.QuantizationTable,
+				strip: baton.MetadataOptions.ShouldStripMetadata,
+				background:null,
+				pageHeight:null
+			);
+
+			baton.OutputImageInfo.Format = "jpeg";
+		}
 		private static void PotentiallySaveRawBuffer(PipelineBaton baton, Image image, ImageType imageType) {
 			var formatOut = baton.OutputImageInfo.Format;
 			var ro = baton.RawOptions;
@@ -515,7 +648,7 @@ namespace SharpSharp.Pipeline {
 			if(shouldPremultiplyAlpha) {
 				image = image.Unpremultiply();
 				// Cast pixel values to integer
-				if(NeedsBetterPlace.Is16Bit(image.Interpretation)) {
+				if(Common.Is16Bit(image.Interpretation)) {
 					image = image.Cast(Enums.BandFormat.Ushort);
 				}
 				else {
@@ -600,7 +733,7 @@ namespace SharpSharp.Pipeline {
 		private static Image ExtendEdges(PipelineBaton baton, Image image) {
 			var ro = baton.ResizeOptions;
 			if(ro.ExtendTop > 0 || ro.ExtendBottom > 0 || ro.ExtendLeft > 0 || ro.ExtendRight > 0) {
-				var (img, bg) = NeedsBetterPlace.ApplyAlpha(image, baton.ResizeOptions.ExtendBackground);
+				var (img, bg) = Common.ApplyAlpha(image, baton.ResizeOptions.ExtendBackground);
 				// Embed
 				baton.Width = img.Width + ro.ExtendLeft + ro.ExtendRight;
 				baton.Height = img.Height + ro.ExtendTop + ro.ExtendBottom;
@@ -613,7 +746,7 @@ namespace SharpSharp.Pipeline {
 		private static Image AffineTransform(PipelineBaton baton, Image image) {
 			var ro = baton.ResizeOptions;
 			if(ro.AffineMatrix.HasValue()) {
-				var (img, bg) = NeedsBetterPlace.ApplyAlpha(image, ro.AffineBackground);
+				var (img, bg) = Common.ApplyAlpha(image, ro.AffineBackground);
 				image = img.Affine(ro.AffineMatrix, ro.AffineInterpolator, null, ro.AffineOdx, ro.AffineOdy, ro.AffineIdx, ro.AffineIdy, bg);
 			}
 
@@ -631,7 +764,7 @@ namespace SharpSharp.Pipeline {
 
 		private static Image RotatePostExtract(PipelineBaton baton, Image image) {
 			if(!baton.RotationOptions.RotateBeforePreExtract && !baton.RotationOptions.RotationAngle.IsAboutEqualTo(0.0)) {
-				var (img, background) = NeedsBetterPlace.ApplyAlpha(image, baton.RotationOptions.RotationBackground);
+				var (img, background) = Common.ApplyAlpha(image, baton.RotationOptions.RotationBackground);
 				image = img.Rotate(baton.RotationOptions.RotationAngle, background:background);
 			}
 
@@ -683,7 +816,7 @@ namespace SharpSharp.Pipeline {
 		}
 
 		private static Image GravityCrop(PipelineBaton baton, Image image) {
-			var (left, top) = NeedsBetterPlace.CalculateCrop(image.Width, image.Height, baton.Width, baton.Height, baton.ResizeOptions.Position);
+			var (left, top) = Common.CalculateCrop(image.Width, image.Height, baton.Width, baton.Height, baton.ResizeOptions.Position);
 			var width = Math.Min(image.Width, baton.Width);
 			var height = Math.Min(image.Height, baton.Height);
 			image = image.ExtractArea(left, top, width, height);
@@ -691,12 +824,12 @@ namespace SharpSharp.Pipeline {
 		}
 
 		private static Image Embed(PipelineBaton baton, Image image) {
-			var (img, background) = NeedsBetterPlace.ApplyAlpha(image, baton.ResizeOptions.Background);
+			var (img, background) = Common.ApplyAlpha(image, baton.ResizeOptions.Background);
 			image = img;
 			// Calculate where to position the embedded image if gravity specified, else center.
 			var width = Math.Max(image.Width, baton.Width);
 			var height = Math.Max(image.Height, baton.Height);
-			var (left, top) = NeedsBetterPlace.CalculateEmbedPosition(image.Width, image.Height, baton.Width, baton.Height, baton.ResizeOptions.Position);
+			var (left, top) = Common.CalculateEmbedPosition(image.Width, image.Height, baton.Width, baton.Height, baton.ResizeOptions.Position);
 			image = image.Embed(left, top, width, height, "background", background);
 			return image;
 		}
@@ -1128,7 +1261,7 @@ namespace SharpSharp.Pipeline {
 				}
 
 				if(rotationOptions.RotationAngle != 0.0) {
-					var (img, background) = NeedsBetterPlace.ApplyAlpha(image, rotationOptions.RotationBackground);
+					var (img, background) = Common.ApplyAlpha(image, rotationOptions.RotationBackground);
 					image = img;
 					image = image.Rotate(rotationOptions.RotationAngle, background:background);
 				}
