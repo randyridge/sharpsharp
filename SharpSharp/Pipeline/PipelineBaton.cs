@@ -44,6 +44,8 @@ namespace SharpSharp.Pipeline {
 
 		public ToStreamOptions? ToStreamOptions { get; set; } = null;
 
+		public ToTargetOptions? ToTargetOptions { get; set; } = null;
+
 		public TrimOptions TrimOptions { get; set; } = new();
 
 		public WebpOptions? WebpOptions { get; set; } = null;
