@@ -15,7 +15,16 @@ This port makes use of [Kleis Auke Wolthuizen](https://github.com/kleisauke)'s l
 
 I haven't implemented everything, just the pieces I've needed so far. Maybe at some point I'll add-to and/or refactor it.
 
-## Example
+## Install
+```sh
+Install-Package SharpSharp -Version 0.6.0-alpha1
+```
+
+``` csharp
+using SharpSharp;
+```
+
+## Examples
 ``` csharp
 using System.Threading.Tasks;
 using SharpSharp;
@@ -32,9 +41,14 @@ namespace Demo {
 }
 ```
 
-## Benchmark
-```
+## Benchmark Results ([sharp's benchmark](https://sharp.pixelplumbing.com/performance))
 
+### Task
+Decompress a 2725x2225 JPEG image,
+resize to 720x588 using Lanczos 3 resampling (where available),
+then compress to JPEG at a "quality" setting of 80.
+
+### Environment
 BenchmarkDotNet=v0.12.1, OS=Windows 10.0.19041.685 (2004/?/20H1)
 Intel Core i7-2600K CPU 3.40GHz (Sandy Bridge), 1 CPU, 8 logical and 4 physical cores
 .NET Core SDK=5.0.101
@@ -43,6 +57,15 @@ Intel Core i7-2600K CPU 3.40GHz (Sandy Bridge), 1 CPU, 8 logical and 4 physical 
 
 Runtime=.NET Core 5.0
 
+### Contenders
+
+* [FreeImage-dotnet-core](https://github.com/matgr1/FreeImage-dotnet-core) v4.3.6
+* [Magick.NET-Q8-AnyCPU](https://github.com/dlemstra/Magick.NET) v7.22.2.2
+* [SixLabors.ImageSharp](https://github.com/SixLabors/ImageSharp) v1.0.2
+* [SkiaSharp](https://github.com/mono/SkiaSharp) v2.80.2
+* [SharpSharp](https://github.com/randyridge/sharpsharp) v0.6.0-alpha1
+  
+### Results
 |                         Method |       Mean |     Error |     StdDev |    StdErr |        Min |         Q1 |     Median |         Q3 |        Max |    Op/s |  Ratio | RatioSD |     Gen 0 |     Gen 1 |     Gen 2 |  Allocated |
 |------------------------------- |-----------:|----------:|-----------:|----------:|-----------:|-----------:|-----------:|-----------:|-----------:|--------:|-------:|--------:|----------:|----------:|----------:|-----------:|
 |  'SharpSharp Buffer to Buffer' |   3.975 ms | 0.0786 ms |  0.1356 ms | 0.0220 ms |   3.734 ms |   3.867 ms |   3.960 ms |   4.086 ms |   4.324 ms | 251.561 |   1.00 |    0.00 |  328.1250 |  328.1250 |  328.1250 |   10.04 KB |
@@ -55,6 +78,3 @@ Runtime=.NET Core 5.0
 |       'FreeImage File to File' | 230.281 ms | 4.5688 ms |  5.2614 ms | 1.1765 ms | 222.607 ms | 226.276 ms | 230.792 ms | 233.663 ms | 241.642 ms |   4.343 |  57.62 |    2.78 | 1000.0000 | 1000.0000 | 1000.0000 |   12.82 KB |
 |     'ImageMagick File to File' | 409.113 ms | 7.6457 ms | 13.5903 ms | 2.1488 ms | 384.667 ms | 400.364 ms | 408.498 ms | 417.691 ms | 436.796 ms |   2.444 | 103.06 |    4.07 |         - |         - |         - |   17.31 KB |
 | 'ImageMagick Buffer to Buffer' | 411.799 ms | 8.1147 ms | 12.6336 ms | 2.2333 ms | 386.371 ms | 403.606 ms | 411.966 ms | 420.014 ms | 439.007 ms |   2.428 | 103.59 |    4.87 |         - |         - |         - |  342.49 KB |
-
-```
-
