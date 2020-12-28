@@ -24,7 +24,7 @@ namespace SharpSharp.Pipeline {
 
 		public OperationOptions OperationOptions { get; set; } = new();
 
-		internal OutputImageInfo OutputImageInfo { get; set; } = new();
+		internal OutputInfo OutputInfo { get; set; } = new();
 
 		public PngOptions? PngOptions { get; set; } = null;
 

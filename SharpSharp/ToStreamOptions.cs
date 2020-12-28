@@ -4,12 +4,12 @@ using RandyRidge.Common;
 
 namespace SharpSharp {
 	public sealed class ToStreamOptions {
-		public ToStreamOptions(Stream stream, Action<OutputImageInfo>? callback) {
+		public ToStreamOptions(Stream stream, Action<OutputInfo>? callback) {
 			Stream = Guard.NotNull(stream, nameof(stream));
 			Callback = callback;
 		}
 
-		public Action<OutputImageInfo>? Callback { get; }
+		public Action<OutputInfo>? Callback { get; }
 
 		public Stream Stream { get; }
 	}

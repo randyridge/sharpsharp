@@ -100,10 +100,10 @@ public void ToBuffer(out byte[] buffer) {
 
 /// <summary>
 ///   Writes the result of the image pipeline to the specified buffer and invokes a callback with
-///   <see cref="OutputImageInfo" />.
+///   <see cref="OutputInfo" />.
 /// </summary>
 /// <param name="callback">
-///   The callback to receive <see cref="OutputImageInfo" />.
+///   The callback to receive <see cref="OutputInfo" />.
 /// </param>
 /// <param name="buffer">
 ///   The buffer to write to.
@@ -111,7 +111,7 @@ public void ToBuffer(out byte[] buffer) {
 /// <exception cref="ArgumentNullException">
 ///   Thrown if <paramref name="callback" /> is null.
 /// </exception>
-public void ToBuffer(Action<OutputImageInfo> callback, out byte[] buffer) {
+public void ToBuffer(Action<OutputInfo> callback, out byte[] buffer) {
 			buffer = Array.Empty<byte>();
 			ToBuffer(new ToBufferOptions(buffer, callback));
 			buffer = baton.ToBufferOptions!.Buffer;
@@ -151,13 +151,13 @@ public void ToFile(string filePath) {
 
 /// <summary>
 ///   Writes the result of the image pipeline to the specified file path and invokes a callback with
-///   <see cref="OutputImageInfo" />.
+///   <see cref="OutputInfo" />.
 /// </summary>
 /// <param name="filePath">
 ///   The file path to write to.
 /// </param>
 /// <param name="callback">
-///   The callback to receive <see cref="OutputImageInfo" />.
+///   The callback to receive <see cref="OutputInfo" />.
 /// </param>
 /// <exception cref="ArgumentException">
 ///   Thrown if <paramref name="filePath" /> is empty or contains only whitespace.
@@ -165,7 +165,7 @@ public void ToFile(string filePath) {
 /// <exception cref="ArgumentNullException">
 ///   Thrown if <paramref name="filePath" /> or <paramref name="callback" /> is null.
 /// </exception>
-public void ToFile(string filePath, Action<OutputImageInfo> callback) {
+public void ToFile(string filePath, Action<OutputInfo> callback) {
 			Guard.NotNullOrWhiteSpace(filePath, nameof(filePath));
 			Guard.NotNull(callback, nameof(callback));
 			ToFile(new ToFileOptions(filePath, callback));
@@ -202,18 +202,18 @@ public void ToStream(Stream stream) {
 
 /// <summary>
 ///   Writes the result of the image pipeline to the specified stream and invokes a callback with
-///   <see cref="OutputImageInfo" />.
+///   <see cref="OutputInfo" />.
 /// </summary>
 /// <param name="stream">
 ///   The stream to write to.
 /// </param>
 /// <param name="callback">
-///   The callback to receive <see cref="OutputImageInfo" />.
+///   The callback to receive <see cref="OutputInfo" />.
 /// </param>
 /// <exception cref="ArgumentNullException">
 ///   Thrown if <paramref name="stream" /> or <paramref name="callback" /> is null.
 /// </exception>
-public void ToStream(Stream stream, Action<OutputImageInfo> callback) {
+public void ToStream(Stream stream, Action<OutputInfo> callback) {
 			stream = Guard.NotNull(stream, nameof(stream));
 			Guard.NotNull(callback, nameof(callback));
 			ToStream(new ToStreamOptions(stream, callback));
@@ -235,18 +235,18 @@ public void ToStream(out Stream stream) {
 
 /// <summary>
 ///   Writes the result of the image pipeline to the specified stream and invokes a callback with
-///   <see cref="OutputImageInfo" />.
+///   <see cref="OutputInfo" />.
 /// </summary>
 /// <param name="stream">
 ///   The stream to write to.
 /// </param>
 /// <param name="callback">
-///   The callback to receive <see cref="OutputImageInfo" />.
+///   The callback to receive <see cref="OutputInfo" />.
 /// </param>
 /// <exception cref="ArgumentNullException">
 ///   Thrown if <paramref name="stream" /> or <paramref name="callback" /> is null.
 /// </exception>
-public void ToStream(Action<OutputImageInfo> callback, out Stream stream) {
+public void ToStream(Action<OutputInfo> callback, out Stream stream) {
 			stream = new MemoryStream();
 			Guard.NotNull(callback, nameof(callback));
 			ToStream(new ToStreamOptions(stream, callback));
@@ -266,7 +266,7 @@ public void ToStream(ToStreamOptions streamOptions) {
 			baton.ToStreamOptions = streamOptions;
 			Execute();
 			if(streamOptions.Callback.HasValue()) {
-				streamOptions.Callback(baton.OutputImageInfo!);
+				streamOptions.Callback(baton.OutputInfo!);
 			}
 		}
 
