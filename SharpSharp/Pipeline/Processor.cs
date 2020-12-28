@@ -111,8 +111,8 @@ namespace SharpSharp.Pipeline {
 				PotentiallySaveJpegStream(baton, image, imageType);
 				PotentiallySavePngStream(baton, image, imageType);
 				PotentiallySaveWebpStream(baton, image, imageType);
-				//PotentiallySaveGifStream(baton, image, imageType); // TODO: Throws!
-				//PotentiallySaveTiffStream(baton, image, imageType);// TODO: Throws!
+				PotentiallySaveGifStream(baton, image, imageType);
+				PotentiallySaveTiffStream(baton, image, imageType);
 				PotentiallySaveHeifStream(baton, image, imageType);
 				PotentiallySaveRawStream(baton, image, imageType);
 				// TODO: Handle unknown
@@ -508,22 +508,24 @@ namespace SharpSharp.Pipeline {
 
 		private static Image ExtractVipsBand(PipelineBaton baton, Image image) {
 			var ec = baton.OperationOptions.ExtractChannel;
-			if(ec > -1) {
-				if(ec >= image.Bands) {
-					if(ec == 3 && image.HasAlpha()) {
-						baton.OperationOptions.ExtractChannel = image.Bands - 1;
-					}
-					else {
-						throw new Exception("Cannot extract channel from image. Too few channels in image.");
-					}
-				}
-
-				var interpretation = image.Interpretation.Is16Bit() ?
-					Enums.Interpretation.Grey16 : Enums.Interpretation.Bw;
-				image = image
-					.ExtractBand(baton.OperationOptions.ExtractChannel);
-				image.Set("interpretation", interpretation);
+			if(ec <= -1) {
+				return image;
 			}
+
+			if(ec >= image.Bands) {
+				if(ec == 3 && image.HasAlpha()) {
+					baton.OperationOptions.ExtractChannel = image.Bands - 1;
+				}
+				else {
+					throw new SharpSharpException("Cannot extract channel from image. Too few channels in image.");
+				}
+			}
+
+			var interpretation = image.Interpretation.Is16Bit() ?
+				Enums.Interpretation.Grey16 : Enums.Interpretation.Bw;
+			image = image
+				.ExtractBand(baton.OperationOptions.ExtractChannel);
+			image.Set("interpretation", interpretation);
 
 			return image;
 		}
@@ -689,6 +691,17 @@ namespace SharpSharp.Pipeline {
 			);
 
 			baton.OutputInfo.Format = "gif";
+		}
+
+		private static void PotentiallySaveGifStream(PipelineBaton baton, Image image, ImageType imageType) {
+			var formatOut = baton.OutputInfo.Format;
+			var go = baton.GifOptions;
+			var so = baton.ToStreamOptions;
+			if(go == null || so == null || formatOut != "gif" && (formatOut != "input" || imageType != ImageType.Gif || !SupportsGifOutput)) {
+				return;
+			}
+
+			throw new SharpSharpException("Cannot save GIF to stream, it's unsupported by libvips.");
 		}
 
 		private static void PotentiallySaveHeifBuffer(PipelineBaton baton, Image image, ImageType imageType) {
@@ -1080,6 +1093,54 @@ namespace SharpSharp.Pipeline {
 				pageHeight:null,
 				filename:fo.FilePath
 			);
+
+			baton.OutputInfo.Format = "tiff";
+		}
+
+		private static void PotentiallySaveTiffStream(PipelineBaton baton, Image image, ImageType imageType) {
+			var formatOut = baton.OutputInfo.Format;
+			var to = baton.TiffOptions;
+			var so = baton.ToStreamOptions;
+			if(to == null || so == null || formatOut != "tiff" && (formatOut != "input" || imageType != ImageType.Tiff)) {
+				return;
+			}
+
+			if(to.Compression == Enums.ForeignTiffCompression.Jpeg) {
+				image.AssertImageTypeDimensions(ImageType.Jpeg);
+				baton.Channels = Math.Min(baton.Channels, 3);
+			}
+
+			// Cast pixel values to float, if required
+			if(to.Predictor == Enums.ForeignTiffPredictor.Float) {
+				image = image.Cast(Enums.BandFormat.Float);
+			}
+
+			// TODO: Pending netvips
+			//image.TiffsaveStream(
+			//	compression:to.Compression,
+			//	q:to.Quality,
+			//	predictor:to.Predictor,
+			//	profile:null,
+			//	tile:to.Tile,
+			//	tileWidth:to.TileWidth,
+			//	tileHeight:to.TileHeight,
+			//	pyramid:to.Pyramid,
+			//	miniswhite:null,
+			//	bitdepth:to.BitDepth,
+			//	resunit:null,
+			//	xres:to.XRes,
+			//	yres:to.YRes,
+			//	bigtiff:null,
+			//	properties:null,
+			//	regionShrink:null,
+			//	level:null,
+			//	subifd:null,
+			//	lossless:null,
+			//	depth:null,
+			//	strip:baton.MetadataOptions.ShouldStripMetadata,
+			//	background:null,
+			//	pageHeight:null
+			//);
 
 			baton.OutputInfo.Format = "tiff";
 		}
