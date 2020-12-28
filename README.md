@@ -32,6 +32,22 @@ using SharpSharp;
 namespace Demo {
     internal static class Program {
         private static async Task Main() =>
+          ImagePipeline.
+            .FromFile("test.jpg")
+            .Resize(720, 588)
+            .ToJpeg("murray.webp");
+    }
+}
+
+
+#### Input from URL
+``` csharp
+using System.Threading.Tasks;
+using SharpSharp;
+
+namespace Demo {
+    internal static class Program {
+        private static async Task Main() =>
             (await ImagePipeline.FromUriAsync("https://www.fillmurray.com/300/300"))
             .Resize(150, 150)
             .Sharpen()
@@ -64,7 +80,8 @@ Runtime=.NET Core 5.0
 * [SixLabors.ImageSharp](https://github.com/SixLabors/ImageSharp) v1.0.2
 * [SkiaSharp](https://github.com/mono/SkiaSharp) v2.80.2
 * [SharpSharp](https://github.com/randyridge/sharpsharp) v0.6.0-alpha1
-  
+
+<!---
 ### Results
 |                         Method |    Op/s |  Ratio |     Gen 0 |     Gen 1 |     Gen 2 |  Allocated |
 |------------------------------- |--------:|-------:|----------:|----------:|----------:|-----------:|
@@ -78,3 +95,4 @@ Runtime=.NET Core 5.0
 |       'FreeImage File to File' |   4.343 |  57.62 | 1000.0000 | 1000.0000 | 1000.0000 |   12.82 KB |
 |     'ImageMagick File to File' |   2.444 | 103.06 |         - |         - |         - |   17.31 KB |
 | 'ImageMagick Buffer to Buffer' |   2.428 | 103.59 |         - |         - |         - |  342.49 KB |
+-->

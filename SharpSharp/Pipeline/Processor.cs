@@ -104,7 +104,7 @@ namespace SharpSharp.Pipeline {
 				// TODO: PotentiallySaveDzFile(baton, image, imageType);
 				PotentiallySaveVFile(baton, image, imageType);
 				// TODO: Handle unknown
-				baton.OutputInfo.Size = (int) new FileInfo(baton.ToFileOptions.FilePath).Length; // TODO: this seems bad
+				//baton.OutputInfo.Size = (int) new FileInfo(baton.ToFileOptions.FilePath).Length; // TODO: this seems bad
 			}
 
 			if(baton.ToStreamOptions.HasValue()) {
