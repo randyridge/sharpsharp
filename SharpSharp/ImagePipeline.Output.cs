@@ -5,11 +5,15 @@ using RandyRidge.Common;
 
 namespace SharpSharp {
 	public sealed partial class ImagePipeline {
+		public ImagePipeline Avif() => Heif(new HeifOptions());
+
+		public ImagePipeline Avif(HeifOptions options) => Heif(options);
+		
 		public ImagePipeline Heif() => Heif(new HeifOptions());
 
 		public ImagePipeline Heif(HeifOptions options) {
-			Guard.NotNull(options, nameof(options));
-			result.HeifOptions = options;
+			options = Guard.NotNull(options, nameof(options));
+			baton.HeifOptions = options;
 			return this;
 		}
 
@@ -35,7 +39,7 @@ namespace SharpSharp {
 		/// </exception>
 		public ImagePipeline Jpeg(JpegOptions options) {
 			Guard.NotNull(options, nameof(options));
-			result.JpegOptions = options;
+			baton.JpegOptions = options;
 			return this;
 		}
 
@@ -61,7 +65,7 @@ namespace SharpSharp {
 		/// </exception>
 		public ImagePipeline Png(PngOptions options) {
 			Guard.NotNull(options, nameof(options));
-			result.PngOptions = options;
+			baton.PngOptions = options;
 			return this;
 		}
 
@@ -69,7 +73,7 @@ namespace SharpSharp {
 
 		public ImagePipeline Raw(RawOptions options) {
 			Guard.NotNull(options, nameof(options));
-			result.RawOptions = options;
+			baton.RawOptions = options;
 			return this;
 		}
 
@@ -91,15 +95,15 @@ namespace SharpSharp {
 public void ToBuffer(out byte[] buffer) {
 			buffer = Array.Empty<byte>();
 			ToBuffer(new ToBufferOptions(buffer, null));
-			buffer = result.ToBufferOptions!.Buffer;
+			buffer = baton.ToBufferOptions!.Buffer;
 		}
 
 /// <summary>
 ///   Writes the result of the image pipeline to the specified buffer and invokes a callback with
-///   <see cref="OutputImageInfo" />.
+///   <see cref="OutputInfo" />.
 /// </summary>
 /// <param name="callback">
-///   The callback to receive <see cref="OutputImageInfo" />.
+///   The callback to receive <see cref="OutputInfo" />.
 /// </param>
 /// <param name="buffer">
 ///   The buffer to write to.
@@ -107,10 +111,10 @@ public void ToBuffer(out byte[] buffer) {
 /// <exception cref="ArgumentNullException">
 ///   Thrown if <paramref name="callback" /> is null.
 /// </exception>
-public void ToBuffer(Action<OutputImageInfo> callback, out byte[] buffer) {
+public void ToBuffer(Action<OutputInfo> callback, out byte[] buffer) {
 			buffer = Array.Empty<byte>();
 			ToBuffer(new ToBufferOptions(buffer, callback));
-			buffer = result.ToBufferOptions!.Buffer;
+			buffer = baton.ToBufferOptions!.Buffer;
 		}
 
 /// <summary>
@@ -124,7 +128,7 @@ public void ToBuffer(Action<OutputImageInfo> callback, out byte[] buffer) {
 /// </exception>
 public void ToBuffer(ToBufferOptions bufferOptions) {
 			Guard.NotNull(bufferOptions, nameof(bufferOptions));
-			result.ToBufferOptions = bufferOptions;
+			baton.ToBufferOptions = bufferOptions;
 			Execute();
 		}
 
@@ -147,13 +151,13 @@ public void ToFile(string filePath) {
 
 /// <summary>
 ///   Writes the result of the image pipeline to the specified file path and invokes a callback with
-///   <see cref="OutputImageInfo" />.
+///   <see cref="OutputInfo" />.
 /// </summary>
 /// <param name="filePath">
 ///   The file path to write to.
 /// </param>
 /// <param name="callback">
-///   The callback to receive <see cref="OutputImageInfo" />.
+///   The callback to receive <see cref="OutputInfo" />.
 /// </param>
 /// <exception cref="ArgumentException">
 ///   Thrown if <paramref name="filePath" /> is empty or contains only whitespace.
@@ -161,7 +165,7 @@ public void ToFile(string filePath) {
 /// <exception cref="ArgumentNullException">
 ///   Thrown if <paramref name="filePath" /> or <paramref name="callback" /> is null.
 /// </exception>
-public void ToFile(string filePath, Action<OutputImageInfo> callback) {
+public void ToFile(string filePath, Action<OutputInfo> callback) {
 			Guard.NotNullOrWhiteSpace(filePath, nameof(filePath));
 			Guard.NotNull(callback, nameof(callback));
 			ToFile(new ToFileOptions(filePath, callback));
@@ -178,7 +182,7 @@ public void ToFile(string filePath, Action<OutputImageInfo> callback) {
 /// </exception>
 public void ToFile(ToFileOptions fileOptions) {
 			Guard.NotNull(fileOptions, nameof(fileOptions));
-			result.ToFileOptions = fileOptions;
+			baton.ToFileOptions = fileOptions;
 			Execute();
 		}
 
@@ -198,18 +202,18 @@ public void ToStream(Stream stream) {
 
 /// <summary>
 ///   Writes the result of the image pipeline to the specified stream and invokes a callback with
-///   <see cref="OutputImageInfo" />.
+///   <see cref="OutputInfo" />.
 /// </summary>
 /// <param name="stream">
 ///   The stream to write to.
 /// </param>
 /// <param name="callback">
-///   The callback to receive <see cref="OutputImageInfo" />.
+///   The callback to receive <see cref="OutputInfo" />.
 /// </param>
 /// <exception cref="ArgumentNullException">
 ///   Thrown if <paramref name="stream" /> or <paramref name="callback" /> is null.
 /// </exception>
-public void ToStream(Stream stream, Action<OutputImageInfo> callback) {
+public void ToStream(Stream stream, Action<OutputInfo> callback) {
 			stream = Guard.NotNull(stream, nameof(stream));
 			Guard.NotNull(callback, nameof(callback));
 			ToStream(new ToStreamOptions(stream, callback));
@@ -231,18 +235,18 @@ public void ToStream(out Stream stream) {
 
 /// <summary>
 ///   Writes the result of the image pipeline to the specified stream and invokes a callback with
-///   <see cref="OutputImageInfo" />.
+///   <see cref="OutputInfo" />.
 /// </summary>
 /// <param name="stream">
 ///   The stream to write to.
 /// </param>
 /// <param name="callback">
-///   The callback to receive <see cref="OutputImageInfo" />.
+///   The callback to receive <see cref="OutputInfo" />.
 /// </param>
 /// <exception cref="ArgumentNullException">
 ///   Thrown if <paramref name="stream" /> or <paramref name="callback" /> is null.
 /// </exception>
-public void ToStream(Action<OutputImageInfo> callback, out Stream stream) {
+public void ToStream(Action<OutputInfo> callback, out Stream stream) {
 			stream = new MemoryStream();
 			Guard.NotNull(callback, nameof(callback));
 			ToStream(new ToStreamOptions(stream, callback));
@@ -259,10 +263,10 @@ public void ToStream(Action<OutputImageInfo> callback, out Stream stream) {
 /// </exception>
 public void ToStream(ToStreamOptions streamOptions) {
 			Guard.NotNull(streamOptions, nameof(streamOptions));
-			result.ToStreamOptions = streamOptions;
+			baton.ToStreamOptions = streamOptions;
 			Execute();
 			if(streamOptions.Callback.HasValue()) {
-				streamOptions.Callback(result.OutputImageInfo!);
+				streamOptions.Callback(baton.OutputInfo!);
 			}
 		}
 
@@ -296,7 +300,7 @@ public void ToStream(ToStreamOptions streamOptions) {
 		/// </exception>
 		public ImagePipeline Webp(WebpOptions options) {
 			Guard.NotNull(options, nameof(options));
-			result.WebpOptions = options;
+			baton.WebpOptions = options;
 			return this;
 		}
 
@@ -304,7 +308,7 @@ public void ToStream(ToStreamOptions streamOptions) {
 
 		public ImagePipeline WithMetadata(MetadataOptions options) {
 			Guard.NotNull(options, nameof(options));
-			result.MetadataOptions = options;
+			baton.MetadataOptions = options;
 			return this;
 		}
 	}

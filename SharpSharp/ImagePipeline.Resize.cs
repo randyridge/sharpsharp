@@ -19,7 +19,17 @@ namespace SharpSharp {
 		/// <returns>
 		///   The image pipeline.
 		/// </returns>
-		public ImagePipeline Resize(int? width, int? height) => Resize(new ResizeOptions(width, height));
+		public ImagePipeline Resize(int? width, int? height) {
+			if(width.HasValue) {
+				baton.ResizeOptions.Width = width.Value;
+			}
+
+			if(height.HasValue) {
+				baton.ResizeOptions.Height = height.Value;
+			}
+
+			return this;
+		}
 
 		/// <summary>
 		///   Resizes an image with the specified options.
@@ -35,7 +45,7 @@ namespace SharpSharp {
 		/// </exception>
 		public ImagePipeline Resize(ResizeOptions resizeOptions) {
 			Guard.NotNull(resizeOptions, nameof(resizeOptions));
-			result.ResizeOptions = resizeOptions;
+			baton.ResizeOptions = resizeOptions;
 			return this;
 		}
 

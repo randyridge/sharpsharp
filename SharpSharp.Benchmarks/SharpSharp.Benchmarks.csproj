@@ -4,6 +4,7 @@
     <IsWindows Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</IsWindows>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(IsWindows)'=='true'">
     <DefineConstants>Windows</DefineConstants>
@@ -14,11 +15,22 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Remove="C:\Users\randy\.nuget\packages\microsoft.diagnostics.tracing.traceevent\2.0.49\build\..\lib\native\amd64\KernelTraceControl.dll" />
+    <None Remove="C:\Users\randy\.nuget\packages\microsoft.diagnostics.tracing.traceevent\2.0.49\build\..\lib\native\amd64\msdia140.dll" />
+    <None Remove="C:\Users\randy\.nuget\packages\microsoft.diagnostics.tracing.traceevent\2.0.49\build\..\lib\native\x86\KernelTraceControl.dll" />
+    <None Remove="C:\Users\randy\.nuget\packages\microsoft.diagnostics.tracing.traceevent\2.0.49\build\..\lib\native\x86\KernelTraceControl.Win61.dll" />
+    <None Remove="C:\Users\randy\.nuget\packages\microsoft.diagnostics.tracing.traceevent\2.0.49\build\..\lib\native\x86\msdia140.dll" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
     <PackageReference Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.12.1" />
+    <PackageReference Include="FreeImage-dotnet-core" Version="4.3.6" />
     <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="7.22.2.2" />
-    <PackageReference Include="NetVips.Native" Version="8.10.1" />
+    <PackageReference Include="NetVips" Version="1.2.4.234-develop" />
+    <PackageReference Include="NetVips.Native" Version="8.10.5.1" />
     <PackageReference Include="RandyRidge.Common" Version="0.5.2" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.2" />
+    <PackageReference Include="SkiaSharp" Version="2.80.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharpSharp\SharpSharp.csproj" />

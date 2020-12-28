@@ -5,7 +5,7 @@ using RandyRidge.Common;
 using SharpSharp.Pipeline;
 
 namespace SharpSharp {
-	internal static class NeedsBetterPlace {
+	internal static class Common {
 		private static readonly int[] MinimumImage = {1, 1};
 
 		public static (Image Image, double[] AlphaColors) ApplyAlpha(Image image, double[] colors) {
@@ -165,6 +165,28 @@ namespace SharpSharp {
 			return interpretation == Enums.Interpretation.Rgb16 ||
 			       interpretation == Enums.Interpretation.Grey16;
 		}
+
+		public static bool IsAvif(string path) => path.EndsWithOrdinalIgnoreCase(".avif");
+
+		public static bool IsDz(string path) => path.EndsWithOrdinalIgnoreCase(".dzi");
+
+		public static bool IsDzZip(string path) => path.EndsWithOrdinalIgnoreCase(".zip") || path.EndsWithOrdinalIgnoreCase(".szi");
+
+		public static bool IsGif(string path) => path.EndsWithOrdinalIgnoreCase(".gif");
+
+		public static bool IsHeic(string path) => path.EndsWithOrdinalIgnoreCase(".heic");
+
+		public static bool IsHeif(string path) => path.EndsWithOrdinalIgnoreCase(".heif") || IsHeic(path) || IsAvif(path);
+
+		public static bool IsJpeg(string path) => path.EndsWithOrdinalIgnoreCase(".jpg") || path.EndsWithOrdinalIgnoreCase(".jpeg");
+
+		public static bool IsPng(string path) => path.EndsWithOrdinalIgnoreCase(".png");
+
+		public static bool IsTiff(string path) => path.EndsWithOrdinalIgnoreCase(".tif") || path.EndsWithOrdinalIgnoreCase(".tiff");
+
+		public static bool IsV(string path) => path.EndsWithOrdinalIgnoreCase(".v") || path.EndsWithOrdinalIgnoreCase(".vips");
+
+		public static bool IsWebp(string path) => path.EndsWithOrdinalIgnoreCase(".webp");
 
 		public static double MaximumImageAlpha(this string interpretation) {
 			Guard.NotNull(interpretation, nameof(interpretation));

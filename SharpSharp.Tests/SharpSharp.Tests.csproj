@@ -5,6 +5,7 @@
     <RootNamespace>SharpSharp</RootNamespace>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="SharpTestImages\**\*.*">
@@ -18,7 +19,8 @@
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
     <PackageReference Include="Moq" Version="4.15.2" />
-    <PackageReference Include="NetVips.Native" Version="8.10.1" />
+    <PackageReference Include="NetVips" Version="1.2.4.234-develop" />
+    <PackageReference Include="NetVips.Native" Version="8.10.5.1" />
     <PackageReference Include="RandyRidge.Common" Version="0.5.2" />
     <PackageReference Include="Shouldly" Version="4.0.3" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -32,6 +34,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Update="ImagePipelineTester.Constructor.cs">
+      <DependentUpon>ImagePipelineTester.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ImagePipelineTester.Output.cs">
       <DependentUpon>ImagePipelineTester.cs</DependentUpon>
     </Compile>
   </ItemGroup>

@@ -9,17 +9,6 @@ namespace SharpSharp {
 //            return this;
 //        }
 
-		public ImagePipeline Grayscale(bool makeGrayscale = true) {
-			if(result.ColorizationOptions.HasValue()) {
-				result.ColorizationOptions.MakeGrayscale = makeGrayscale;
-			}
-			else {
-				result.ColorizationOptions = new ColorizationOptions(makeGrayscale);
-			}
-
-			return this;
-		}
-
 //        public ImagePipeline ToColorspace(string colorspace) {
 //            Guard.NotNullOrWhiteSpace(colorspace, nameof(colorspace));
 //            // TODO: valid values

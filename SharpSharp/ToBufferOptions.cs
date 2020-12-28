@@ -12,9 +12,9 @@ namespace SharpSharp {
 		///   The buffer to write to.
 		/// </param>
 		/// <param name="callback">
-		///   The call back, if any, to call with the <see cref="OutputImageInfo" /> for the image written.
+		///   The call back, if any, to call with the <see cref="OutputInfo" /> for the image written.
 		/// </param>
-		public ToBufferOptions(byte[] buffer, Action<OutputImageInfo>? callback) {
+		public ToBufferOptions(byte[] buffer, Action<OutputInfo>? callback) {
 			Buffer = buffer;
 			Callback = callback;
 		}
@@ -25,8 +25,8 @@ namespace SharpSharp {
 		public byte[] Buffer { get; internal set; }
 
 		/// <summary>
-		///   Optional callback to get <see cref="OutputImageInfo" />.
+		///   Optional callback to get <see cref="OutputInfo" />.
 		/// </summary>
-		public Action<OutputImageInfo>? Callback { get; }
+		public Action<OutputInfo>? Callback { get; }
 	}
 }

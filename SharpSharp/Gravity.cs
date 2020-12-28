@@ -1,5 +1,5 @@
 ﻿namespace SharpSharp {
-	internal enum Gravity {
+	public enum Gravity {
 		Center = 0,
 		North = 1,
 		East = 2,

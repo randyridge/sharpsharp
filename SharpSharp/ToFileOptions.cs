@@ -13,17 +13,17 @@ namespace SharpSharp {
 		///   The path to the file to write to.
 		/// </param>
 		/// <param name="callback">
-		///   The call back, if any,  to call with the <see cref="OutputImageInfo" /> for the image written.
+		///   The call back, if any,  to call with the <see cref="OutputInfo" /> for the image written.
 		/// </param>
-		public ToFileOptions(string filePath, Action<OutputImageInfo>? callback) {
+		public ToFileOptions(string filePath, Action<OutputInfo>? callback) {
 			FilePath = Guard.NotNullOrWhiteSpace(filePath, nameof(filePath));
 			Callback = callback;
 		}
 
 		/// <summary>
-		///   Optional callback to get <see cref="OutputImageInfo" />.
+		///   Optional callback to get <see cref="OutputInfo" />.
 		/// </summary>
-		public Action<OutputImageInfo>? Callback { get; }
+		public Action<OutputInfo>? Callback { get; }
 
 		/// <summary>
 		///   The file path to write to.
