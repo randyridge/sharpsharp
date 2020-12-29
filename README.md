@@ -74,25 +74,29 @@ ImagePipeline
  54,776 output.webp
 ```
 #### Result images
-INPUT 2725x2225 (From sharp's test images, [image credit](http://www.flickr.com/photos/grizdave/2569067123/)
+
+* INPUT 2725x2225 (From sharp's test images, [image credit](http://www.flickr.com/photos/grizdave/2569067123/)
 ![INPUT JPEG](./docs/input.jpg)
 
-AVIF
+* AVIF
 ![AVIF](./docs/formats/output.avif)
 
-GIF
+* GIF
 ![GIF](./docs/formats/output.gif)
 
-HEIF
+* HEIF
 ![HEIF](./docs/formats/output.heif)
 
-JPEG
+* JPEG
 ![JPEG](./docs/formats/output.jpeg)
 
-PNG
+* PNG
 ![PNG](./docs/formats/output.png)
 
-WEBP
+* TIFF
+![TIFF](./docs/formats/output.tiff)
+
+* WEBP
 ![WEBP](./docs/formats/output.webp)
 ---
 #### Input from URL
