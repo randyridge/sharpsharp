@@ -129,18 +129,17 @@ Runtime=.NET Core 5.0
 * [SkiaSharp](https://github.com/mono/SkiaSharp) v2.80.2
 * [SharpSharp](https://github.com/randyridge/sharpsharp) v0.6.0-alpha1
 
-<!---
 ### Results
-|                         Method |    Op/s |  Ratio |     Gen 0 |     Gen 1 |     Gen 2 |  Allocated |
-|------------------------------- |--------:|-------:|----------:|----------:|----------:|-----------:|
-|  'SharpSharp Buffer to Buffer' | 251.561 |   1.00 |  328.1250 |  328.1250 |  328.1250 |   10.04 KB |
-|      'SharpSharp File to File' | 188.622 |   1.33 |         - |         - |         - |   11.38 KB |
-|   'SkiaSharp Buffer to Buffer' |   9.593 |  26.12 |  200.0000 |         - |         - | 1023.89 KB |
-|       'SkiaSharp File to File' |   9.378 |  26.68 |  200.0000 |         - |         - |  964.06 KB |
-|  'ImageSharp Buffer to Buffer' |   5.111 |  49.64 |         - |         - |         - |  368.17 KB |
-|      'ImageSharp File to File' |   5.071 |  49.49 |         - |         - |         - |   53.59 KB |
-|   'FreeImage Buffer to Buffer' |   4.695 |  53.44 | 1000.0000 | 1000.0000 | 1000.0000 |  189.62 KB |
-|       'FreeImage File to File' |   4.343 |  57.62 | 1000.0000 | 1000.0000 | 1000.0000 |   12.82 KB |
-|     'ImageMagick File to File' |   2.444 | 103.06 |         - |         - |         - |   17.31 KB |
-| 'ImageMagick Buffer to Buffer' |   2.428 | 103.59 |         - |         - |         - |  342.49 KB |
--->
+
+|                         Method |   Op/s |     Gen 0 |     Gen 1 |     Gen 2 |  Allocated |
+|------------------------------- |-------:|----------:|----------:|----------:|-----------:|
+|  'SharpSharp Buffer to Buffer' | 23.395 |  272.7273 |  272.7273 |  272.7273 |   80.35 KB |
+|      'SharpSharp File to File' | 20.591 |         - |         - |         - |   15.04 KB |
+|   'SkiaSharp Buffer to Buffer' |  9.766 |  200.0000 |         - |         - | 1025.37 KB |
+|       'SkiaSharp File to File' |  9.295 |  200.0000 |         - |         - |  964.03 KB |
+|  'ImageSharp Buffer to Buffer' |  5.373 |         - |         - |         - |  368.17 KB |
+|      'ImageSharp File to File' |  5.237 |         - |         - |         - |   53.55 KB |
+|   'FreeImage Buffer to Buffer' |  4.709 | 1000.0000 | 1000.0000 | 1000.0000 |  189.62 KB |
+|       'FreeImage File to File' |  4.400 | 1000.0000 | 1000.0000 | 1000.0000 |   12.68 KB |
+|     'ImageMagick File to File' |  2.489 |         - |         - |         - |   17.24 KB |
+| 'ImageMagick Buffer to Buffer' |  2.486 |         - |         - |         - |  342.49 KB |
