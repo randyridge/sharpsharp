@@ -612,7 +612,7 @@ namespace SharpSharp.Pipeline {
 			return image;
 		}
 
-		private static bool MightMatchInput(string path) => path == "input";
+		private static bool MightMatchInput(string formatOut) => formatOut == "input";
 
 		private static Image Modulate(PipelineBaton baton, Image image) {
 			var oo = baton.OperationOptions;
@@ -683,10 +683,27 @@ namespace SharpSharp.Pipeline {
 		}
 
 		private static void PotentiallySaveGifFile(PipelineBaton baton, Image image, ImageType imageType) {
+			if(!SupportsGifOutput) {
+				return;
+			}
+
+			var fo = baton.ToFileOptions;
+			if(fo == null) {
+				return;
+			}
+
 			var formatOut = baton.OutputInfo.Format;
 			var go = baton.GifOptions;
-			var fo = baton.ToFileOptions;
-			if(go == null || fo == null || (formatOut != "gif" && (!MightMatchInput(fo.FilePath) || !Common.IsGif(fo.FilePath)) && (!WillMatchInput(fo.FilePath) || imageType != ImageType.Gif || !SupportsGifOutput))) {
+			if(go == null && formatOut == "gif") {
+				go = new GifOptions();
+			}
+			else if(go == null && MightMatchInput(formatOut) && Common.IsGif(fo.FilePath)) {
+				go = new GifOptions();
+			}
+			else if(WillMatchInput(fo.FilePath, formatOut) && imageType == ImageType.Gif) {
+				go = new GifOptions();
+			}
+			else {
 				return;
 			}
 
@@ -752,10 +769,23 @@ namespace SharpSharp.Pipeline {
 		}
 
 		private static void PotentiallySaveHeifFile(PipelineBaton baton, Image image, ImageType imageType) {
+			var fo = baton.ToFileOptions;
+			if(fo == null) {
+				return;
+			}
+
 			var formatOut = baton.OutputInfo.Format;
 			var ho = baton.HeifOptions;
-			var fo = baton.ToFileOptions;
-			if(ho == null || fo == null || formatOut != "heif" && (!MightMatchInput(fo.FilePath) || !Common.IsHeif(fo.FilePath)) && (!WillMatchInput(fo.FilePath) || imageType != ImageType.Heif)) {
+			if(ho == null && formatOut == "heif") {
+				ho = new HeifOptions();
+			}
+			else if(ho == null && MightMatchInput(formatOut) && Common.IsHeif(fo.FilePath)) {
+				ho = new HeifOptions();
+			}
+			else if(WillMatchInput(fo.FilePath, formatOut) && imageType == ImageType.Heif) {
+				ho = new HeifOptions();
+			}
+			else {
 				return;
 			}
 
@@ -853,10 +883,23 @@ namespace SharpSharp.Pipeline {
 		}
 
 		private static void PotentiallySaveJpegFile(PipelineBaton baton, Image image, ImageType imageType) {
+			var fo = baton.ToFileOptions;
+			if(fo == null) {
+				return;
+			}
+
 			var formatOut = baton.OutputInfo.Format;
 			var jo = baton.JpegOptions;
-			var fo = baton.ToFileOptions;
-			if(jo == null || fo == null || formatOut != "jpeg" && (!MightMatchInput(fo.FilePath) || !Common.IsJpeg(fo.FilePath)) && (!WillMatchInput(fo.FilePath) || imageType != ImageType.Jpeg)) {
+			if(jo == null && formatOut == "jpeg") {
+				jo = new JpegOptions();
+			}
+			else if(jo == null && MightMatchInput(formatOut) && Common.IsJpeg(fo.FilePath)) {
+				jo = new JpegOptions();
+			}
+			else if(WillMatchInput(fo.FilePath, formatOut) && imageType == ImageType.Jpeg) {
+				jo = new JpegOptions();
+			}
+			else {
 				return;
 			}
 
@@ -972,16 +1015,30 @@ namespace SharpSharp.Pipeline {
 		}
 
 		private static void PotentiallySavePngFile(PipelineBaton baton, Image image, ImageType imageType) {
+			var fo = baton.ToFileOptions;
+			if(fo == null) {
+				return;
+			}
+
 			var formatOut = baton.OutputInfo.Format;
 			var po = baton.PngOptions;
-			var fo = baton.ToFileOptions;
-			if(po == null || fo == null || formatOut != "png" && (!MightMatchInput(fo.FilePath) || !Common.IsPng(fo.FilePath)) && (!WillMatchInput(fo.FilePath) || imageType != ImageType.Png && imageType != ImageType.Gif && imageType != ImageType.Svg)) {
+			if(po == null && formatOut == "png") {
+				po = new PngOptions();
+			}
+			else if(po == null && MightMatchInput(formatOut) && Common.IsPng(fo.FilePath)) {
+				po = new PngOptions();
+			}
+			else if(WillMatchInput(fo.FilePath, formatOut) &&
+			        (imageType == ImageType.Png || (imageType == ImageType.Gif && SupportsGifOutput) || imageType == ImageType.Svg)) {
+				po = new PngOptions();
+			}
+			else {
 				return;
 			}
 
 			image.AssertImageTypeDimensions(ImageType.Png);
 
-			image.Set("colours", po.Colors);
+			image.Set(GValue.GIntType, "colours", po.Colors);
 
 			image.Pngsave(
 				filename:fo.FilePath,
@@ -1181,12 +1238,27 @@ namespace SharpSharp.Pipeline {
 		}
 
 		private static void PotentiallySaveTiffFile(PipelineBaton baton, Image image, ImageType imageType) {
-			var formatOut = baton.OutputInfo.Format;
-			var to = baton.TiffOptions;
 			var fo = baton.ToFileOptions;
-			if(to == null || fo == null || formatOut != "tiff" && (!MightMatchInput(fo.FilePath) || !Common.IsTiff(fo.FilePath)) && (!WillMatchInput(fo.FilePath) || imageType != ImageType.Tiff)) {
+			if(fo == null) {
 				return;
 			}
+
+			var formatOut = baton.OutputInfo.Format;
+			var to = baton.TiffOptions;
+			if(to == null && formatOut == "png") {
+				to = new TiffOptions();
+			}
+			else if(to == null && MightMatchInput(formatOut) && Common.IsTiff(fo.FilePath)) {
+				to = new TiffOptions();
+			}
+			else if(WillMatchInput(fo.FilePath, formatOut) && imageType == ImageType.Tiff) {
+				to = new TiffOptions();
+			}
+			else {
+				return;
+			}
+
+			image.AssertImageTypeDimensions(ImageType.Tiff);
 
 			if(to.Compression == Enums.ForeignTiffCompression.Jpeg) {
 				image.AssertImageTypeDimensions(ImageType.Jpeg);
@@ -1328,7 +1400,7 @@ namespace SharpSharp.Pipeline {
 		private static void PotentiallySaveVFile(PipelineBaton baton, Image image, ImageType imageType) {
 			var formatOut = baton.OutputInfo.Format;
 			var fo = baton.ToFileOptions;
-			if(fo == null || formatOut != "v" && (!MightMatchInput(fo.FilePath) || !Common.IsV(fo.FilePath)) && (!WillMatchInput(fo.FilePath) || imageType != ImageType.Vips)) {
+			if(fo == null || formatOut != "v" && (!MightMatchInput(formatOut) || !Common.IsV(fo.FilePath)) && (!WillMatchInput(fo.FilePath, formatOut) || imageType != ImageType.Vips)) {
 				return;
 			}
 
@@ -1373,10 +1445,23 @@ namespace SharpSharp.Pipeline {
 		}
 
 		private static void PotentiallySaveWebpFile(PipelineBaton baton, Image image, ImageType imageType) {
+			var fo = baton.ToFileOptions;
+			if(fo == null) {
+				return;
+			}
+
 			var formatOut = baton.OutputInfo.Format;
 			var wo = baton.WebpOptions;
-			var fo = baton.ToFileOptions;
-			if(wo == null || fo == null || formatOut != "webp" && (!MightMatchInput(fo.FilePath) || !Common.IsWebp(fo.FilePath)) && (!WillMatchInput(fo.FilePath) || imageType != ImageType.WebP)) {
+			if(wo == null && formatOut == "webp") {
+				wo = new WebpOptions();
+			}
+			else if(wo == null && MightMatchInput(formatOut) && Common.IsWebp(fo.FilePath)) {
+				wo = new WebpOptions();
+			}
+			else if(WillMatchInput(fo.FilePath, formatOut) && imageType == ImageType.WebP) {
+				wo = new WebpOptions();
+			}
+			else {
 				return;
 			}
 
@@ -1720,7 +1805,7 @@ namespace SharpSharp.Pipeline {
 			return image;
 		}
 
-		private static bool WillMatchInput(string path) => MightMatchInput(path) && !(Common.IsJpeg(path) || Common.IsPng(path) || Common.IsWebp(path) || Common.IsGif(path) || Common.IsTiff(path) || Common.IsHeif(path) || Common.IsDz(path) || Common.IsDzZip(path) || Common.IsV(path));
+		private static bool WillMatchInput(string path, string formatOut) => MightMatchInput(formatOut) && !(Common.IsJpeg(path) || Common.IsPng(path) || Common.IsWebp(path) || Common.IsGif(path) || Common.IsTiff(path) || Common.IsHeif(path) || Common.IsDz(path) || Common.IsDzZip(path) || Common.IsV(path));
 
 		private Image JoinAdditionalColorChannels(PipelineBaton baton, Image image) =>
 			// TODO: this

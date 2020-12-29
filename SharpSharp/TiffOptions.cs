@@ -2,7 +2,7 @@
 
 namespace SharpSharp {
 	public sealed record TiffOptions {
-		public int BitDepth { get; set; } = 8;
+		public int? BitDepth { get; set; } = null;
 
 		public string Compression { get; set; } = Enums.ForeignTiffCompression.Jpeg;
 

@@ -18,43 +18,91 @@ I haven't implemented everything, just the pieces I've needed so far. Maybe at s
 ## Install
 ```sh
 Install-Package SharpSharp -Version 0.6.0-alpha1
+Install-Package NetVips.Native -Version 8.10.5.1
 ```
-
-``` csharp
-using SharpSharp;
-```
-
 ## Examples
+---
+#### Resize and save to various formats with default values
 ``` csharp
-using System.Threading.Tasks;
 using SharpSharp;
 
-namespace Demo {
-    internal static class Program {
-        private static async Task Main() =>
-          ImagePipeline.
-            .FromFile("test.jpg")
-            .Resize(720, 588)
-            .ToJpeg("murray.webp");
-    }
-}
+ImagePipeline
+	.FromFile("input.jpg")
+	.Resize(800)
+	.ToFile("output.avif");
 
+ImagePipeline
+	.FromFile("input.jpg")
+	.Resize(800)
+	.ToFile("output.heif");
 
+ImagePipeline
+	.FromFile("input.jpg")
+	.Resize(800)
+	.ToFile("output.gif");
+
+ImagePipeline
+	.FromFile("input.jpg")
+	.Resize(800)
+	.ToFile("output.jpeg");
+
+ImagePipeline
+	.FromFile("input.jpg")
+	.Resize(800)
+	.ToFile("output.png");
+
+ImagePipeline
+	.FromFile("input.jpg")
+	.Resize(800)
+	.ToFile("output.tiff");
+
+ImagePipeline
+	.FromFile("input.jpg")
+	.Resize(800)
+	.ToFile("output.webp");
+```
+#### Result file sizes (in bytes)
+``` sh
+829,183 input.jpg
+
+ 24,131 output.avif
+367,885 output.gif
+ 24,131 output.heif
+ 81,728 output.jpeg
+ 83,042 output.png
+ 83,042 output.tiff
+ 54,776 output.webp
+```
+#### Result images
+INPUT 2725x2225 (From sharp's test images, [image credit](http://www.flickr.com/photos/grizdave/2569067123/)
+![INPUT JPEG](./docs/input.jpg)
+
+AVIF
+![AVIF](./docs/formats/output.avif)
+
+GIF
+![GIF](./docs/formats/output.gif)
+
+HEIF
+![HEIF](./docs/formats/output.heif)
+
+JPEG
+![JPEG](./docs/formats/output.jpeg)
+
+PNG
+![PNG](./docs/formats/output.png)
+
+WEBP
+![WEBP](./docs/formats/output.webp)
+---
 #### Input from URL
 ``` csharp
-using System.Threading.Tasks;
 using SharpSharp;
 
-namespace Demo {
-    internal static class Program {
-        private static async Task Main() =>
-            (await ImagePipeline.FromUriAsync("https://www.fillmurray.com/300/300"))
-            .Resize(150, 150)
-            .Sharpen()
-            .Webp()
-            .ToFile("murray.webp");
-    }
-}
+(await ImagePipeline.FromUriAsync("https://www.fillmurray.com/300/300"))
+	.Resize(150)
+	.Webp()
+	.ToFile("murray.webp");
 ```
 
 ## Benchmark Results ([sharp's benchmark](https://sharp.pixelplumbing.com/performance))

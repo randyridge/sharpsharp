@@ -19,7 +19,7 @@ namespace SharpSharp {
 		/// <returns>
 		///   The image pipeline.
 		/// </returns>
-		public ImagePipeline Resize(int? width, int? height) {
+		public ImagePipeline Resize(int? width = null, int? height = null) {
 			if(width.HasValue) {
 				baton.ResizeOptions.Width = width.Value;
 			}

@@ -176,39 +176,42 @@ namespace SharpSharp.Pipeline {
 				return Unknown;
 			}
 
-			if(result.EndsWithOrdinalIgnoreCase("JpegBuffer")) {
+			if(result.EndsWithOrdinalIgnoreCase("JpegSource")) {
 				return Jpeg;
 			}
 
-			if(result.EndsWithOrdinalIgnoreCase("PngBuffer")) {
+			if(result.EndsWithOrdinalIgnoreCase("PngSource")) {
 				return Png;
 			}
 
-			if(result.EndsWithOrdinalIgnoreCase("WebpBuffer")) {
+			if(result.EndsWithOrdinalIgnoreCase("WebpSource")) {
 				return WebP;
 			}
 
-			if(result.EndsWithOrdinalIgnoreCase("TiffBuffer")) {
+			// TODO: Not supported?
+			if(result.EndsWithOrdinalIgnoreCase("TiffSource")) {
 				return Tiff;
 			}
 
-			if(result.EndsWithOrdinalIgnoreCase("GifBuffer")) {
+			// TODO: Not supported?
+			if(result.EndsWithOrdinalIgnoreCase("GifSource")) {
 				return Gif;
 			}
 
-			if(result.EndsWithOrdinalIgnoreCase("SvgBuffer")) {
+			if(result.EndsWithOrdinalIgnoreCase("SvgSource")) {
 				return Svg;
 			}
 
-			if(result.EndsWithOrdinalIgnoreCase("HeifBuffer")) {
+			if(result.EndsWithOrdinalIgnoreCase("HeifSource")) {
 				return Heif;
 			}
 
-			if(result.EndsWithOrdinalIgnoreCase("PdfBuffer")) {
+			if(result.EndsWithOrdinalIgnoreCase("PdfSource")) {
 				return Pdf;
 			}
 
-			if(result.EndsWithOrdinalIgnoreCase("MagickBuffer")) {
+			// TODO: Not supported?
+			if(result.EndsWithOrdinalIgnoreCase("MagickSource")) {
 				return Magick;
 			}
 

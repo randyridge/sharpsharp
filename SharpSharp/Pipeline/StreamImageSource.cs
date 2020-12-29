@@ -14,12 +14,14 @@ namespace SharpSharp.Pipeline {
 
 		public override (Image, ImageType) Load(VOption? options = null) {
 			try {
-				var imageType = ImageType.FromStream(Stream);
-				Stream.Position = 0;
+				var ms = new MemoryStream();
+				Stream.CopyTo(ms);
+				var imageType = ImageType.FromStream(ms);
+				ms.Position = 0;
 				options ??= BuildLoadOptionsFromImageType(imageType);
 
 				var image = Image.NewFromStream(
-					Stream, 
+					ms, 
 					null,
 					Options.UseSequentialRead ? Enums.Access.Sequential : Enums.Access.Random,
 					true,
@@ -34,7 +36,7 @@ namespace SharpSharp.Pipeline {
 				return (image, imageType);
 			}
 			catch(VipsException ex) {
-				throw new SharpSharpException("Error loading image from buffer.", ex);
+				throw new SharpSharpException("Error loading image from stream.", ex);
 			}
 		}
 	}
