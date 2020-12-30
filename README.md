@@ -109,14 +109,15 @@ using SharpSharp;
 	.ToFile("murray.webp");
 ```
 
-## Benchmark Results ([sharp's benchmark](https://sharp.pixelplumbing.com/performance))
+## Benchmarks
 
-### Task
-Decompress a 2725x2225 JPEG image,
-resize to 720x588 using Lanczos 3 resampling (where available),
-then compress to JPEG at a "quality" setting of 80.
 
-### Environment
+### Sharp's benchmark ([sharp's benchmark](https://sharp.pixelplumbing.com/performance))
+
+#### Task
+Decompress a 2725x2225 JPEG image, resize to 720x588 using Lanczos 3 resampling (where available), then compress to JPEG at a "quality" setting of 80.
+
+#### Environment
 BenchmarkDotNet=v0.12.1, OS=Windows 10.0.19041.685 (2004/?/20H1)
 Intel Core i7-2600K CPU 3.40GHz (Sandy Bridge), 1 CPU, 8 logical and 4 physical cores
 .NET Core SDK=5.0.101
@@ -125,7 +126,7 @@ Intel Core i7-2600K CPU 3.40GHz (Sandy Bridge), 1 CPU, 8 logical and 4 physical 
 
 Runtime=.NET Core 5.0
 
-### Contenders
+#### Contenders
 
 * [FreeImage-dotnet-core](https://github.com/matgr1/FreeImage-dotnet-core) v4.3.6
 * [Magick.NET-Q8-AnyCPU](https://github.com/dlemstra/Magick.NET) v7.22.2.2
@@ -133,7 +134,7 @@ Runtime=.NET Core 5.0
 * [SkiaSharp](https://github.com/mono/SkiaSharp) v2.80.2
 * [SharpSharp](https://github.com/randyridge/sharpsharp) v0.6.0-alpha2
 
-### Results
+#### Results
 
 |                         Method |   Op/s |     Gen 0 |     Gen 1 |     Gen 2 |  Allocated |
 |------------------------------- |-------:|----------:|----------:|----------:|-----------:|
@@ -147,3 +148,29 @@ Runtime=.NET Core 5.0
 |       'FreeImage File to File' |  4.400 | 1000.0000 | 1000.0000 | 1000.0000 |   12.68 KB |
 |     'ImageMagick File to File' |  2.489 |         - |         - |         - |   17.24 KB |
 | 'ImageMagick Buffer to Buffer' |  2.486 |         - |         - |         - |  342.49 KB |
+
+
+### Format benchmarkperformance))
+#### Task
+Decompress a 2725x2225 JPEG image, resize to 720x588 and save to various formats with default settings..
+
+#### Environment
+BenchmarkDotNet=v0.12.1, OS=Windows 10.0.19041.685 (2004/?/20H1)
+Intel Core i7-2600K CPU 3.40GHz (Sandy Bridge), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=5.0.101
+  [Host]     : .NET Core 5.0.1 (CoreCLR 5.0.120.57516, CoreFX 5.0.120.57516), X64 RyuJIT
+  Job-YJAIQO : .NET Core 5.0.1 (CoreCLR 5.0.120.57516, CoreFX 5.0.120.57516), X64 RyuJIT
+
+Runtime=.NET Core 5.0
+
+#### Results (AVIF and HEIF pending)
+
+| Method |    Op/s | Gen 0 | Gen 1 | Gen 2 | Allocated |
+|------- |--------:|------:|------:|------:|----------:|
+|   AVIF |      NA |     - |     - |     - |         - |
+|   HEIF |      NA |     - |     - |     - |         - |
+|    GIF | 183.194 |     - |     - |     - |   11354 B |
+|   TIFF |  20.660 |     - |     - |     - |   15720 B |
+|   JPEG |  20.410 |     - |     - |     - |   15352 B |
+|    PNG |   8.204 |     - |     - |     - |   19062 B |
+|   WEBP |   5.866 |     - |     - |     - |   15920 B |
