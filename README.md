@@ -116,15 +116,6 @@ using SharpSharp;
 #### Task
 Decompress a 2725x2225 JPEG image, resize to 720x588 using Lanczos 3 resampling (where available), then compress to JPEG at a "quality" setting of 80.
 
-#### Environment
-BenchmarkDotNet=v0.12.1, OS=Windows 10.0.19041.685 (2004/?/20H1)
-Intel Core i7-2600K CPU 3.40GHz (Sandy Bridge), 1 CPU, 8 logical and 4 physical cores
-.NET Core SDK=5.0.101
-  [Host]     : .NET Core 5.0.1 (CoreCLR 5.0.120.57516, CoreFX 5.0.120.57516), X64 RyuJIT
-  Job-YJAIQO : .NET Core 5.0.1 (CoreCLR 5.0.120.57516, CoreFX 5.0.120.57516), X64 RyuJIT
-
-Runtime=.NET Core 5.0
-
 #### Contenders
 
 * [FreeImage-dotnet-core](https://github.com/matgr1/FreeImage-dotnet-core) v4.3.6
@@ -133,7 +124,16 @@ Runtime=.NET Core 5.0
 * [SkiaSharp](https://github.com/mono/SkiaSharp) v2.80.2
 * [SharpSharp](https://github.com/randyridge/sharpsharp) v0.6.0-alpha2
 
-#### Results
+#### Environment 1
+BenchmarkDotNet=v0.12.1, OS=Windows 10.0.19041.685 (2004/?/20H1)
+Intel Core i7-2600K CPU 3.40GHz (Sandy Bridge), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=5.0.101
+  [Host]     : .NET Core 5.0.1 (CoreCLR 5.0.120.57516, CoreFX 5.0.120.57516), X64 RyuJIT
+  Job-YJAIQO : .NET Core 5.0.1 (CoreCLR 5.0.120.57516, CoreFX 5.0.120.57516), X64 RyuJIT
+
+Runtime=.NET Core 5.0
+
+#### Results 1
 
 |                         Method |   Op/s |     Gen 0 |     Gen 1 |     Gen 2 |  Allocated |
 |------------------------------- |-------:|----------:|----------:|----------:|-----------:|
@@ -148,12 +148,60 @@ Runtime=.NET Core 5.0
 |     'ImageMagick File to File' |  2.489 |         - |         - |         - |   17.24 KB |
 | 'ImageMagick Buffer to Buffer' |  2.486 |         - |         - |         - |  342.49 KB |
 
+#### Environment 2
+BenchmarkDotNet=v0.12.1, OS=Windows 10.0.19041.685 (2004/?/20H1)
+Intel Core i7-7820HQ CPU 2.90GHz (Kaby Lake), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=5.0.101
+  [Host]     : .NET Core 5.0.1 (CoreCLR 5.0.120.57516, CoreFX 5.0.120.57516), X64 RyuJIT
+  Job-CGFPLG : .NET Core 5.0.1 (CoreCLR 5.0.120.57516, CoreFX 5.0.120.57516), X64 RyuJIT
+
+Runtime=.NET Core 5.0
+
+#### Results 2
+
+|                         Method |  Op/s |     Gen 0 |     Gen 1 |     Gen 2 |  Allocated |
+|------------------------------- |------:|----------:|----------:|----------:|-----------:|
+|  'SharpSharp Buffer to Buffer' |29.899 |  285.7143 |  285.7143 |  285.7143 |   80.35 KB |
+|      'SharpSharp File to File' |24.118 |         - |         - |         - |   14.98 KB |
+|   'SkiaSharp Buffer to Buffer' |12.896 |  142.8571 |         - |         - | 1023.77 KB |
+|       'SkiaSharp File to File' |12.287 |  142.8571 |         - |         - |  965.14 KB |
+|  'ImageSharp Buffer to Buffer' | 9.236 |         - |         - |         - |  368.17 KB |
+|      'ImageSharp File to File' | 8.869 |         - |         - |         - |   53.55 KB |
+|   'FreeImage Buffer to Buffer' | 6.595 | 1000.0000 | 1000.0000 | 1000.0000 |  189.62 KB |
+|       'FreeImage File to File' | 6.092 | 1000.0000 | 1000.0000 | 1000.0000 |   12.93 KB |
+| 'ImageMagick Buffer to Buffer' | 3.623 |         - |         - |         - |  342.49 KB |
+|     'ImageMagick File to File' | 3.520 |         - |         - |         - |   17.24 KB |
+
+#### Environment 3
+BenchmarkDotNet=v0.12.1, OS=Windows 10.0.19041.685 (2004/?/20H1)
+Intel Core i7-6700 CPU 3.40GHz (Skylake), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=5.0.101
+  [Host]     : .NET Core 5.0.1 (CoreCLR 5.0.120.57516, CoreFX 5.0.120.57516), X64 RyuJIT
+  Job-QTWRYZ : .NET Core 5.0.1 (CoreCLR 5.0.120.57516, CoreFX 5.0.120.57516), X64 RyuJIT
+
+Runtime=.NET Core 5.0
+
+#### Results 3
+
+|                         Method |   Op/s |     Gen 0 |     Gen 1 |     Gen 2 |  Allocated |
+|------------------------------- |-------:|----------:|----------:|----------:|-----------:|
+|  'SharpSharp Buffer to Buffer' | 30.968 |  312.5000 |  312.5000 |  312.5000 |   80.36 KB |
+|      'SharpSharp File to File' | 28.186 |         - |         - |         - |   14.98 KB |
+|       'SkiaSharp File to File' | 14.951 |  166.6667 |         - |         - |  964.02 KB |
+|   'SkiaSharp Buffer to Buffer' | 13.485 |  125.0000 |         - |         - | 1023.77 KB |
+|  'ImageSharp Buffer to Buffer' |  9.100 |         - |         - |         - |  368.17 KB |
+|      'ImageSharp File to File' |  8.841 |         - |         - |         - |   53.55 KB |
+|   'FreeImage Buffer to Buffer' |  6.907 | 1000.0000 | 1000.0000 | 1000.0000 |  189.62 KB |
+|       'FreeImage File to File' |  6.435 | 1000.0000 | 1000.0000 | 1000.0000 |   12.63 KB |
+|     'ImageMagick File to File' |  3.646 |         - |         - |         - |   17.24 KB |
+| 'ImageMagick Buffer to Buffer' |  3.642 |         - |         - |         - |  342.49 KB |
+
 ---
 ### Format benchmark
 #### Task
 Decompress a 2725x2225 JPEG image, resize to 720x588 and save to various formats with default settings..
 
-#### Environment
+#### Environment 1
 BenchmarkDotNet=v0.12.1, OS=Windows 10.0.19041.685 (2004/?/20H1)
 Intel Core i7-2600K CPU 3.40GHz (Sandy Bridge), 1 CPU, 8 logical and 4 physical cores
 .NET Core SDK=5.0.101
@@ -162,7 +210,7 @@ Intel Core i7-2600K CPU 3.40GHz (Sandy Bridge), 1 CPU, 8 logical and 4 physical 
 
 Runtime=.NET Core 5.0
 
-#### Results (AVIF and HEIF pending)
+#### Results 1 (AVIF and HEIF pending)
 
 | Method |    Op/s | Gen 0 | Gen 1 | Gen 2 | Allocated |
 |------- |--------:|------:|------:|------:|----------:|
@@ -173,3 +221,45 @@ Runtime=.NET Core 5.0
 |   JPEG |  20.410 |     - |     - |     - |   15352 B |
 |    PNG |   8.204 |     - |     - |     - |   19062 B |
 |   WEBP |   5.866 |     - |     - |     - |   15920 B |
+
+#### Environment 2
+BenchmarkDotNet=v0.12.1, OS=Windows 10.0.19041.685 (2004/?/20H1)
+Intel Core i7-7820HQ CPU 2.90GHz (Kaby Lake), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=5.0.101
+  [Host]     : .NET Core 5.0.1 (CoreCLR 5.0.120.57516, CoreFX 5.0.120.57516), X64 RyuJIT
+  Job-QMWACN : .NET Core 5.0.1 (CoreCLR 5.0.120.57516, CoreFX 5.0.120.57516), X64 RyuJIT
+
+Runtime=.NET Core 5.0
+
+#### Results 2
+
+| Method |     Op/s | Gen 0 | Gen 1 | Gen 2 | Allocated |
+|------- |---------:|------:|------:|------:|----------:|
+|    GIF | 182.3506 |     - |     - |     - |  11.09 KB |
+|   TIFF |  24.9918 |     - |     - |     - |  15.34 KB |
+|   JPEG |  24.6381 |     - |     - |     - |  14.98 KB |
+|    PNG |   8.8674 |     - |     - |     - |   18.8 KB |
+|   WEBP |   7.0807 |     - |     - |     - |  15.82 KB |
+|   AVIF |   0.6922 |     - |     - |     - |  13.95 KB |
+|   HEIF |   0.6887 |     - |     - |     - |  13.95 KB |
+
+#### Environment 3
+BenchmarkDotNet=v0.12.1, OS=Windows 10.0.19041.685 (2004/?/20H1)
+Intel Core i7-6700 CPU 3.40GHz (Skylake), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=5.0.101
+  [Host]     : .NET Core 5.0.1 (CoreCLR 5.0.120.57516, CoreFX 5.0.120.57516), X64 RyuJIT
+  Job-MYZDAX : .NET Core 5.0.1 (CoreCLR 5.0.120.57516, CoreFX 5.0.120.57516), X64 RyuJIT
+
+Runtime=.NET Core 5.0
+
+#### Results 3
+
+| Method |     Op/s | Gen 0 | Gen 1 | Gen 2 | Allocated |
+|------- |---------:|------:|------:|------:|----------:|
+|    GIF | 322.0173 |     - |     - |     - |  11.09 KB |
+|   TIFF |  29.9507 |     - |     - |     - |  15.34 KB |
+|   JPEG |  28.9455 |     - |     - |     - |  14.98 KB |
+|    PNG |  11.3418 |     - |     - |     - |   18.8 KB |
+|   WEBP |   8.7249 |     - |     - |     - |   15.6 KB |
+|   AVIF |   0.8318 |     - |     - |     - |  15.15 KB |
+|   HEIF |   0.8312 |     - |     - |     - |  13.95 KB |
