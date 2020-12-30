@@ -1,4 +1,5 @@
 ﻿using System;
+using NetVips;
 using RandyRidge.Common;
 using SharpSharp.Pipeline;
 
@@ -10,6 +11,13 @@ namespace SharpSharp {
 		private readonly ImageSource imageSource;
 		private readonly Processor processor;
 		private readonly PipelineBaton baton;
+
+		static ImagePipeline() {
+			ModuleInitializer.Initialize();
+			if(!ModuleInitializer.VipsInitialized) {
+				throw new SharpSharpException("Failed to initialize NetVips.", ModuleInitializer.Exception);
+			}
+		}
 
 		// Called by the From* methods in the partial ImagePipeline.Constructor
 		private ImagePipeline(ImageSource imageSource) {

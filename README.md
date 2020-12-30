@@ -90,10 +90,10 @@ ImagePipeline
 * JPEG
 ![JPEG](./docs/formats/output.jpeg)
 
-* PNG
+* PNG -- TODO: Unclear why chrome won't display
 ![PNG](./docs/formats/output.png)
 
-* TIFF
+* TIFF  -- TODO: Unclear why chrome won't display
 ![TIFF](./docs/formats/output.tiff)
 
 * WEBP
@@ -110,8 +110,7 @@ using SharpSharp;
 ```
 
 ## Benchmarks
-
-
+---
 ### Sharp's benchmark ([sharp's benchmark](https://sharp.pixelplumbing.com/performance))
 
 #### Task
@@ -149,8 +148,8 @@ Runtime=.NET Core 5.0
 |     'ImageMagick File to File' |  2.489 |         - |         - |         - |   17.24 KB |
 | 'ImageMagick Buffer to Buffer' |  2.486 |         - |         - |         - |  342.49 KB |
 
-
-### Format benchmarkperformance))
+---
+### Format benchmark
 #### Task
 Decompress a 2725x2225 JPEG image, resize to 720x588 and save to various formats with default settings..
 
