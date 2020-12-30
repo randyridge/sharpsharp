@@ -17,11 +17,11 @@ I haven't implemented everything, just the pieces I've needed so far. Maybe at s
 
 ## Install
 ```sh
-Install-Package SharpSharp -Version 0.6.0-alpha2
+Install-Package SharpSharp -Version 0.6.0-alpha3
 Install-Package NetVips.Native -Version 8.10.5.1
 ```
 ## Examples
----
+
 #### Resize and save to various formats with default values
 ``` csharp
 using SharpSharp;
@@ -110,7 +110,7 @@ using SharpSharp;
 ```
 
 ## Benchmarks
----
+
 ### Sharp's benchmark ([sharp's benchmark](https://sharp.pixelplumbing.com/performance))
 
 #### Task
@@ -122,7 +122,7 @@ Decompress a 2725x2225 JPEG image, resize to 720x588 using Lanczos 3 resampling 
 * [Magick.NET-Q8-AnyCPU](https://github.com/dlemstra/Magick.NET) v7.22.2.2
 * [SixLabors.ImageSharp](https://github.com/SixLabors/ImageSharp) v1.0.2
 * [SkiaSharp](https://github.com/mono/SkiaSharp) v2.80.2
-* [SharpSharp](https://github.com/randyridge/sharpsharp) v0.6.0-alpha2
+* [SharpSharp](https://github.com/randyridge/sharpsharp) v0.6.0-alpha3
 
 #### Environment 1
 BenchmarkDotNet=v0.12.1, OS=Windows 10.0.19041.685 (2004/?/20H1)
@@ -214,14 +214,13 @@ Runtime=.NET Core 5.0
 
 | Method |    Op/s | Gen 0 | Gen 1 | Gen 2 | Allocated |
 |------- |--------:|------:|------:|------:|----------:|
-|   AVIF |      NA |     - |     - |     - |         - |
-|   HEIF |      NA |     - |     - |     - |         - |
 |    GIF | 183.194 |     - |     - |     - |   11354 B |
 |   TIFF |  20.660 |     - |     - |     - |   15720 B |
 |   JPEG |  20.410 |     - |     - |     - |   15352 B |
 |    PNG |   8.204 |     - |     - |     - |   19062 B |
 |   WEBP |   5.866 |     - |     - |     - |   15920 B |
-
+|   HEIF |  0.4461 |     - |     - |     - |  13.95 KB |
+|   AVIF |  0.4276 |     - |     - |     - |     14 KB |
 #### Environment 2
 BenchmarkDotNet=v0.12.1, OS=Windows 10.0.19041.685 (2004/?/20H1)
 Intel Core i7-7820HQ CPU 2.90GHz (Kaby Lake), 1 CPU, 8 logical and 4 physical cores

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using NetVips;
 using RandyRidge.Common;
 
@@ -737,6 +736,7 @@ namespace SharpSharp.Pipeline {
 			baton.OutputInfo.Format = "gif";
 		}
 
+		// ReSharper disable once UnusedParameter.Local
 		private static void PotentiallySaveGifStream(PipelineBaton baton, Image image, ImageType imageType) {
 			if(!SupportsGifOutput) {
 				return;
@@ -760,6 +760,7 @@ namespace SharpSharp.Pipeline {
 			throw new SharpSharpException("Cannot save GIF to stream, it's unsupported by libvips.");
 		}
 
+		// ReSharper disable once UnusedParameter.Local
 		private static void PotentiallySaveGifTarget(PipelineBaton baton, Image image, ImageType imageType) {
 			if(!SupportsGifOutput) {
 				return;
@@ -1103,13 +1104,13 @@ namespace SharpSharp.Pipeline {
 
 			image.AssertImageTypeDimensions(ImageType.Png);
 
-			image.Set("colours", po.Colors);
+			image.Set(GValue.GIntType, "colours", po.Colors);
 
 			bo.Buffer = image.PngsaveBuffer(
 				compression:po.CompressionLevel,
 				interlace:po.MakeProgressive,
 				profile:null,
-				filter:po.UseAdaptiveFiltering ? 0xF8 : 0x08, // TODO: Send netvips the enum for png https://libvips.github.io/libvips/API/current/VipsForeignSave.html#VipsForeignPngFilter https://www.w3.org/TR/PNG-Filters.html
+				filter:po.UseAdaptiveFiltering ? Enums.ForeignPngFilter.All : Enums.ForeignPngFilter.None,
 				palette:po.UsePalette,
 				q:po.Quality,
 				dither:po.Dither,
@@ -1153,7 +1154,7 @@ namespace SharpSharp.Pipeline {
 				compression:po.CompressionLevel,
 				interlace:po.MakeProgressive,
 				profile:null,
-				filter:po.UseAdaptiveFiltering ? 0xF8 : 0x08, // TODO: Send netvips the enum for png https://libvips.github.io/libvips/API/current/VipsForeignSave.html#VipsForeignPngFilter https://www.w3.org/TR/PNG-Filters.html
+				filter:po.UseAdaptiveFiltering ? Enums.ForeignPngFilter.All : Enums.ForeignPngFilter.None,
 				palette:po.UsePalette,
 				q:po.Quality,
 				dither:po.Dither,
@@ -1186,14 +1187,14 @@ namespace SharpSharp.Pipeline {
 
 			image.AssertImageTypeDimensions(ImageType.Png);
 
-			image.Set("colours", po.Colors);
+			image.Set(GValue.GIntType, "colours", po.Colors);
 
 			image.PngsaveStream(
 				stream:so.Stream,
 				compression:po.CompressionLevel,
 				interlace:po.MakeProgressive,
 				profile:null,
-				filter:po.UseAdaptiveFiltering ? 0xF8 : 0x08, // TODO: Send netvips the enum for png https://libvips.github.io/libvips/API/current/VipsForeignSave.html#VipsForeignPngFilter https://www.w3.org/TR/PNG-Filters.html
+				filter:po.UseAdaptiveFiltering ? Enums.ForeignPngFilter.All : Enums.ForeignPngFilter.None,
 				palette:po.UsePalette,
 				q:po.Quality,
 				dither:po.Dither,
@@ -1226,14 +1227,14 @@ namespace SharpSharp.Pipeline {
 
 			image.AssertImageTypeDimensions(ImageType.Png);
 
-			image.Set("colours", po.Colors);
+			image.Set(GValue.GIntType, "colours", po.Colors);
 
 			image.PngsaveTarget(
 				target:to.Target,
 				compression:po.CompressionLevel,
 				interlace:po.MakeProgressive,
 				profile:null,
-				filter:po.UseAdaptiveFiltering ? 0xF8 : 0x08, // TODO: Send netvips the enum for png https://libvips.github.io/libvips/API/current/VipsForeignSave.html#VipsForeignPngFilter https://www.w3.org/TR/PNG-Filters.html
+				filter:po.UseAdaptiveFiltering ? Enums.ForeignPngFilter.All : Enums.ForeignPngFilter.None,
 				palette:po.UsePalette,
 				q:po.Quality,
 				dither:po.Dither,
