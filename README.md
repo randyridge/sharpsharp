@@ -34,12 +34,12 @@ ImagePipeline
 ImagePipeline
 	.FromFile("input.jpg")
 	.Resize(800)
-	.ToFile("output.heif");
+	.ToFile("output.gif");
 
 ImagePipeline
 	.FromFile("input.jpg")
 	.Resize(800)
-	.ToFile("output.gif");
+	.ToFile("output.heif");
 
 ImagePipeline
 	.FromFile("input.jpg")
