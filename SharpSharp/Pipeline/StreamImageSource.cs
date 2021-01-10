@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Net.Http;
+﻿using System.IO;
 using NetVips;
 using RandyRidge.Common;
 
@@ -14,11 +12,15 @@ namespace SharpSharp.Pipeline {
 
 		public override (Image, ImageType) Load(VOption? options = null) {
 			try {
-				var ms = new MemoryStream();
+				using var ms = GlobalStatics.RecyclableMemoryStreamManager.GetStream();
+
 				Stream.CopyTo(ms);
+				Stream.Reset();
+
 				var imageType = ImageType.FromStream(ms);
-				ms.Position = 0;
 				options ??= BuildLoadOptionsFromImageType(imageType);
+
+				ms.Reset();
 
 				var image = Image.NewFromStream(
 					ms, 
