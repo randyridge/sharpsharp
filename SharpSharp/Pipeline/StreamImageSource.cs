@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using NetVips;
 using RandyRidge.Common;
 
@@ -12,7 +13,7 @@ namespace SharpSharp.Pipeline {
 
 		public override (Image, ImageType) Load(VOption? options = null) {
 			try {
-				var ms = new MemoryStream(); // TODO: GlobalStatics.RecyclableMemoryStreamManager.GetStream();
+				var ms = GlobalStatics.RecyclableMemoryStreamManager.GetStream();
 
 				Stream.CopyTo(ms);
 				Stream.Reset();
