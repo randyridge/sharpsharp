@@ -74,6 +74,7 @@ namespace SharpSharp {
 		public ImagePipeline Raw(RawOptions options) {
 			Guard.NotNull(options, nameof(options));
 			baton.RawOptions = options;
+			baton.OutputInfo.Format = "raw";
 			return this;
 		}
 

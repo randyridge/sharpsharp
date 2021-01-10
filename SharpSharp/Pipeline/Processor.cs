@@ -113,7 +113,7 @@ namespace SharpSharp.Pipeline {
 				PotentiallySaveGifStream(baton, image, imageType);
 				PotentiallySaveTiffStream(baton, image, imageType);
 				PotentiallySaveHeifStream(baton, image, imageType);
-				PotentiallySaveRawStream(baton, image, imageType);
+				//PotentiallySaveRawStream(baton, image, imageType);
 				// TODO: Handle unknown
 				baton.OutputInfo.Size = (int) baton.ToStreamOptions.Stream.Length; // TODO: this seems bad
 			}
@@ -125,7 +125,7 @@ namespace SharpSharp.Pipeline {
 				PotentiallySaveGifTarget(baton, image, imageType);
 				PotentiallySaveTiffTarget(baton, image, imageType);
 				PotentiallySaveHeifTarget(baton, image, imageType);
-				PotentiallySaveRawTarget(baton, image, imageType);
+				//PotentiallySaveRawTarget(baton, image, imageType);
 				// TODO: Handle unknown
 				// TODO: not sure what to do about target length
 				//baton.OutputInfo.Size = (int) baton.ToTargetOptions.Target..Stream.Length; // TODO: this seems bad
@@ -1325,7 +1325,7 @@ namespace SharpSharp.Pipeline {
 				image = image.Cast(Enums.BandFormat.Uchar);
 			}
 
-			bo.Buffer = image.WriteToBuffer(baton.OutputInfo.Format);
+			bo.Buffer = image.WriteToMemory();
 
 			baton.OutputInfo.Format = "raw";
 		}
