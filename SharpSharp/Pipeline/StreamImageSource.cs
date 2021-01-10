@@ -12,7 +12,7 @@ namespace SharpSharp.Pipeline {
 
 		public override (Image, ImageType) Load(VOption? options = null) {
 			try {
-				using var ms = GlobalStatics.RecyclableMemoryStreamManager.GetStream();
+				var ms = new MemoryStream(); // TODO: GlobalStatics.RecyclableMemoryStreamManager.GetStream();
 
 				Stream.CopyTo(ms);
 				Stream.Reset();
