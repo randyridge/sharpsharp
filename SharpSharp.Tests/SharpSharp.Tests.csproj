@@ -20,7 +20,7 @@
     <PackageReference Include="Moq" Version="4.15.2" />
     <PackageReference Include="NetVips" Version="1.2.4.238-develop" />
     <PackageReference Include="NetVips.Native" Version="8.10.5.1" />
-    <PackageReference Include="RandyRidge.Common" Version="0.5.2" />
+    <PackageReference Include="RandyRidge.Common" Version="0.6.0" />
     <PackageReference Include="Shouldly" Version="4.0.3" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
