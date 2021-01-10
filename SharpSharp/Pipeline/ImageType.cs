@@ -169,7 +169,7 @@ namespace SharpSharp.Pipeline {
 
 		public static ImageType FromStream(Stream stream) {
 			Guard.NotNull(stream, nameof(stream));
-
+			stream.Seek(0, SeekOrigin.Begin);
 			var result = Image.FindLoadStream(stream);
 
 			if(result == null) {

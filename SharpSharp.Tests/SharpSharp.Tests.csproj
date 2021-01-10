@@ -12,13 +12,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="coverlet.msbuild" Version="2.9.0">
+    <PackageReference Include="coverlet.msbuild" Version="3.0.0">
        <PrivateAssets>all</PrivateAssets>
        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
     <PackageReference Include="Moq" Version="4.15.2" />
-    <PackageReference Include="NetVips" Version="1.2.4.237-develop" />
+    <PackageReference Include="NetVips" Version="1.2.4.238-develop" />
     <PackageReference Include="NetVips.Native" Version="8.10.5.1" />
     <PackageReference Include="RandyRidge.Common" Version="0.5.2" />
     <PackageReference Include="Shouldly" Version="4.0.3" />
