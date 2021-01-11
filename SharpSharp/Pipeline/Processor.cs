@@ -611,6 +611,10 @@ namespace SharpSharp.Pipeline {
 			return image;
 		}
 
+		private static bool HasNoOutputSelected(PipelineBaton baton) =>
+			baton.GifOptions == null && baton.HeifOptions == null && baton.JpegOptions == null &&
+			baton.PngOptions == null && baton.RawOptions == null && baton.TiffOptions == null && baton.WebpOptions == null;
+
 		private static bool MightMatchInput(string formatOut) => formatOut == "input";
 
 		private static Image Modulate(PipelineBaton baton, Image image) {
@@ -676,7 +680,7 @@ namespace SharpSharp.Pipeline {
 			else if(go == null && formatOut == "gif") {
 				go = new GifOptions();
 			}
-			else if(go == null && MightMatchInput(formatOut) && imageType == ImageType.Gif) {
+			else if(go == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && imageType == ImageType.Gif) {
 				go = new GifOptions();
 			}
 			else {
@@ -760,7 +764,7 @@ namespace SharpSharp.Pipeline {
 			}
 			else if(go == null && formatOut == "gif") {
 			}
-			else if(go == null && MightMatchInput(formatOut) && imageType == ImageType.Gif) {
+			else if(go == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && imageType == ImageType.Gif) {
 			}
 			else {
 				return;
@@ -787,7 +791,7 @@ namespace SharpSharp.Pipeline {
 			}
 			else if(go == null && formatOut == "gif") {
 			}
-			else if(go == null && MightMatchInput(formatOut) && imageType == ImageType.Gif) {
+			else if(go == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && imageType == ImageType.Gif) {
 			}
 			else {
 				return;
@@ -810,7 +814,7 @@ namespace SharpSharp.Pipeline {
 			else if(ho == null && formatOut == "heif") {
 				ho = new HeifOptions();
 			}
-			else if(ho == null && MightMatchInput(formatOut) && imageType == ImageType.Heif) {
+			else if(ho == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && imageType == ImageType.Heif) {
 				ho = new HeifOptions();
 			}
 			else {
@@ -886,7 +890,7 @@ namespace SharpSharp.Pipeline {
 			else if(ho == null && formatOut == "heif") {
 				ho = new HeifOptions();
 			}
-			else if(ho == null && MightMatchInput(formatOut) && imageType == ImageType.Heif) {
+			else if(ho == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && imageType == ImageType.Heif) {
 				ho = new HeifOptions();
 			}
 			else {
@@ -923,7 +927,7 @@ namespace SharpSharp.Pipeline {
 			else if(ho == null && formatOut == "heif") {
 				ho = new HeifOptions();
 			}
-			else if(ho == null && MightMatchInput(formatOut) && imageType == ImageType.Heif) {
+			else if(ho == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && imageType == ImageType.Heif) {
 				ho = new HeifOptions();
 			}
 			else {
@@ -960,7 +964,7 @@ namespace SharpSharp.Pipeline {
 			else if(jo == null && formatOut == "jpeg") {
 				jo = new JpegOptions();
 			}
-			else if(jo == null && MightMatchInput(formatOut) && imageType == ImageType.Jpeg) {
+			else if(jo == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && imageType == ImageType.Jpeg) {
 				jo = new JpegOptions();
 			}
 			else {
@@ -1048,7 +1052,7 @@ namespace SharpSharp.Pipeline {
 			else if(jo == null && formatOut == "jpeg") {
 				jo = new JpegOptions();
 			}
-			else if(jo == null && MightMatchInput(formatOut) && imageType == ImageType.Jpeg) {
+			else if(jo == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && imageType == ImageType.Jpeg) {
 				jo = new JpegOptions();
 			}
 			else {
@@ -1091,7 +1095,7 @@ namespace SharpSharp.Pipeline {
 			else if(jo == null && formatOut == "jpeg") {
 				jo = new JpegOptions();
 			}
-			else if(jo == null && MightMatchInput(formatOut) && imageType == ImageType.Jpeg) {
+			else if(jo == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && imageType == ImageType.Jpeg) {
 				jo = new JpegOptions();
 			}
 			else {
@@ -1134,7 +1138,7 @@ namespace SharpSharp.Pipeline {
 			else if(po == null && formatOut == "png") {
 				po = new PngOptions();
 			}
-			else if(po == null && MightMatchInput(formatOut) && (imageType == ImageType.Png || (imageType == ImageType.Gif && SupportsGifOutput) || imageType == ImageType.Svg)) {
+			else if(po == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && (imageType == ImageType.Png || (imageType == ImageType.Gif && SupportsGifOutput) || imageType == ImageType.Svg)) {
 				po = new PngOptions();
 			}
 			else {
@@ -1223,7 +1227,7 @@ namespace SharpSharp.Pipeline {
 			else if(po == null && formatOut == "png") {
 				po = new PngOptions();
 			}
-			else if(po == null && MightMatchInput(formatOut) && (imageType == ImageType.Png || (imageType == ImageType.Gif && SupportsGifOutput) || imageType == ImageType.Svg)) {
+			else if(po == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && (imageType == ImageType.Png || (imageType == ImageType.Gif && SupportsGifOutput) || imageType == ImageType.Svg)) {
 				po = new PngOptions();
 			}
 			else {
@@ -1266,7 +1270,7 @@ namespace SharpSharp.Pipeline {
 			else if(po == null && formatOut == "png") {
 				po = new PngOptions();
 			}
-			else if(po == null && MightMatchInput(formatOut) && (imageType == ImageType.Png || (imageType == ImageType.Gif && SupportsGifOutput) || imageType == ImageType.Svg)) {
+			else if(po == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && (imageType == ImageType.Png || (imageType == ImageType.Gif && SupportsGifOutput) || imageType == ImageType.Svg)) {
 				po = new PngOptions();
 			}
 			else {
@@ -1308,7 +1312,7 @@ namespace SharpSharp.Pipeline {
 			}
 			else if(ro == null && formatOut == "raw") {
 			}
-			else if(ro == null && (MightMatchInput(formatOut) && imageType == ImageType.Raw)) {
+			else if(ro == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && imageType == ImageType.Raw) {
 			}
 			else {
 				return;
@@ -1343,7 +1347,7 @@ namespace SharpSharp.Pipeline {
 			}
 			else if(ro == null && formatOut == "raw") {
 			}
-			else if(ro == null && (MightMatchInput(formatOut) && imageType == ImageType.Raw)) {
+			else if(ro == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && imageType == ImageType.Raw) {
 			}
 			else {
 				return;
@@ -1378,7 +1382,7 @@ namespace SharpSharp.Pipeline {
 			}
 			else if(ro == null && formatOut == "raw") {
 			}
-			else if(ro == null && (MightMatchInput(formatOut) && imageType == ImageType.Raw)) {
+			else if(ro == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && imageType == ImageType.Raw) {
 			}
 			else {
 				return;
@@ -1414,7 +1418,7 @@ namespace SharpSharp.Pipeline {
 			else if(to == null && formatOut == "png") {
 				to = new TiffOptions();
 			}
-			else if(to == null && MightMatchInput(formatOut) && imageType == ImageType.Tiff) {
+			else if(to == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && imageType == ImageType.Tiff) {
 				to = new TiffOptions();
 			}
 			else {
@@ -1543,7 +1547,7 @@ namespace SharpSharp.Pipeline {
 			else if(to == null && formatOut == "png") {
 				to = new TiffOptions();
 			}
-			else if(to == null && MightMatchInput(formatOut) && imageType == ImageType.Tiff) {
+			else if(to == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && imageType == ImageType.Tiff) {
 				to = new TiffOptions();
 			}
 			else {
@@ -1608,7 +1612,7 @@ namespace SharpSharp.Pipeline {
 			else if(to == null && formatOut == "png") {
 				to = new TiffOptions();
 			}
-			else if(to == null && MightMatchInput(formatOut) && imageType == ImageType.Tiff) {
+			else if(to == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && imageType == ImageType.Tiff) {
 				to = new TiffOptions();
 			}
 			else {
@@ -1698,7 +1702,7 @@ namespace SharpSharp.Pipeline {
 			else if(wo == null && formatOut == "webp") {
 				wo = new WebpOptions();
 			}
-			else if(wo == null && MightMatchInput(formatOut) && imageType == ImageType.WebP) {
+			else if(wo == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && imageType == ImageType.WebP) {
 				wo = new WebpOptions();
 			}
 			else {
@@ -1741,7 +1745,7 @@ namespace SharpSharp.Pipeline {
 			else if(wo == null && formatOut == "webp") {
 				wo = new WebpOptions();
 			}
-			else if(wo == null && MightMatchInput(formatOut) && Common.IsWebp(fo.FilePath)) {
+			else if(wo == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && Common.IsWebp(fo.FilePath)) {
 				wo = new WebpOptions();
 			}
 			else if(WillMatchInput(fo.FilePath, formatOut) && imageType == ImageType.WebP) {
@@ -1788,7 +1792,7 @@ namespace SharpSharp.Pipeline {
 			else if(wo == null && formatOut == "webp") {
 				wo = new WebpOptions();
 			}
-			else if(wo == null && MightMatchInput(formatOut) && imageType == ImageType.WebP) {
+			else if(wo == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && imageType == ImageType.WebP) {
 				wo = new WebpOptions();
 			}
 			else {
@@ -1832,7 +1836,7 @@ namespace SharpSharp.Pipeline {
 			else if(wo == null && formatOut == "webp") {
 				wo = new WebpOptions();
 			}
-			else if(wo == null && MightMatchInput(formatOut) && imageType == ImageType.WebP) {
+			else if(wo == null && HasNoOutputSelected(baton) && MightMatchInput(formatOut) && imageType == ImageType.WebP) {
 				wo = new WebpOptions();
 			}
 			else {
