@@ -17,7 +17,7 @@ I haven't implemented everything, just the pieces I've needed so far. Maybe at s
 
 ## Install
 ```sh
-Install-Package SharpSharp -Version 0.6.0-alpha5
+Install-Package SharpSharp -Version 0.6.0-alpha10
 Install-Package NetVips.Native -Version 8.10.5.1
 ```
 ## Examples
@@ -122,7 +122,7 @@ Decompress a 2725x2225 JPEG image, resize to 720x588 using Lanczos 3 resampling 
 * [Magick.NET-Q8-AnyCPU](https://github.com/dlemstra/Magick.NET) v7.22.2.2
 * [SixLabors.ImageSharp](https://github.com/SixLabors/ImageSharp) v1.0.2
 * [SkiaSharp](https://github.com/mono/SkiaSharp) v2.80.2
-* [SharpSharp](https://github.com/randyridge/sharpsharp) v0.6.0-alpha5
+* [SharpSharp](https://github.com/randyridge/sharpsharp) v0.6.0-alpha10
 
 #### Environment 1
 BenchmarkDotNet=v0.12.1, OS=Windows 10.0.19041.685 (2004/?/20H1)
