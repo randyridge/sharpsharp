@@ -17,8 +17,8 @@ I haven't implemented everything, just the pieces I've needed so far. Maybe at s
 
 ## Install
 ```sh
-Install-Package SharpSharp -Version 0.6.0-alpha10
-Install-Package NetVips.Native -Version 8.10.5.1
+Install-Package SharpSharp -Version 0.6.0-alpha11
+Install-Package NetVips.Native -Version 8.11.3.1
 ```
 ## Examples
 

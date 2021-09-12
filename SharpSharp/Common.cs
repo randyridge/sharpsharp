@@ -145,26 +145,24 @@ namespace SharpSharp {
 			return (left, top);
 		}
 
-		public static double[] GetRgbaAsColorspace(double[] rgba, string interpretation) {
+		public static double[] GetRgbaAsColorspace(double[] rgba, Enums.Interpretation interpretation) {
 			Guard.NotNull(rgba, nameof(rgba));
-			Guard.NotNull(interpretation, nameof(interpretation));
 			var bands = rgba.Length;
 			if(bands < 3 || interpretation == Enums.Interpretation.Srgb || interpretation == Enums.Interpretation.Rgb) {
 				return rgba;
 			}
 
 			var pixel = Image.NewFromArray(MinimumImage);
-			pixel.Set("bands", bands);
+			pixel = pixel.Mutate(mutable => {
+				mutable.Set("bands", bands);
+			});
 			pixel = pixel.NewFromImage(rgba);
 			pixel = pixel.Colourspace(interpretation, Enums.Interpretation.Srgb);
 			return pixel[0, 0];
 		}
 
-		public static bool Is16Bit(this string interpretation) {
-			Guard.NotNull(interpretation, nameof(interpretation));
-			return interpretation == Enums.Interpretation.Rgb16 ||
-			       interpretation == Enums.Interpretation.Grey16;
-		}
+		public static bool Is16Bit(this Enums.Interpretation interpretation) =>
+			interpretation is Enums.Interpretation.Rgb16 or Enums.Interpretation.Grey16;
 
 		public static bool IsAvif(string path) => path.EndsWithOrdinalIgnoreCase(".avif");
 
@@ -188,10 +186,8 @@ namespace SharpSharp {
 
 		public static bool IsWebp(string path) => path.EndsWithOrdinalIgnoreCase(".webp");
 
-		public static double MaximumImageAlpha(this string interpretation) {
-			Guard.NotNull(interpretation, nameof(interpretation));
-			return interpretation.Is16Bit() ? ushort.MaxValue : byte.MaxValue;
-		}
+		public static double MaximumImageAlpha(this Enums.Interpretation interpretation) =>
+			interpretation.Is16Bit() ? ushort.MaxValue : byte.MaxValue;
 
 		public static (Image Image, ImageType ImageType) OpenInput(InputDescriptor descriptor, string accessMethod) {
 			descriptor = Guard.NotNull(descriptor, nameof(descriptor));
@@ -203,7 +199,9 @@ namespace SharpSharp {
 				if(descriptor.RawChannels > 0) {
 					// raw, uncompressed pixel data
 					image = Image.NewFromMemory(descriptor.Buffer, descriptor.RawWidth, descriptor.RawHeight, descriptor.RawChannels, Enums.BandFormat.Uchar);
-					image.Set("interpretation", descriptor.RawChannels < 3 ? Enums.Interpretation.Bw : Enums.Interpretation.Srgb);
+					image = image.Mutate(mutable => {
+						mutable.Set("interpretation", descriptor.RawChannels < 3 ? Enums.Interpretation.Bw : Enums.Interpretation.Srgb);
+					});
 					imageType = ImageType.Raw;
 				}
 				else {
@@ -257,7 +255,9 @@ namespace SharpSharp {
 					}
 
 					image = Image.NewFromArray(background.ToArray()); // TODO: suspect
-					image.Set("interpretation", Enums.Interpretation.Srgb);
+					image = image.Mutate(mutable => {
+						mutable.Set("interpretation", Enums.Interpretation.Srgb);
+					});
 					imageType = ImageType.Raw;
 				}
 				else {

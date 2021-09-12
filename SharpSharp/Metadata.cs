@@ -1,4 +1,6 @@
-﻿namespace SharpSharp {
+﻿using NetVips;
+
+namespace SharpSharp {
 	public sealed class Metadata {
 		public int Channels { get; set; }
 
@@ -6,7 +8,7 @@
 
 		public int Density { get; set; }
 
-		public string? Depth { get; set; }
+		public Enums.BandFormat? Depth { get; set; }
 
 		public string? Exif { get; set; }
 
@@ -34,7 +36,7 @@
 
 		public int PaletteBitDepth { get; set; }
 
-		public string? Space { get; set; }
+		public Enums.Interpretation? Space { get; set; }
 
 		public int Width { get; set; }
 

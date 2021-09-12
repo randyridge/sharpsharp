@@ -2,7 +2,7 @@
 
 namespace SharpSharp {
 	public sealed record HeifOptions {
-		public string Compression { get; set; } = Enums.ForeignHeifCompression.Av1;
+		public Enums.ForeignHeifCompression Compression { get; set; } = Enums.ForeignHeifCompression.Av1;
 
 		public int Quality { get; set; } = 50;
 

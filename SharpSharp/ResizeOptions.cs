@@ -39,7 +39,7 @@ namespace SharpSharp {
 
 		public int HeightPre { get; set; } = -1;
 
-		public string Kernel { get; set; } = Enums.Kernel.Lanczos3;
+		public Enums.Kernel Kernel { get; set; } = Enums.Kernel.Lanczos3;
 
 		public int LeftOffsetPost { get; set; } = -1;
 
