@@ -1,4 +1,5 @@
 ﻿using System;
+using NetVips;
 
 namespace SharpSharp {
 	public sealed record OperationOptions {
@@ -8,7 +9,7 @@ namespace SharpSharp {
 
 		public double Brightness { get; set; } = 1;
 
-		public string ColorSpace { get; set; } = "srgb";
+		public Enums.Interpretation ColorSpace { get; set; } = Enums.Interpretation.Srgb;
 		
 		public double[] Composite { get; set; } = Array.Empty<double>();
 

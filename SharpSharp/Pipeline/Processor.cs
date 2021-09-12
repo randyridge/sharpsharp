@@ -150,7 +150,7 @@ namespace SharpSharp.Pipeline {
 			// Apply per-channel Bandbool bitwise operations after all other operations
 			var bandBoolOp = baton.OperationOptions.BandBoolOp;
 			if(bandBoolOp.HasValue()) {
-				image = image.Bandbool(bandBoolOp);
+				image = image.Bandbool(bandBoolOp!);
 			}
 
 			return image;
@@ -178,7 +178,7 @@ namespace SharpSharp.Pipeline {
 			// Apply output ICC profile
 			var icc = baton.MetadataOptions.Icc;
 			if(icc.HasValue()) {
-				image = image.IccTransform(icc, null, Enums.Intent.Perceptual, null, "srgb");
+				image = image.IccTransform(icc, null, Enums.Intent.Perceptual, null, null, "srgb");
 			}
 
 			return image;
@@ -211,13 +211,13 @@ namespace SharpSharp.Pipeline {
 			return image;
 		}
 
-		private static (string Rotation, RotationOptions rotationOptions) CalculateAngleOfRotation(PipelineBaton baton, Image image) {
+		private static (Enums.Angle Rotation, RotationOptions rotationOptions) CalculateAngleOfRotation(PipelineBaton baton, Image image) {
 			var rotationOptions = baton.RotationOptions;
-			string rotation;
+			Enums.Angle rotation;
 			if(rotationOptions.UseExifOrientation) {
 				// Rotate and flip image according to Exif orientation
-				var (rotationString, flip, flop) = CalculateExifRotationAndFlip(image.ExifOrientation());
-				rotation = rotationString;
+				var (angle, flip, flop) = CalculateExifRotationAndFlip(image.ExifOrientation());
+				rotation = angle;
 				rotationOptions.Flip = rotationOptions.Flip || flip;
 				rotationOptions.Flop = rotationOptions.Flop || flop;
 			}
@@ -228,7 +228,7 @@ namespace SharpSharp.Pipeline {
 			return (rotation, rotationOptions);
 		}
 
-		private static string CalculateAngleRotation(int angle) {
+		private static Enums.Angle CalculateAngleRotation(int angle) {
 			angle %= 360;
 
 			if(angle < 0) {
@@ -243,7 +243,7 @@ namespace SharpSharp.Pipeline {
 			};
 		}
 
-		private static (string Rotation, bool Flip, bool Flop) CalculateExifRotationAndFlip(int exifOrientation) {
+		private static (Enums.Angle Rotation, bool Flip, bool Flop) CalculateExifRotationAndFlip(int exifOrientation) {
 			var rotation = Enums.Angle.D0;
 			var flip = false;
 			var flop = false;
@@ -428,7 +428,8 @@ namespace SharpSharp.Pipeline {
 			image = image.Colourspace(colorSpace, image.Interpretation);
 			// Transform colors from embedded profile to output profile
 			if(baton.MetadataOptions.WithMetadata && image.HasProfile()) {
-				image = image.IccTransform(colorSpace, embedded:true);
+				//image = image.IccTransform(colorSpace, embedded:true);
+				// TODO: commented out
 			}
 
 			return image;
@@ -474,7 +475,7 @@ namespace SharpSharp.Pipeline {
 			var width = Math.Max(image.Width, baton.Width);
 			var height = Math.Max(image.Height, baton.Height);
 			var (left, top) = Common.CalculateEmbedPosition(image.Width, image.Height, baton.Width, baton.Height, baton.ResizeOptions.Position);
-			image = image.Embed(left, top, width, height, "background", background);
+			image = image.Embed(left, top, width, height, Enums.Extend.Background, background);
 			return image;
 		}
 
@@ -499,7 +500,7 @@ namespace SharpSharp.Pipeline {
 				}
 			}
 			else if(imageInterpretation == Enums.Interpretation.Cmyk) {
-				image = image.IccTransform("srgb", null, Enums.Intent.Perceptual, null, "cmyk");
+				image = image.IccTransform("srgb", null, Enums.Intent.Perceptual, null, null, "cmyk");
 			}
 
 			return image;
@@ -535,10 +536,10 @@ namespace SharpSharp.Pipeline {
 
 			var interpretation = image.Interpretation.Is16Bit() ?
 				Enums.Interpretation.Grey16 : Enums.Interpretation.Bw;
-			image = image
-				.ExtractBand(baton.OperationOptions.ExtractChannel);
-			image.Set("interpretation", interpretation);
-
+			image = image.ExtractBand(baton.OperationOptions.ExtractChannel);
+			image = image.Mutate(x => {
+				x.Set("interpretation", interpretation);
+			});
 			return image;
 		}
 
@@ -560,7 +561,7 @@ namespace SharpSharp.Pipeline {
 			return image;
 		}
 
-		private static (int IntputWidth, int InputHeight) GetPreResizeWidthAndHeight(PipelineBaton baton, Image image, string rotation) {
+		private static (int IntputWidth, int InputHeight) GetPreResizeWidthAndHeight(PipelineBaton baton, Image image, Enums.Angle rotation) {
 			var inputWidth = image.Width;
 			var inputHeight = image.Height;
 
@@ -977,7 +978,7 @@ namespace SharpSharp.Pipeline {
 				q:jo.Quality,
 				optimizeCoding:jo.OptimizeCoding,
 				interlace:jo.MakeProgressive,
-				subsampleMode:jo.Subsampling == "4:4:4" ? Enums.ForeignJpegSubsample.Off : Enums.ForeignJpegSubsample.On,
+				subsampleMode:jo.Subsampling == "4:4:4" ? Enums.ForeignSubsample.Off : Enums.ForeignSubsample.On,
 				trellisQuant:jo.ApplyTrellisQuantization,
 				overshootDeringing:jo.ApplyOvershootDeringing,
 				optimizeScans:jo.OptimizeScans,
@@ -1022,7 +1023,7 @@ namespace SharpSharp.Pipeline {
 				filename:fo.FilePath,
 				q:jo.Quality,
 				profile:null,
-				subsampleMode:jo.Subsampling == "4:4:4" ? Enums.ForeignJpegSubsample.Off : Enums.ForeignJpegSubsample.On,
+				subsampleMode:jo.Subsampling == "4:4:4" ? Enums.ForeignSubsample.Off : Enums.ForeignSubsample.On,
 				optimizeCoding:jo.OptimizeCoding,
 				interlace:jo.MakeProgressive,
 				trellisQuant:jo.ApplyTrellisQuantization,
@@ -1066,7 +1067,7 @@ namespace SharpSharp.Pipeline {
 				q:jo.Quality,
 				optimizeCoding:jo.OptimizeCoding,
 				interlace:jo.MakeProgressive,
-				subsampleMode:jo.Subsampling == "4:4:4" ? Enums.ForeignJpegSubsample.Off : Enums.ForeignJpegSubsample.On,
+				subsampleMode:jo.Subsampling == "4:4:4" ? Enums.ForeignSubsample.Off : Enums.ForeignSubsample.On,
 				trellisQuant:jo.ApplyTrellisQuantization,
 				overshootDeringing:jo.ApplyOvershootDeringing,
 				optimizeScans:jo.OptimizeScans,
@@ -1109,7 +1110,7 @@ namespace SharpSharp.Pipeline {
 				q:jo.Quality,
 				optimizeCoding:jo.OptimizeCoding,
 				interlace:jo.MakeProgressive,
-				subsampleMode:jo.Subsampling == "4:4:4" ? Enums.ForeignJpegSubsample.Off : Enums.ForeignJpegSubsample.On,
+				subsampleMode:jo.Subsampling == "4:4:4" ? Enums.ForeignSubsample.Off : Enums.ForeignSubsample.On,
 				trellisQuant:jo.ApplyTrellisQuantization,
 				overshootDeringing:jo.ApplyOvershootDeringing,
 				optimizeScans:jo.OptimizeScans,
@@ -1147,7 +1148,9 @@ namespace SharpSharp.Pipeline {
 
 			image.AssertImageTypeDimensions(ImageType.Png);
 
-			image.Set(GValue.GIntType, "colours", po.Colors);
+			image = image.Mutate(x => {
+				x.Set(GValue.GIntType, "colours", po.Colors);
+			});
 
 			bo.Buffer = image.PngsaveBuffer(
 				compression:po.CompressionLevel,
@@ -1192,8 +1195,9 @@ namespace SharpSharp.Pipeline {
 			}
 
 			image.AssertImageTypeDimensions(ImageType.Png);
-
-			image.Set(GValue.GIntType, "colours", po.Colors);
+			image = image.Mutate(x => {
+				x.Set(GValue.GIntType, "colours", po.Colors);
+			});
 
 			image.Pngsave(
 				filename:fo.FilePath,
@@ -1235,8 +1239,10 @@ namespace SharpSharp.Pipeline {
 			}
 
 			image.AssertImageTypeDimensions(ImageType.Png);
+			image = image.Mutate(x => {
+				x.Set(GValue.GIntType, "colours", po.Colors);
 
-			image.Set(GValue.GIntType, "colours", po.Colors);
+			});
 
 			image.PngsaveStream(
 				stream:so.Stream,
@@ -1278,8 +1284,9 @@ namespace SharpSharp.Pipeline {
 			}
 
 			image.AssertImageTypeDimensions(ImageType.Png);
-
-			image.Set(GValue.GIntType, "colours", po.Colors);
+			image = image.Mutate(x => {
+				x.Set(GValue.GIntType, "colours", po.Colors);
+			});
 
 			image.PngsaveTarget(
 				target:to.Target,
@@ -1961,7 +1968,7 @@ namespace SharpSharp.Pipeline {
 			return image;
 		}
 
-		private static Image RotatePostExtract(PipelineBaton baton, Image image, string rotation) {
+		private static Image RotatePostExtract(PipelineBaton baton, Image image, Enums.Angle rotation) {
 			if(baton.RotationOptions.RotateBeforePreExtract || rotation == Enums.Angle.D0) {
 				return image;
 			}
@@ -1972,7 +1979,7 @@ namespace SharpSharp.Pipeline {
 			return image;
 		}
 
-		private static Image RotatePreExtract(Image image, string rotation, RotationOptions rotationOptions) {
+		private static Image RotatePreExtract(Image image, Enums.Angle rotation, RotationOptions rotationOptions) {
 			if(!rotationOptions.RotateBeforePreExtract) {
 				return image;
 			}
@@ -2009,7 +2016,7 @@ namespace SharpSharp.Pipeline {
 			return image;
 		}
 
-		private static Image ShrinkOnLoad(PipelineBaton baton, Image image, ImageType imageType, ImageSource imageSource, ref double xFactor, ref double yFactor, int xShrink, int yShrink, double xResidual, double yResidual, string rotation, int targetResizeWidth, int targetResizeHeight) {
+		private static Image ShrinkOnLoad(PipelineBaton baton, Image image, ImageType imageType, ImageSource imageSource, ref double xFactor, ref double yFactor, int xShrink, int yShrink, double xResidual, double yResidual, Enums.Angle rotation, int targetResizeWidth, int targetResizeHeight) {
 			var shrinkOnLoad = 1;
 			var shrinkOnLoadFactor = 1;
 

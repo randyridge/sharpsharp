@@ -4,9 +4,9 @@ namespace SharpSharp {
 	public sealed record TiffOptions {
 		public int? BitDepth { get; set; } = null;
 
-		public string Compression { get; set; } = Enums.ForeignTiffCompression.Jpeg;
+		public Enums.ForeignTiffCompression Compression { get; set; } = Enums.ForeignTiffCompression.Jpeg;
 
-		public string Predictor { get; set; } = Enums.ForeignTiffPredictor.Horizontal;
+		public Enums.ForeignTiffPredictor Predictor { get; set; } = Enums.ForeignTiffPredictor.Horizontal;
 
 		public bool Pyramid { get; set; } = false;
 

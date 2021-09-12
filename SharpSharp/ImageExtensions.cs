@@ -34,7 +34,9 @@ namespace SharpSharp {
 			}
 
 			var blur = Image.NewFromArray(matrix);
-			blur.Set("scale", 9.0);
+			blur = blur.Mutate(mutable => {
+				mutable.Set("scale", 9.0);
+			});
 			return image.Conv(blur);
 		}
 
@@ -47,8 +49,10 @@ namespace SharpSharp {
 		public static Image Convolve(this Image image, int width, int height, double scale, double offset, double[] kernel) {
 			image = Guard.NotNull(image, nameof(image));
 			var k = Image.NewFromMemory(kernel, width, height, 1, Enums.BandFormat.Double);
-			k.Set("scale", scale);
-			k.Set("offset", offset);
+			k = k.Mutate(mutable => {
+				mutable.Set("scale", scale);
+				mutable.Set("offset", offset);
+			});
 			return image.Conv(k);
 		}
 
@@ -209,7 +213,9 @@ namespace SharpSharp {
 		public static Image RemoveExifOrientation(this Image image) {
 			image = Guard.NotNull(image, nameof(image));
 			var copy = image.Copy();
-			copy.Remove("orientation");
+			copy = image.Mutate(mutable => {
+				mutable.Remove("orientation");
+			});
 			return copy;
 		}
 
@@ -236,14 +242,16 @@ namespace SharpSharp {
 
 			// It is necessary to create the copy as otherwise, pageHeight will be ignored!
 			var copy = image.Copy();
-			copy.Set(GValue.GIntType, "page-height", pageHeight);
-			if(hasDelay) {
-				copy.Set(GValue.ArrayIntType, "delay", delay);
-			}
+			copy = copy.Mutate(mutable => {
+				mutable.Set(GValue.GIntType, "page-height", pageHeight);
+				if(hasDelay) {
+					mutable.Set(GValue.ArrayIntType, "delay", delay);
+				}
 
-			if(loop != -1) {
-				copy.Set(GValue.GIntType, "loop", loop);
-			}
+				if(loop != -1) {
+					mutable.Set(GValue.GIntType, "loop", loop);
+				}
+			});
 
 			return copy;
 		}
@@ -251,15 +259,19 @@ namespace SharpSharp {
 		public static Image SetDensity(this Image image, double density) {
 			image = Guard.NotNull(image, nameof(image));
 			var pixelsPerMillimeter = density / MillimetersInInch;
-			image.Set("Xres", pixelsPerMillimeter);
-			image.Set("Yres", pixelsPerMillimeter);
-			image.Set("resolution-unit", "in");
+			image = image.Mutate(mutable => {
+				mutable.Set("Xres", pixelsPerMillimeter);
+				mutable.Set("Yres", pixelsPerMillimeter);
+				mutable.Set("resolution-unit", "in");
+			});
 			return image;
 		}
 
 		public static Image SetExifOrientation(this Image image, int orientation) {
 			image = Guard.NotNull(image, nameof(image));
-			image.Set("orientation", orientation);
+			image = image.Mutate(mutable => {
+				mutable.Set("orientation", orientation);
+			});
 			return image;
 		}
 
@@ -269,7 +281,9 @@ namespace SharpSharp {
 				// Fast, mild sharpen
 				var m = new[,] {{-1.0, -1.0, -1.0}, {-1.0, 32.0, -1.0}, {-1.0, -1.0, -1.0}};
 				var sharpen = Image.NewFromArray(m);
-				sharpen.Set("scale", 24);
+				sharpen = sharpen.Mutate(mutable => {
+					mutable.Set("scale", 24);
+				});
 				return image.Conv(sharpen);
 			}
 
