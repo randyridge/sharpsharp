@@ -19,7 +19,7 @@
     <PackageReference Include="FreeImage-dotnet-core" Version="4.3.6" />
     <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="8.4.0" />
     <PackageReference Include="NetVips" Version="2.0.1" />
-    <PackageReference Include="NetVips.Native" Version="8.11.4" />
+    <PackageReference Include="NetVips.Native" Version="8.12.1" />
     <PackageReference Include="RandyRidge.Common" Version="0.6.1" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.4" />
     <PackageReference Include="SkiaSharp" Version="2.80.3" />
